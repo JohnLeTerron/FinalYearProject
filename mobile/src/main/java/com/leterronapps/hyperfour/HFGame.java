@@ -17,7 +17,8 @@ public abstract class HFGame extends Activity implements Renderer {
 
     public static final String DEBUG_TAG = "HyperFour Engine";
 
-    private FileManager fileManager;
+    protected FileManager fileManager;
+    protected SoundManager soundManager;
 
     private HFSurfaceView surfaceView;
 
@@ -26,6 +27,7 @@ public abstract class HFGame extends Activity implements Renderer {
         super.onCreate(savedInstanceState);
 
         fileManager = new FileManager(getAssets());
+        soundManager = new SoundManager(this);
 
         surfaceView = new HFSurfaceView(this);
         surfaceView.setRenderer(this);
@@ -66,5 +68,13 @@ public abstract class HFGame extends Activity implements Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         //Log.d(DEBUG_TAG, "DRAW!!");
+    }
+
+    public FileManager getFileManager() {
+        return fileManager;
+    }
+
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
 }

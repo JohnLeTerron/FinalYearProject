@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Environment;
 
@@ -25,6 +26,10 @@ public class FileManager {
 
     public InputStream getAsset(String fileName) throws IOException {
         return assetManager.open(fileName);
+    }
+
+    public AssetFileDescriptor getAssetFileDescriptor(String fileName) throws IOException{
+        return assetManager.openFd(fileName);
     }
 
     public InputStream readFile(String fileName) throws IOException {
