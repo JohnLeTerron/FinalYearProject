@@ -2,6 +2,7 @@ package com.leterronapps.hyperfour;
 
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
 
@@ -14,14 +15,52 @@ public class SoundManager {
 
     private HFGame game;
 
+    private MediaPlayer mediaPlayer;
     private SoundPool soundPool;
 
     public SoundManager(HFGame activity) {
         activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        SoundPool.Builder soundBuilder = new SoundPool.Builder();
 
+        mediaPlayer = new MediaPlayer();
+
+        SoundPool.Builder soundBuilder = new SoundPool.Builder();
         soundPool = soundBuilder.build();
+
         game = activity;
+    }
+
+    public MusicClip newMusicClip(String fileName) {
+        try {
+            AssetFileDescriptor musicDescriptor = game.fileManager.getAssetFileDescriptor(fileName);
+            return new MusicClip(musicDescriptor.getFileDescriptor(), musicDescriptor.getStartOffset(), musicDescriptor.getLength());
+        } catch(IOException ex) {
+            Log.d(game.DEBUG_TAG, "Failed to load music clip: " + fileName);
+            game.finish();
+        }
+        return null;
+    }
+
+    public void loadMusic(MusicClip musicClip) {
+        try {
+            mediaPlayer.setDataSource(musicClip.getDescriptor(), musicClip.getStartOffset(), musicClip.getLength());
+            mediaPlayer.prepare();
+            mediaPlayer.setLooping(true);
+        } catch(IOException ex) {
+            game.finish();
+        }
+    }
+
+    public void playMusic() {
+        mediaPlayer.start();
+    }
+
+    public void pauseMusic() {
+        mediaPlayer.pause();
+    }
+
+    public void stopMusic() {
+        mediaPlayer.stop();
+        mediaPlayer.release();
     }
 
     public SoundClip newSoundClip(String fileName) {

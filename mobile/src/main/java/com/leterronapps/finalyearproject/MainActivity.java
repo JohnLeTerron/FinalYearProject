@@ -1,25 +1,37 @@
 package com.leterronapps.finalyearproject;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.leterronapps.hyperfour.HFGame;
-
-import java.io.IOException;
+import com.leterronapps.hyperfour.MusicClip;
 
 
 public class MainActivity extends HFGame {
 
+    MusicClip bgMusic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        try {
-            fileManager.getAsset("scifi_final.png");
-            Log.d(DEBUG_TAG, "Asset Loaded");
-        }catch (IOException ex) {
-            Log.d(DEBUG_TAG, "Failed to Load Asset - Closing Application");
-            finish();
+        bgMusic = soundManager.newMusicClip("pitch_black.mp3");
+        soundManager.loadMusic(bgMusic);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        soundManager.pauseMusic();
+        if(isFinishing()) {
+            soundManager.stopMusic();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.playMusic();
     }
 }

@@ -28,7 +28,7 @@ public class FileManager {
         return assetManager.open(fileName);
     }
 
-    public AssetFileDescriptor getAssetFileDescriptor(String fileName) throws IOException{
+    public AssetFileDescriptor getAssetFileDescriptor(String fileName) throws IOException {
         return assetManager.openFd(fileName);
     }
 
