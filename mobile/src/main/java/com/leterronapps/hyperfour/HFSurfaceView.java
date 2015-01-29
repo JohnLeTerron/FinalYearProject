@@ -11,12 +11,10 @@ public class HFSurfaceView extends GLSurfaceView {
 
     private HFGame game;
 
-    private SoundClip tickClip;
 
     public HFSurfaceView(HFGame context) {
-       super(context);
+        super(context);
         game = context;
-        tickClip = game.soundManager.newSoundClip("tick.mp3");
     }
 
     @Override
@@ -24,7 +22,7 @@ public class HFSurfaceView extends GLSurfaceView {
         Log.d(HFGame.DEBUG_TAG, "Surface Touched");
 
         if(event.getAction() == MotionEvent.ACTION_UP) {
-            game.soundManager.playSound(tickClip);
+            game.inputManager.addTouchEvent(event);
         }
 
         return true;

@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.View;
+
+import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -19,8 +22,11 @@ public abstract class HFGame extends Activity implements Renderer {
 
     protected FileManager fileManager;
     protected SoundManager soundManager;
+    protected InputManager inputManager;
 
     private HFSurfaceView surfaceView;
+
+    private SoundClip tickSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +34,15 @@ public abstract class HFGame extends Activity implements Renderer {
 
         fileManager = new FileManager(getAssets());
         soundManager = new SoundManager(this);
+        inputManager = new InputManager();
 
         surfaceView = new HFSurfaceView(this);
         surfaceView.setRenderer(this);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(surfaceView);
+
+        tickSound = soundManager.newSoundClip("tick.mp3");
 
     }
 
@@ -68,6 +77,14 @@ public abstract class HFGame extends Activity implements Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         //Log.d(DEBUG_TAG, "DRAW!!");
+        Vector<MotionEvent> events = inputManager.getTouchEvents();
+        for(MotionEvent event : events) {
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                soundManager.playSound(tickSound);
+                break;
+            }
+        }
+        inputManager.clearEventPools();
     }
 
     public FileManager getFileManager() {
