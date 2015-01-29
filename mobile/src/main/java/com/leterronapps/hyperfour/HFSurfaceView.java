@@ -1,7 +1,6 @@
 package com.leterronapps.hyperfour;
 
 import android.opengl.GLSurfaceView;
-import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -19,10 +18,17 @@ public class HFSurfaceView extends GLSurfaceView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.d(HFGame.DEBUG_TAG, "Surface Touched");
 
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            game.inputManager.addTouchEvent(event);
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                game.inputManager.addTouchEvent(event);
+                break;
+            case MotionEvent.ACTION_DOWN:
+                game.inputManager.addTouchEvent(event);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                game.inputManager.addTouchEvent(event);
+                break;
         }
 
         return true;

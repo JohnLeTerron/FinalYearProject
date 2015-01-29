@@ -1,4 +1,4 @@
-package com.leterronapps.hyperfour;
+package com.leterronapps.hyperfour.audio;
 
 import java.io.FileDescriptor;
 

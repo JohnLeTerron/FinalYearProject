@@ -1,10 +1,12 @@
-package com.leterronapps.hyperfour;
+package com.leterronapps.hyperfour.audio;
 
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
+
+import com.leterronapps.hyperfour.HFGame;
 
 import java.io.IOException;
 
@@ -31,11 +33,12 @@ public class SoundManager {
 
     public MusicClip newMusicClip(String fileName) {
         try {
-            AssetFileDescriptor musicDescriptor = game.fileManager.getAssetFileDescriptor(fileName);
+            AssetFileDescriptor musicDescriptor = game.getFileManager().getAssetFileDescriptor(fileName);
             return new MusicClip(musicDescriptor.getFileDescriptor(), musicDescriptor.getStartOffset(), musicDescriptor.getLength());
         } catch(IOException ex) {
             Log.d(game.DEBUG_TAG, "Failed to load music clip: " + fileName);
             game.finish();
+
         }
         return null;
     }
@@ -65,7 +68,7 @@ public class SoundManager {
 
     public SoundClip newSoundClip(String fileName) {
         try {
-            AssetFileDescriptor soundDescriptor = game.fileManager.getAssetFileDescriptor(fileName);
+            AssetFileDescriptor soundDescriptor = game.getFileManager().getAssetFileDescriptor(fileName);
             return new SoundClip(soundPool.load(soundDescriptor, 1));
         } catch (IOException ex) {
             Log.d(game.DEBUG_TAG, "Failed to load sound clip: " + fileName);
@@ -76,7 +79,7 @@ public class SoundManager {
 
     public SoundClip newSoundClip(String fileName, int priority) {
         try {
-            AssetFileDescriptor soundDescriptor = game.fileManager.getAssetFileDescriptor(fileName);
+            AssetFileDescriptor soundDescriptor = game.getFileManager().getAssetFileDescriptor(fileName);
             return new SoundClip(soundPool.load(soundDescriptor, 1), priority);
         } catch (IOException ex) {
             Log.d(game.DEBUG_TAG, "Failed to load sound clip: " + fileName);

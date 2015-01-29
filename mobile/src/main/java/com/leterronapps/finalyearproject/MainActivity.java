@@ -4,7 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.leterronapps.hyperfour.HFGame;
-import com.leterronapps.hyperfour.MusicClip;
+import com.leterronapps.hyperfour.audio.MusicClip;
 
 
 public class MainActivity extends HFGame {

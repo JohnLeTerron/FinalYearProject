@@ -3,10 +3,14 @@ package com.leterronapps.hyperfour;
 import android.app.Activity;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.View;
+
+import com.leterronapps.hyperfour.audio.SoundClip;
+import com.leterronapps.hyperfour.audio.SoundManager;
+import com.leterronapps.hyperfour.io.FileManager;
+import com.leterronapps.hyperfour.io.InputManager;
 
 import java.util.Vector;
 
@@ -34,7 +38,7 @@ public abstract class HFGame extends Activity implements Renderer {
 
         fileManager = new FileManager(getAssets());
         soundManager = new SoundManager(this);
-        inputManager = new InputManager();
+        inputManager = new InputManager(this);
 
         surfaceView = new HFSurfaceView(this);
         surfaceView.setRenderer(this);
@@ -64,19 +68,16 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        Log.d(DEBUG_TAG, "Surface Created");
-        Log.d(DEBUG_TAG, Integer.toString(surfaceView.getWidth()));
-        Log.d(DEBUG_TAG, Integer.toString(surfaceView.getHeight()));
+
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        Log.d(DEBUG_TAG, "Surface Changed");
+
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        //Log.d(DEBUG_TAG, "DRAW!!");
         Vector<MotionEvent> events = inputManager.getTouchEvents();
         for(MotionEvent event : events) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
@@ -93,5 +94,9 @@ public abstract class HFGame extends Activity implements Renderer {
 
     public SoundManager getSoundManager() {
         return soundManager;
+    }
+
+    public InputManager getInputManager() {
+        return inputManager;
     }
 }
