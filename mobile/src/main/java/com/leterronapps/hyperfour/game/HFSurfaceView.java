@@ -1,4 +1,4 @@
-package com.leterronapps.hyperfour;
+package com.leterronapps.hyperfour.game;
 
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;

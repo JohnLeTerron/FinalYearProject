@@ -1,18 +1,16 @@
-package com.leterronapps.hyperfour;
+package com.leterronapps.hyperfour.game;
 
 import android.app.Activity;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.View;
 
-import com.leterronapps.hyperfour.audio.SoundClip;
 import com.leterronapps.hyperfour.audio.SoundManager;
+import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.FileManager;
 import com.leterronapps.hyperfour.io.InputManager;
-
-import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -29,8 +27,11 @@ public abstract class HFGame extends Activity implements Renderer {
     protected InputManager inputManager;
 
     private HFSurfaceView surfaceView;
+    protected HFScene currentScene;
 
-    private SoundClip tickSound;
+    protected CoreAssets coreAssets;
+
+    private float lastFrameTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +41,35 @@ public abstract class HFGame extends Activity implements Renderer {
         soundManager = new SoundManager(this);
         inputManager = new InputManager(this);
 
+        coreAssets = new CoreAssets();
+        coreAssets.load(this);
+
         surfaceView = new HFSurfaceView(this);
         surfaceView.setRenderer(this);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(surfaceView);
 
-        tickSound = soundManager.newSoundClip("tick.mp3");
 
+        lastFrameTime = System.nanoTime();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //soundManager.pauseMusic();
+        currentScene.pause();
+        if(isFinishing()) {
+            //soundManager.stopMusic();
+            currentScene.destroy();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //soundManager.playMusic();
+        currentScene.resume();
     }
 
     @Override
@@ -68,7 +90,7 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-
+        GLES20.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     }
 
     @Override
@@ -78,15 +100,18 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        Vector<MotionEvent> events = inputManager.getTouchEvents();
-        for(MotionEvent event : events) {
-            if(event.getAction() == MotionEvent.ACTION_UP) {
-                soundManager.playSound(tickSound);
-                break;
-            }
+        float deltaTime = (System.nanoTime() - lastFrameTime) / 1000000000.0f;
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+
+        if(currentScene != null) {
+            currentScene.update(deltaTime);
+            currentScene.render();
         }
+
         inputManager.clearEventPools();
     }
+
+    public abstract HFScene getStartScene();
 
     public FileManager getFileManager() {
         return fileManager;

@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
 
-import com.leterronapps.hyperfour.HFGame;
+import com.leterronapps.hyperfour.game.HFGame;
 
 import java.io.IOException;
 
