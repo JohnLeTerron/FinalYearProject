@@ -1,7 +1,6 @@
 package com.leterronapps.hyperfour.game;
 
 import android.app.Activity;
-import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -31,7 +30,10 @@ public abstract class HFGame extends Activity implements Renderer {
 
     protected CoreAssets coreAssets;
 
-    private float lastFrameTime;
+    private long lastFrameTime;
+
+    private GameState currentState = GameState.Init;
+    private Object stateLock = new Object();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,26 +52,34 @@ public abstract class HFGame extends Activity implements Renderer {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(surfaceView);
 
-
-        lastFrameTime = System.nanoTime();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
-        //soundManager.pauseMusic();
-        currentScene.pause();
-        if(isFinishing()) {
-            //soundManager.stopMusic();
-            currentScene.destroy();
+        synchronized(stateLock) {
+            if(isFinishing()) {
+                currentState = GameState.Finishing;
+            } else {
+                currentState = GameState.Paused;
+            }
+
+            while(true) {
+                try{
+                    stateLock.wait();
+                    break;
+                } catch(InterruptedException ex) {
+                    // Nothing to do here
+                }
+            }
         }
+        surfaceView.onPause();
+        super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //soundManager.playMusic();
-        currentScene.resume();
+        surfaceView.onResume();
     }
 
     @Override
@@ -90,7 +100,15 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        GLES20.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        synchronized(stateLock) {
+            if (currentState == GameState.Init) {
+                currentScene = getStartScene();
+            }
+            currentState = GameState.Running;
+            currentScene.resume();
+            lastFrameTime = System.nanoTime();
+        }
+
     }
 
     @Override
@@ -100,18 +118,44 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        float deltaTime = (System.nanoTime() - lastFrameTime) / 1000000000.0f;
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-
-        if(currentScene != null) {
-            currentScene.update(deltaTime);
-            currentScene.render();
+        switch(currentState) {
+            case Running:
+                float deltaTime = (System.nanoTime() - lastFrameTime) / 1000000000.0f;
+                lastFrameTime = System.nanoTime();
+                currentScene.update(deltaTime);
+                currentScene.render();
+                break;
+            case Paused:
+                currentScene.pause();
+                synchronized(stateLock) {
+                    stateLock.notifyAll();
+                }
+                break;
+            case Finishing:
+                currentScene.pause();
+                currentScene.destroy();
+                synchronized(stateLock) {
+                    stateLock.notifyAll();
+                }
+                break;
         }
 
         inputManager.clearEventPools();
     }
 
     public abstract HFScene getStartScene();
+
+    public void setScene(HFScene scene) {
+        if(scene == null) {
+            throw new IllegalArgumentException("Screen can't be null");
+        }
+
+        this.currentScene.pause();
+        this.currentScene.destroy();
+        scene.resume();
+        scene.update(0);
+        this.currentScene = scene;
+    }
 
     public FileManager getFileManager() {
         return fileManager;

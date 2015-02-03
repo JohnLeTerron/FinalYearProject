@@ -22,7 +22,6 @@ public class TestScene extends HFScene {
     @Override
     public void update(float deltaTime) {
         GLES20.glClearColor(0.3f, 0.2f, 0.6f, 1.0f);
-
         Vector<MotionEvent> events = game.getInputManager().getTouchEvents();
         for(MotionEvent event : events) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
