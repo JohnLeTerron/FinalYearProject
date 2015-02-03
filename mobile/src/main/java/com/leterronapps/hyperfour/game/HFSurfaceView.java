@@ -14,6 +14,7 @@ public class HFSurfaceView extends GLSurfaceView {
     public HFSurfaceView(HFGame context) {
         super(context);
         game = context;
+        setEGLContextClientVersion(2);
     }
 
     @Override

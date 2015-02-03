@@ -1,7 +1,9 @@
 package com.leterronapps.hyperfour.game;
 
 import android.app.Activity;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.view.View;
@@ -113,7 +115,7 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-
+        GLES20.glViewport(0, 0, width, height);
     }
 
     @Override
