@@ -40,7 +40,7 @@ public class Vertices {
     }
 
     public void bind() {
-        int positionHandle = shader.getHandle("positionHandle");
+        int positionHandle = shader.getHandle("position");
         GLES20.glEnableVertexAttribArray(positionHandle);
         GLES20.glVertexAttribPointer(
                 positionHandle, VERTEX_SIZE,
@@ -50,7 +50,7 @@ public class Vertices {
     }
 
     public void unbind() {
-        int positionHandle = shader.getHandle("positionHandle");
+        int positionHandle = shader.getHandle("position");
         GLES20.glDisableVertexAttribArray(positionHandle);
     }
 

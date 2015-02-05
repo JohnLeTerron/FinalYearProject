@@ -19,7 +19,7 @@ public class HFShader {
     private final String vertexShaderSrc =
             "uniform mat4 uMVPMatrix;" +
             "attribute vec4 vPosition;" +
-            "attribute vex3 vNormal;" +
+            "attribute vec3 vNormal;" +
             "attribute vec2 vTexCoord;" +
             "void main() {" +
             "  gl_Position = uMVPMatrix * vPosition;" +
