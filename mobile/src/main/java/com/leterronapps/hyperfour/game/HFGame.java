@@ -3,8 +3,8 @@ package com.leterronapps.hyperfour.game;
 import android.app.Activity;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
-import android.opengl.Matrix;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.View;
 
@@ -12,6 +12,7 @@ import com.leterronapps.hyperfour.audio.SoundManager;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.FileManager;
 import com.leterronapps.hyperfour.io.InputManager;
+import com.leterronapps.hyperfour.util.CoreAssets;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -29,6 +30,8 @@ public abstract class HFGame extends Activity implements Renderer {
 
     private HFSurfaceView surfaceView;
     protected HFScene currentScene;
+    private int screenWidth;
+    private int screenHeight;
 
     protected CoreAssets coreAssets;
 
@@ -106,16 +109,23 @@ public abstract class HFGame extends Activity implements Renderer {
             if (currentState == GameState.Init) {
                 currentScene = getStartScene();
             }
-            currentState = GameState.Running;
-            currentScene.resume();
-            lastFrameTime = System.nanoTime();
+
         }
 
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
+        Log.d(DEBUG_TAG, "Surface Changed");
         GLES20.glViewport(0, 0, width, height);
+        screenWidth = width;
+        screenHeight = height;
+        Log.d(DEBUG_TAG, "HFGame - Screen Width: " + screenWidth + " Screen Height: " + screenHeight);
+        synchronized(stateLock) {
+            currentState = GameState.Running;
+            currentScene.resume();
+            lastFrameTime = System.nanoTime();
+        }
     }
 
     @Override
@@ -169,5 +179,13 @@ public abstract class HFGame extends Activity implements Renderer {
 
     public InputManager getInputManager() {
         return inputManager;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
     }
 }

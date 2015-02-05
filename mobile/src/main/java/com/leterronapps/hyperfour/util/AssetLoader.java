@@ -1,4 +1,6 @@
-package com.leterronapps.hyperfour.game;
+package com.leterronapps.hyperfour.util;
+
+import com.leterronapps.hyperfour.game.HFGame;
 
 /**
  * Created by williamlea on 02/02/15.

@@ -1,7 +1,9 @@
-package com.leterronapps.hyperfour.game;
+package com.leterronapps.hyperfour.util;
 
 import com.leterronapps.hyperfour.audio.MusicClip;
 import com.leterronapps.hyperfour.audio.SoundClip;
+import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.util.AssetLoader;
 
 /**
  * Created by williamlea on 02/02/15.
