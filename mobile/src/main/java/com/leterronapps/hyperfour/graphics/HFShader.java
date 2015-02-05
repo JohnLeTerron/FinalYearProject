@@ -19,6 +19,8 @@ public class HFShader {
     private final String vertexShaderSrc =
             "uniform mat4 uMVPMatrix;" +
             "attribute vec4 vPosition;" +
+            "attribute vex3 vNormal;" +
+            "attribute vec2 vTexCoord;" +
             "void main() {" +
             "  gl_Position = uMVPMatrix * vPosition;" +
             "}";
@@ -51,7 +53,9 @@ public class HFShader {
     }
 
     private void initHandles() {
-        handles.put("positionHandle", GLES20.glGetAttribLocation(program, "vPosition"));
+        handles.put("position", GLES20.glGetAttribLocation(program, "vPosition"));
+        handles.put("normal", GLES20.glGetAttribLocation(program, "vNormal"));
+        handles.put("texCoord", GLES20.glGetAttribLocation(program, "vTexCoord"));
         handles.put("matrixHandle", GLES20.glGetUniformLocation(program, "uMVPMatrix"));
     }
 

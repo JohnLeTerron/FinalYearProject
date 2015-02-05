@@ -1,5 +1,6 @@
 package com.leterronapps.hyperfour.game;
 
+import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -10,6 +11,8 @@ public abstract class SceneObject {
     public Vector3D position;
     public Vector3D rotation;
     public Vector3D scale;
+
+    protected Vertices vertices;
 
     public SceneObject() {
         position = new Vector3D();
