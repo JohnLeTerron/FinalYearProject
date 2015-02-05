@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
+import com.leterronapps.hyperfour.util.Vector3D;
 
 import java.util.Vector;
 
@@ -27,6 +28,7 @@ public abstract class HFScene {
     }
 
     public void update(float deltaTime) {
+        GLES20.glUseProgram(shader.getProgram());
         camera.update(deltaTime);
 
         if(!sceneObjects.isEmpty()) {
@@ -52,7 +54,7 @@ public abstract class HFScene {
 
     public void resume() {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Screen Width: " + game.getScreenWidth() + " Screen Height: " + game.getScreenHeight());
-        camera = new HFCamera(HFCamera.MODE_3D, game.getScreenWidth(), game.getScreenHeight());
+        camera = new HFCamera(HFCamera.MODE_3D, new Vector3D(0.0f, 0.0f, -5f), game.getScreenWidth(), game.getScreenHeight());
         camera.setShader(shader);
     }
 

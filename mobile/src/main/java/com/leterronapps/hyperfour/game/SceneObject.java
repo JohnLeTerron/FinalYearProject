@@ -17,6 +17,12 @@ public abstract class SceneObject {
         scale = new Vector3D(1.0f, 1.0f, 1.0f);
     }
 
+    public SceneObject(Vector3D position) {
+        this.position = position;
+        rotation = new Vector3D();
+        scale = new Vector3D(1.0f, 1.0f, 1.0f);
+    }
+
     public abstract void update(float deltaTime);
 
     public abstract void render();
