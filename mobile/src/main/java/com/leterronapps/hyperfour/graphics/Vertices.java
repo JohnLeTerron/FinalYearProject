@@ -27,6 +27,8 @@ public class Vertices {
     private final int TEXTURE_COORD_STRIDE;
     private final int TEXTURE_COORD_SIZE = 2;
 
+    private HFShader shader;
+
     public Vertices(float[] vertices, float[] normals, float[] texCoords) {
         VERTEX_STRIDE = VERTEX_SIZE * 4;
         NORMAL_STRIDE = NORMAL_SIZE * 3;
@@ -53,9 +55,9 @@ public class Vertices {
     }
 
     public void bind() {
-        int positionHandle = HFShader.getHandle("position");
-        int normalHandle = HFShader.getHandle("normal");
-        int texCoordHandle = HFShader.getHandle("texCoord");
+        int positionHandle = shader.getHandle("position");
+        int normalHandle = shader.getHandle("normal");
+        int texCoordHandle = shader.getHandle("texCoord");
         GLES20.glEnableVertexAttribArray(positionHandle);
         GLES20.glVertexAttribPointer(
                 positionHandle, VERTEX_SIZE,
@@ -74,9 +76,9 @@ public class Vertices {
     }
 
     public void unbind() {
-        int positionHandle = HFShader.getHandle("position");
-        int normalHandle = HFShader.getHandle("normal");
-        int texCoordHandle = HFShader.getHandle("texCoord");
+        int positionHandle = shader.getHandle("position");
+        int normalHandle = shader.getHandle("normal");
+        int texCoordHandle = shader.getHandle("texCoord");
         GLES20.glDisableVertexAttribArray(positionHandle);
         GLES20.glDisableVertexAttribArray(normalHandle);
         GLES20.glDisableVertexAttribArray(texCoordHandle);
@@ -84,6 +86,10 @@ public class Vertices {
 
     public void draw() {
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, VERTEX_COUNT);
+    }
+
+    public void setShader(HFShader shader) {
+        this.shader = shader;
     }
 
 }
