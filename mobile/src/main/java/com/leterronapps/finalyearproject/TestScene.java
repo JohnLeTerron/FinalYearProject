@@ -2,6 +2,7 @@ package com.leterronapps.finalyearproject;
 
 import android.view.MotionEvent;
 
+import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.graphics.*;
@@ -17,6 +18,18 @@ public class TestScene extends HFScene {
             0.0f,  0.622008459f, 0.0f,
             -0.5f, -0.311004243f, 0.0f,
             0.5f, -0.311004243f, 0.0f
+    };
+
+    private float triangleNormals[] = {
+            0.0f, 0.0f, -1.0f,
+            0.0f, 0.0f, -1.0f,
+            0.0f, 0.0f, -1.0f
+    };
+
+    private float triangleTexCoords[] = {
+            0.0f, 0.0f,
+            0.0f, 1.0f,
+            1.0f, 1.0f
     };
 
     private Vertices triangle;
@@ -51,12 +64,12 @@ public class TestScene extends HFScene {
     public void resume() {
         super.resume();
         game.getSoundManager().playMusic();
-        triangle = new Vertices(triangleCoords, 3, false);
-        triangle.setShader(shader);
+        triangle = new Vertices(triangleCoords, triangleNormals, triangleTexCoords);
     }
 
     @Override
     public void pause() {
+        super.pause();
         game.getSoundManager().pauseMusic();
     }
 

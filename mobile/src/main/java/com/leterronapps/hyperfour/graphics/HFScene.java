@@ -58,7 +58,9 @@ public abstract class HFScene {
         camera.setShader(shader);
     }
 
-    public abstract void pause();
+    public void pause() {
+        sceneObjects.clear();
+    }
 
     public abstract void destroy();
 }
