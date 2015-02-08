@@ -1,5 +1,6 @@
 package com.leterronapps.hyperfour.game;
 
+import com.leterronapps.hyperfour.graphics.HFShader;
 import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -28,5 +29,5 @@ public abstract class SceneObject {
 
     public abstract void update(float deltaTime);
 
-    public abstract void render();
+    public abstract void render(HFShader shader);
 }

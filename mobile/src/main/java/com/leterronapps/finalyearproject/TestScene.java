@@ -55,9 +55,9 @@ public class TestScene extends HFScene {
     @Override
     public void render() {
         super.render();
-        triangle.bind();
+        triangle.bind(shader);
         triangle.draw();
-        triangle.unbind();
+        triangle.unbind(shader);
     }
 
     @Override
@@ -65,7 +65,6 @@ public class TestScene extends HFScene {
         super.resume();
         game.getSoundManager().playMusic();
         triangle = new Vertices(triangleCoords, triangleNormals, triangleTexCoords);
-        triangle.setShader(shader);
     }
 
     @Override
