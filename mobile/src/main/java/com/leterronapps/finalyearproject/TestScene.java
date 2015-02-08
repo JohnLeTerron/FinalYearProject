@@ -15,12 +15,14 @@ import java.util.Vector;
 public class TestScene extends HFScene {
 
     private float triangleCoords[] = {
-            0.0f,  0.622008459f, 0.0f,
-            -0.5f, -0.311004243f, 0.0f,
-            0.5f, -0.311004243f, 0.0f
+            -0.5f,  0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.5f, 0.5f, 0.0f
     };
 
     private float triangleNormals[] = {
+            0.0f, 0.0f, -1.0f,
             0.0f, 0.0f, -1.0f,
             0.0f, 0.0f, -1.0f,
             0.0f, 0.0f, -1.0f
@@ -29,7 +31,12 @@ public class TestScene extends HFScene {
     private float triangleTexCoords[] = {
             0.0f, 0.0f,
             0.0f, 1.0f,
-            1.0f, 1.0f
+            1.0f, 1.0f,
+            1.0f, 0.0f
+    };
+
+    private short[] indices = {
+            0,1,2,2,3,0
     };
 
     private Vertices triangle;
@@ -64,7 +71,7 @@ public class TestScene extends HFScene {
     public void resume() {
         super.resume();
         game.getSoundManager().playMusic();
-        triangle = new Vertices(triangleCoords, triangleNormals, triangleTexCoords);
+        triangle = new Vertices(triangleCoords, triangleNormals, triangleTexCoords, indices);
     }
 
     @Override
