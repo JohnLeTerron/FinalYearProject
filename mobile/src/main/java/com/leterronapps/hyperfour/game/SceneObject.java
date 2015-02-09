@@ -18,12 +18,6 @@ public abstract class SceneObject {
 
     protected Vertices vertices;
 
-    public SceneObject() {
-        position = new Vector3D();
-        rotation = new Vector3D();
-        scale = new Vector3D(1.0f, 1.0f, 1.0f);
-    }
-
     public SceneObject(Vector3D position) {
         this.position = position;
         rotation = new Vector3D();
@@ -35,6 +29,8 @@ public abstract class SceneObject {
     public void render(HFShader shader) {
         Matrix.setIdentityM(shader.modelViewMatrix, 0);
         Matrix.translateM(shader.modelViewMatrix, 0, position.x, position.y, position.z);
+        //Matrix.rotateM(shader.modelViewMatrix, 0, 1, rotation.x, rotation.y, rotation.z);
+        Matrix.scaleM(shader.modelViewMatrix, 0, scale.x, scale.y, scale.z);
 
         GLES20.glUniformMatrix4fv(shader.getHandle("pMatrix"), 0, false, shader.pMatrix, 0);
         GLES20.glUniformMatrix4fv(shader.getHandle("camMatrix"), 0, false, shader.camMatrix, 0);

@@ -2,7 +2,6 @@ package com.leterronapps.finalyearproject;
 
 import android.view.MotionEvent;
 
-import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.graphics.*;
@@ -15,7 +14,7 @@ import java.util.Vector;
  */
 public class TestScene extends HFScene {
 
-    private Sprite testSprtie;
+    private TestSprite testSprtie;
 
     public TestScene(HFGame game) {
         super(game);
@@ -25,26 +24,28 @@ public class TestScene extends HFScene {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
         Vector<MotionEvent> events = game.getInputManager().getTouchEvents();
         for(MotionEvent event : events) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
                 game.getSoundManager().playSound(CoreAssets.tickSound);
+                testSprtie.position = new Vector3D(event.getX(), event.getY(), 0f);
                 break;
             }
+
         }
     }
 
     @Override
     public void render() {
         super.render();
+        testSprtie.render(shader);
     }
 
     @Override
     public void resume() {
         super.resume();
         game.getSoundManager().playMusic();
-        testSprtie = new Sprite(new Vector3D(0.5f, 0f, 0f), 1.5f, 1.5f);
+        testSprtie = new TestSprite(new Vector3D(0.5f, 0f, 0f), 1.5f, 1.5f);
         sceneObjects.add(testSprtie);
     }
 

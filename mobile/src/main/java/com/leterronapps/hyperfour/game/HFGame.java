@@ -38,7 +38,7 @@ public abstract class HFGame extends Activity implements Renderer {
     private long lastFrameTime;
 
     private GameState currentState = GameState.Init;
-    private Object stateLock = new Object();
+    private final Object stateLock = new Object();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +151,6 @@ public abstract class HFGame extends Activity implements Renderer {
                 }
                 break;
         }
-
         inputManager.clearEventPools();
     }
 
