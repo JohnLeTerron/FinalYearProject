@@ -17,12 +17,14 @@ public class HFShader {
     private HashMap<String, Integer> handles;
 
     private final String vertexShaderSrc =
-            "uniform mat4 uMVPMatrix;" +
+            "uniform mat4 uPMatrix;" +
+            "uniform mat4 uCamMatrix;" +
+            "uniform mat4 uMVMatrix;" +
             "attribute vec4 vPosition;" +
             "attribute vec3 vNormal;" +
             "attribute vec2 vTexCoord;" +
             "void main() {" +
-            "  gl_Position = uMVPMatrix * vPosition;" +
+            "  gl_Position = uPMatrix * uCamMatrix * uMVMatrix * vPosition;" +
             "}";
 
     private final String fragShaderSrc =
@@ -56,7 +58,9 @@ public class HFShader {
         handles.put("position", GLES20.glGetAttribLocation(program, "vPosition"));
         handles.put("normal", GLES20.glGetAttribLocation(program, "vNormal"));
         handles.put("texCoord", GLES20.glGetAttribLocation(program, "vTexCoord"));
-        handles.put("matrixHandle", GLES20.glGetUniformLocation(program, "uMVPMatrix"));
+        handles.put("pMatrix", GLES20.glGetUniformLocation(program, "uPMatrix"));
+        handles.put("camMatrix", GLES20.glGetUniformLocation(program, "uCamMatrix"));
+        handles.put("mvMatrix", GLES20.glGetUniformLocation(program, "uMVMatrix"));
     }
 
     public int getProgram() {

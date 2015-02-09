@@ -1,8 +1,9 @@
 package com.leterronapps.finalyearproject;
 
+import android.opengl.GLES20;
+import android.opengl.Matrix;
 import android.view.MotionEvent;
 
-import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.graphics.*;
@@ -62,6 +63,11 @@ public class TestScene extends HFScene {
     @Override
     public void render() {
         super.render();
+        Matrix.setIdentityM(modelViewMatrix, 0);
+        Matrix.translateM(modelViewMatrix, 0, 0.5f, 0, 0);
+        GLES20.glUniformMatrix4fv(shader.getHandle("pMatrix"), 0, false, pMatrix, 0);
+        GLES20.glUniformMatrix4fv(shader.getHandle("camMatrix"), 0, false, camMatrix, 0);
+        GLES20.glUniformMatrix4fv(shader.getHandle("mvMatrix"), 0, false, modelViewMatrix, 0);
         triangle.bind(shader);
         triangle.draw();
         triangle.unbind(shader);
