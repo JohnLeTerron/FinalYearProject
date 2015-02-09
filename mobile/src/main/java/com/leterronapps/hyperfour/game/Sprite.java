@@ -28,11 +28,6 @@ public class Sprite extends SceneObject {
 
     }
 
-    @Override
-    public void render(HFShader shader) {
-
-    }
-
     private void loadVertices() {
         float[] verts = {
                 -(width / 2), -(height / 2), 0f,

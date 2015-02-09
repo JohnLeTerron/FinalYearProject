@@ -33,6 +33,10 @@ public class HFShader {
             "  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);" +
             "}";
 
+    public final float[] pMatrix = new float[16];
+    public final float[] camMatrix = new float[16];
+    public final float[] modelViewMatrix = new float[16];
+
     public HFShader() {
         vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderSrc);
         fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragShaderSrc);

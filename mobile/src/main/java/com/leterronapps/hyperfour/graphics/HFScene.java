@@ -20,10 +20,6 @@ public abstract class HFScene {
 
     protected Vector<SceneObject> sceneObjects;
 
-    protected final float[] pMatrix = new float[16];
-    protected final float[] camMatrix = new float[16];
-    protected final float[] modelViewMatrix = new float[16];
-
     public HFScene(HFGame game) {
         this.game = game;
         shader = new HFShader();
@@ -34,13 +30,6 @@ public abstract class HFScene {
         GLES20.glUseProgram(shader.getProgram());
         GLES20.glClearColor(0.3f, 0.2f, 0.6f, 1.0f);
 
-        float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
-        Matrix.perspectiveM(pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
-
-        Matrix.setIdentityM(camMatrix, 0);
-        Matrix.translateM(camMatrix, 0, 0, 0, -5f);
-
-
         if(!sceneObjects.isEmpty()) {
             for(SceneObject sceneObject : sceneObjects) {
                 sceneObject.update(deltaTime);
@@ -49,7 +38,13 @@ public abstract class HFScene {
     }
 
     public void render() {
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);;
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
+        float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
+        Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
+
+        Matrix.setIdentityM(shader.camMatrix, 0);
+        Matrix.translateM(shader.camMatrix, 0, 0, 0, -5f);
 
         if(!sceneObjects.isEmpty()) {
             for(SceneObject sceneObject : sceneObjects) {

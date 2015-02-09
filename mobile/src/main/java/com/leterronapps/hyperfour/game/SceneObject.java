@@ -1,5 +1,8 @@
 package com.leterronapps.hyperfour.game;
 
+import android.opengl.GLES20;
+import android.opengl.Matrix;
+
 import com.leterronapps.hyperfour.graphics.HFShader;
 import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.util.Vector3D;
@@ -29,5 +32,16 @@ public abstract class SceneObject {
 
     public abstract void update(float deltaTime);
 
-    public abstract void render(HFShader shader);
+    public void render(HFShader shader) {
+        Matrix.setIdentityM(shader.modelViewMatrix, 0);
+        Matrix.translateM(shader.modelViewMatrix, 0, position.x, position.y, position.z);
+
+        GLES20.glUniformMatrix4fv(shader.getHandle("pMatrix"), 0, false, shader.pMatrix, 0);
+        GLES20.glUniformMatrix4fv(shader.getHandle("camMatrix"), 0, false, shader.camMatrix, 0);
+        GLES20.glUniformMatrix4fv(shader.getHandle("mvMatrix"), 0, false, shader.modelViewMatrix, 0);
+
+        vertices.bind(shader);
+        vertices.draw();
+        vertices.unbind(shader);
+    }
 }
