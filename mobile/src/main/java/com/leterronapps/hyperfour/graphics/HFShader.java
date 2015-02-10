@@ -9,9 +9,6 @@ import java.util.HashMap;
  */
 public class HFShader {
 
-    private int vertexShader;
-    private int fragmentShader;
-
     private int program;
 
     private HashMap<String, Integer> handles;
@@ -43,8 +40,8 @@ public class HFShader {
     public final float[] modelViewMatrix = new float[16];
 
     public HFShader() {
-        vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderSrc);
-        fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragShaderSrc);
+        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderSrc);
+        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragShaderSrc);
 
         handles = new HashMap<>();
 
