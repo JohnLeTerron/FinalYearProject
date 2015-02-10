@@ -4,7 +4,9 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 
 import com.leterronapps.hyperfour.graphics.HFShader;
+import com.leterronapps.hyperfour.graphics.HFTexture;
 import com.leterronapps.hyperfour.graphics.Vertices;
+import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -17,11 +19,13 @@ public abstract class SceneObject {
     public Vector3D scale;
 
     protected Vertices vertices;
+    protected HFTexture texture;
 
     public SceneObject(Vector3D position) {
         this.position = position;
         rotation = new Vector3D();
         scale = new Vector3D(1.0f, 1.0f, 1.0f);
+        texture = CoreAssets.scifiPanel;
     }
 
     public abstract void update(float deltaTime);
@@ -36,7 +40,9 @@ public abstract class SceneObject {
         GLES20.glUniformMatrix4fv(shader.getHandle("camMatrix"), 0, false, shader.camMatrix, 0);
         GLES20.glUniformMatrix4fv(shader.getHandle("mvMatrix"), 0, false, shader.modelViewMatrix, 0);
 
+
         vertices.bind(shader);
+        texture.activate(shader, GLES20.GL_TEXTURE0);
         vertices.draw();
         vertices.unbind(shader);
     }

@@ -23,14 +23,19 @@ public class HFShader {
             "attribute vec4 vPosition;" +
             "attribute vec3 vNormal;" +
             "attribute vec2 vTexCoord;" +
+            "varying vec2 varTexCoord;" +
             "void main() {" +
+            "  varTexCoord = vTexCoord;" +
             "  gl_Position = uPMatrix * uCamMatrix * uMVMatrix * vPosition;" +
             "}";
 
     private final String fragShaderSrc =
             "precision mediump float;" +
+            "uniform sampler2D uSampler;" +
+            "varying vec2 varTexCoord;" +
             "void main() {" +
-            "  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);" +
+            "  vec4 textureColour = texture2D(uSampler, varTexCoord);" +
+            "  gl_FragColor = vec4(textureColour.rgb, textureColour.a);" +
             "}";
 
     public final float[] pMatrix = new float[16];
@@ -65,6 +70,7 @@ public class HFShader {
         handles.put("pMatrix", GLES20.glGetUniformLocation(program, "uPMatrix"));
         handles.put("camMatrix", GLES20.glGetUniformLocation(program, "uCamMatrix"));
         handles.put("mvMatrix", GLES20.glGetUniformLocation(program, "uMVMatrix"));
+        handles.put("sampler0", GLES20.glGetUniformLocation(program, "uSampler"));
     }
 
     public int getProgram() {

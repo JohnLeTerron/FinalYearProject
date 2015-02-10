@@ -3,6 +3,7 @@ package com.leterronapps.hyperfour.util;
 import com.leterronapps.hyperfour.audio.MusicClip;
 import com.leterronapps.hyperfour.audio.SoundClip;
 import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.graphics.HFTexture;
 import com.leterronapps.hyperfour.util.AssetLoader;
 
 /**
@@ -13,9 +14,12 @@ public class CoreAssets implements AssetLoader {
     public static MusicClip bgMusic;
     public static SoundClip tickSound;
 
+    public static HFTexture scifiPanel;
+
     @Override
     public void load(HFGame game) {
         bgMusic = game.getSoundManager().newMusicClip("pitch_black.mp3");
         tickSound = game.getSoundManager().newSoundClip("tick.mp3");
+        scifiPanel = new HFTexture(game, "scifi_final.png");
     }
 }

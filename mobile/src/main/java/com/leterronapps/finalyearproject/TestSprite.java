@@ -8,6 +8,7 @@ import com.leterronapps.hyperfour.util.Vector3D;
  */
 public class TestSprite extends Sprite {
 
+
     public TestSprite(Vector3D position, float width, float height) {
         super(position, width, height);
     }

@@ -47,6 +47,7 @@ public class TestScene extends HFScene {
         game.getSoundManager().playMusic();
         testSprtie = new TestSprite(new Vector3D(0.5f, 0f, 0f), 1.5f, 1.5f);
         sceneObjects.add(testSprtie);
+        CoreAssets.scifiPanel.reload();
     }
 
     @Override
