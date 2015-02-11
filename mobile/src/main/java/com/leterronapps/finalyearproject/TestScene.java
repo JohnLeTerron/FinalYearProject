@@ -28,7 +28,6 @@ public class TestScene extends HFScene {
         for(MotionEvent event : events) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
                 game.getSoundManager().playSound(CoreAssets.tickSound);
-                testSprtie.position = new Vector3D(event.getX(), event.getY(), 0f);
                 break;
             }
 
@@ -38,14 +37,13 @@ public class TestScene extends HFScene {
     @Override
     public void render() {
         super.render();
-        testSprtie.render(shader);
     }
 
     @Override
     public void resume() {
         super.resume();
         game.getSoundManager().playMusic();
-        testSprtie = new TestSprite(new Vector3D(0f, 0.5f, 0f), 1.5f, 1.5f);
+        testSprtie = new TestSprite(new Vector3D(0f, 0.5f, 0f), 3.0f, 3.0f);
         sceneObjects.add(testSprtie);
         CoreAssets.scifiPanel.reload();
     }

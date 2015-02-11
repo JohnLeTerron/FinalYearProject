@@ -32,7 +32,8 @@ public class HFShader {
             "varying vec2 varTexCoord;" +
             "void main() {" +
             "  vec4 textureColour = texture2D(uSampler, varTexCoord);" +
-            "  gl_FragColor = vec4(textureColour.rgb, textureColour.a);" +
+            "  vec3 ambient = vec3(0.3, 0.3, 0.3);" +
+            "  gl_FragColor = vec4(textureColour.rgb * ambient, textureColour.a);" +
             "}";
 
     public final float[] pMatrix = new float[16];

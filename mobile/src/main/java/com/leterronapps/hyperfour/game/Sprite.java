@@ -20,10 +20,10 @@ public abstract class Sprite extends SceneObject {
 
     private void loadVertices() {
         float[] verts = {
-                -(width / 2), -(height / 2), 0f,  // index 0
-                -(width / 2), (height / 2), 0f, // index 1
-                (width / 2), (height / 2), 0f,  // index 2
-                (width / 2), -(height / 2), 0f    // index 3
+                (width / 2), (height / 2), 0f,  // index 0
+                (width / 2), -(height / 2), 0f, // index 1
+                -(width / 2), -(height / 2), 0f,  // index 2
+                -(width / 2), (height / 2), 0f    // index 3
         };
         float[] norms = {
                 0.0f, 0.0f, -1.0f,
@@ -32,10 +32,10 @@ public abstract class Sprite extends SceneObject {
                 0.0f, 0.0f, -1.0f
         };
         float[] texCoords = {
-                0.0f, 0.0f,
                 0.0f, 1.0f,
-                1.0f, 1.0f,
-                1.0f, 0.0f
+                0.0f, 0.0f,
+                1.0f, 0.0f,
+                1.0f, 1.0f
         };
 
         short[] indices = {
