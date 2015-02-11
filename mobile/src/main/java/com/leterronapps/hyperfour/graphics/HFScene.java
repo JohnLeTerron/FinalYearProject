@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
+import com.leterronapps.hyperfour.util.Vector3D;
 
 import java.util.Vector;
 
@@ -20,6 +21,8 @@ public abstract class HFScene {
 
     protected Vector<SceneObject> sceneObjects;
 
+    private Vector3D lightPos = new Vector3D(10.0f, 10f, -3f);
+
     public HFScene(HFGame game) {
         this.game = game;
         shader = new HFShader();
@@ -28,7 +31,7 @@ public abstract class HFScene {
 
     public void update(float deltaTime) {
         GLES20.glUseProgram(shader.getProgram());
-        GLES20.glClearColor(0.3f, 0.2f, 0.6f, 1.0f);
+        GLES20.glClearColor(0f, 0f, 0f, 1.0f);
 
         if(!sceneObjects.isEmpty()) {
             for(SceneObject sceneObject : sceneObjects) {
@@ -44,10 +47,12 @@ public abstract class HFScene {
         Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
 
         Matrix.setIdentityM(shader.camMatrix, 0);
-        Matrix.translateM(shader.camMatrix, 0, 0, 0, -5f);
+        Matrix.translateM(shader.camMatrix, 0, 0, 0, -20f);
+
 
         if(!sceneObjects.isEmpty()) {
             for(SceneObject sceneObject : sceneObjects) {
+                GLES20.glUniform3f(shader.getHandle("pointLightPos"), lightPos.x, lightPos.y, lightPos.z);
                 sceneObject.render(shader);
             }
         }

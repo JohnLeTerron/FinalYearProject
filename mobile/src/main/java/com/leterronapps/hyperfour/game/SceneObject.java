@@ -36,9 +36,13 @@ public abstract class SceneObject {
         //Matrix.rotateM(shader.modelViewMatrix, 0, 1, rotation.x, rotation.y, rotation.z);
         Matrix.scaleM(shader.modelViewMatrix, 0, scale.x, scale.y, scale.z);
 
+        Matrix.invertM(shader.normalMatrix, 0, shader.modelViewMatrix, 0);
+        Matrix.transposeM(shader.normalMatrix, 0, shader.normalMatrix, 0);
+
         GLES20.glUniformMatrix4fv(shader.getHandle("pMatrix"), 0, false, shader.pMatrix, 0);
         GLES20.glUniformMatrix4fv(shader.getHandle("camMatrix"), 0, false, shader.camMatrix, 0);
         GLES20.glUniformMatrix4fv(shader.getHandle("mvMatrix"), 0, false, shader.modelViewMatrix, 0);
+        GLES20.glUniformMatrix4fv(shader.getHandle("normalMatrix"), 0, false, shader.normalMatrix, 0);
 
 
         vertices.bind(shader);

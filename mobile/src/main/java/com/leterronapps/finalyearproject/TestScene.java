@@ -43,7 +43,7 @@ public class TestScene extends HFScene {
     public void resume() {
         super.resume();
         game.getSoundManager().playMusic();
-        testSprtie = new TestSprite(new Vector3D(0f, 0.5f, 0f), 3.0f, 3.0f);
+        testSprtie = new TestSprite(new Vector3D(0f, 0f, 0f), 3.0f, 3.0f);
         sceneObjects.add(testSprtie);
         CoreAssets.scifiPanel.reload();
     }

@@ -17,28 +17,49 @@ public class HFShader {
             "uniform mat4 uPMatrix;" +
             "uniform mat4 uCamMatrix;" +
             "uniform mat4 uMVMatrix;" +
-            "attribute vec4 vPosition;" +
-            "attribute vec3 vNormal;" +
-            "attribute vec2 vTexCoord;" +
-            "varying vec2 varTexCoord;" +
+            "uniform mat4 uNormalMatrix;" +
+            "attribute vec4 aPosition;" +
+            "attribute vec3 aNormal;" +
+            "attribute vec2 aTexCoord;" +
+            "varying vec2 vTexCoord;" +
+            "varying vec3 vTransNormal;" +
+            "varying vec4 vPosition;" +
             "void main() {" +
-            "  varTexCoord = vTexCoord;" +
-            "  gl_Position = uPMatrix * uCamMatrix * uMVMatrix * vPosition;" +
+            "  vTexCoord = aTexCoord;" +
+            "  vTransNormal = (uNormalMatrix * vec4(aNormal, 1.0)).xyz;" +
+            "  vPosition = uMVMatrix * aPosition;" +
+            "  gl_Position = uPMatrix * uCamMatrix * vPosition;" +
             "}";
 
     private final String fragShaderSrc =
             "precision mediump float;" +
             "uniform sampler2D uSampler;" +
-            "varying vec2 varTexCoord;" +
+            "uniform vec3 uPointLightPos;" +
+            "varying vec2 vTexCoord;" +
+            "varying vec3 vTransNormal;" +
+            "varying vec4 vPosition;" +
             "void main() {" +
-            "  vec4 textureColour = texture2D(uSampler, varTexCoord);" +
-            "  vec3 ambient = vec3(0.3, 0.3, 0.3);" +
-            "  gl_FragColor = vec4(textureColour.rgb * ambient, textureColour.a);" +
+            "  vec4 textureColour = texture2D(uSampler, vTexCoord);" +
+            "  vec3 pointLightPos = vec3(0.0, 10.0, -3.0);" +
+            "  vec3 s = normalize(uPointLightPos - vPosition.xyz);" +
+            "  vec3 n = normalize(vTransNormal);" +
+            "  vec3 v = normalize(-vPosition.xyz);" +
+            "  vec3 r = reflect(-s, vTransNormal);" +
+            "  float SdotN = max(dot(s,n), 0.0);" +
+            "  vec3 ambient = vec3(0.15, 0.15, 0.15);" +
+            "  vec3 diffuse = vec3(1.0, 1.0, 1.0) * SdotN;" +
+            "  vec3 specular = vec3(0.0, 0.0, 0.0);" +
+            "  if(SdotN > 0.0) {" +
+            "       specular = vec3(0.3, 0.0, 0.0) * pow(max(dot(r, v), 0.0), 0.3);" +
+            "  }" +
+            "  vec3 lightIntensity = ambient + diffuse + specular;" +
+            "  gl_FragColor = vec4(textureColour.rgb * lightIntensity, textureColour.a);" +
             "}";
 
     public final float[] pMatrix = new float[16];
     public final float[] camMatrix = new float[16];
     public final float[] modelViewMatrix = new float[16];
+    public final float[] normalMatrix = new float[16];
 
     public HFShader() {
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderSrc);
@@ -62,13 +83,15 @@ public class HFShader {
     }
 
     private void initHandles() {
-        handles.put("position", GLES20.glGetAttribLocation(program, "vPosition"));
-        handles.put("normal", GLES20.glGetAttribLocation(program, "vNormal"));
-        handles.put("texCoord", GLES20.glGetAttribLocation(program, "vTexCoord"));
+        handles.put("position", GLES20.glGetAttribLocation(program, "aPosition"));
+        handles.put("normal", GLES20.glGetAttribLocation(program, "aNormal"));
+        handles.put("texCoord", GLES20.glGetAttribLocation(program, "aTexCoord"));
         handles.put("pMatrix", GLES20.glGetUniformLocation(program, "uPMatrix"));
         handles.put("camMatrix", GLES20.glGetUniformLocation(program, "uCamMatrix"));
         handles.put("mvMatrix", GLES20.glGetUniformLocation(program, "uMVMatrix"));
+        handles.put("normalMatrix", GLES20.glGetUniformLocation(program, "uNormalMatrix"));
         handles.put("sampler0", GLES20.glGetUniformLocation(program, "uSampler"));
+        handles.put("pointLightPos", GLES20.glGetUniformLocation(program, "uPointLightPos"));
     }
 
     public int getProgram() {
