@@ -12,6 +12,7 @@ import com.leterronapps.hyperfour.audio.SoundManager;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.FileManager;
 import com.leterronapps.hyperfour.io.InputManager;
+import com.leterronapps.hyperfour.util.AssetLoader;
 import com.leterronapps.hyperfour.util.CoreAssets;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -34,6 +35,7 @@ public abstract class HFGame extends Activity implements Renderer {
     private int screenHeight;
 
     protected CoreAssets coreAssets;
+    protected AssetLoader gameAssets;
 
     private long lastFrameTime;
 
@@ -119,6 +121,9 @@ public abstract class HFGame extends Activity implements Renderer {
                 currentScene = getStartScene();
             }
             coreAssets.load(this);
+            if(gameAssets != null) {
+                gameAssets.load(this);
+            }
         }
 
     }

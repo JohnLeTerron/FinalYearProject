@@ -3,7 +3,6 @@ package com.leterronapps.finalyearproject;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFScene;
-import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -19,8 +18,9 @@ public class CatchStartScene extends HFScene {
     public void resume() {
         super.resume();
         Sprite logo = new Sprite(new Vector3D(0f, 0f, 0f), 1f, 1f);
-        logo.setTexture(CoreAssets.scifiPanel);
+        logo.setTexture(CatchAssets.catchLogo);
         Sprite playButton = new Sprite(new Vector3D(0f, -3f, 0f), 3f, 3f);
+        playButton.setTexture(CatchAssets.playButton);
         sceneObjects.add(logo);
         sceneObjects.add(playButton);
     }
