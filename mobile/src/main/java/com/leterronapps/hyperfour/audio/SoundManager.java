@@ -71,7 +71,7 @@ public class SoundManager {
             AssetFileDescriptor soundDescriptor = game.getFileManager().getAssetFileDescriptor(fileName);
             return new SoundClip(soundPool.load(soundDescriptor, 1));
         } catch (IOException ex) {
-            Log.d(game.DEBUG_TAG, "Failed to load sound clip: " + fileName);
+            Log.d(HFGame.DEBUG_TAG, "Failed to load sound clip: " + fileName);
             game.finish();
         }
         return null;
@@ -82,7 +82,7 @@ public class SoundManager {
             AssetFileDescriptor soundDescriptor = game.getFileManager().getAssetFileDescriptor(fileName);
             return new SoundClip(soundPool.load(soundDescriptor, 1), priority);
         } catch (IOException ex) {
-            Log.d(game.DEBUG_TAG, "Failed to load sound clip: " + fileName);
+            Log.d(HFGame.DEBUG_TAG, "Failed to load sound clip: " + fileName);
             game.finish();
         }
         return null;

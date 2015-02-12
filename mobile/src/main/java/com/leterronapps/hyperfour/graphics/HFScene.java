@@ -61,12 +61,16 @@ public abstract class HFScene {
     }
 
     public void resume() {
+        Log.d(HFGame.DEBUG_TAG, "HFScene - Resume");
         Log.d(HFGame.DEBUG_TAG, "HFScene - Screen Width: " + game.getScreenWidth() + " Screen Height: " + game.getScreenHeight());
     }
 
     public void pause() {
+        Log.d(HFGame.DEBUG_TAG, "HFScene - Pause");
         sceneObjects.clear();
     }
 
-    public abstract void destroy();
+    public void destroy() {
+        Log.d(HFGame.DEBUG_TAG, "HFScene - Destroy");
+    }
 }

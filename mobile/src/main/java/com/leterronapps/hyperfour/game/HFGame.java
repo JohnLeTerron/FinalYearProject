@@ -43,13 +43,13 @@ public abstract class HFGame extends Activity implements Renderer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(DEBUG_TAG, "HFGame - Create");
 
         fileManager = new FileManager(getAssets());
         soundManager = new SoundManager(this);
         inputManager = new InputManager(this);
 
         coreAssets = new CoreAssets();
-        coreAssets.load(this);
 
         surfaceView = new HFSurfaceView(this);
         surfaceView.setRenderer(this);
@@ -61,6 +61,7 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     protected void onPause() {
+        Log.d(DEBUG_TAG, "HFGame - Pause");
         synchronized(stateLock) {
             if(isFinishing()) {
                 currentState = GameState.Finishing;
@@ -82,8 +83,15 @@ public abstract class HFGame extends Activity implements Renderer {
     }
 
     @Override
+    protected void onStop() {
+        Log.d(DEBUG_TAG, "HFGame - Stop");
+        super.onStop();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        Log.d(DEBUG_TAG, "HFGame - Resume");
         surfaceView.onResume();
     }
 
@@ -105,11 +113,12 @@ public abstract class HFGame extends Activity implements Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        Log.d(DEBUG_TAG, "Surface Created");
         synchronized(stateLock) {
             if (currentState == GameState.Init) {
                 currentScene = getStartScene();
             }
-
+            coreAssets.load(this);
         }
 
     }

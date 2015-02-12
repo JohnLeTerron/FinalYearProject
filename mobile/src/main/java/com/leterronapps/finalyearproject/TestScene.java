@@ -18,7 +18,7 @@ public class TestScene extends HFScene {
 
     public TestScene(HFGame game) {
         super(game);
-        game.getSoundManager().loadMusic(CoreAssets.bgMusic);
+        //game.getSoundManager().loadMusic(CoreAssets.bgMusic);
     }
 
     @Override
@@ -42,21 +42,22 @@ public class TestScene extends HFScene {
     @Override
     public void resume() {
         super.resume();
-        game.getSoundManager().playMusic();
+        //game.getSoundManager().playMusic();
         testSprtie = new TestSprite(new Vector3D(0f, 0f, 0f), 3.0f, 3.0f);
         sceneObjects.add(testSprtie);
-        CoreAssets.scifiPanel.reload();
+        //CoreAssets.scifiPanel.reload();
     }
 
     @Override
     public void pause() {
         super.pause();
-        game.getSoundManager().pauseMusic();
+        //game.getSoundManager().pauseMusic();
     }
 
     @Override
     public void destroy() {
-        game.getSoundManager().stopMusic();
+        super.destroy();
+        //game.getSoundManager().stopMusic();
     }
 
 }
