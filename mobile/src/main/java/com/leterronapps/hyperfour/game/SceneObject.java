@@ -25,7 +25,6 @@ public abstract class SceneObject {
         this.position = position;
         rotation = new Vector3D();
         scale = new Vector3D(1.0f, 1.0f, 1.0f);
-        texture = CoreAssets.scifiPanel;
     }
 
     public abstract void update(float deltaTime);
@@ -46,8 +45,15 @@ public abstract class SceneObject {
 
 
         vertices.bind(shader);
-        texture.activate(shader, GLES20.GL_TEXTURE0);
+        if(texture != null) {
+            texture.activate(shader, GLES20.GL_TEXTURE0);
+        }
         vertices.draw();
         vertices.unbind(shader);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+    }
+
+    public void setTexture(HFTexture texture) {
+        this.texture = texture;
     }
 }
