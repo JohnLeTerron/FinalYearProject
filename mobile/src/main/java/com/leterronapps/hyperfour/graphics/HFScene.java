@@ -47,7 +47,7 @@ public abstract class HFScene {
         Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
 
         Matrix.setIdentityM(shader.camMatrix, 0);
-        Matrix.translateM(shader.camMatrix, 0, 0, 0, -20f);
+        Matrix.translateM(shader.camMatrix, 0, 0, 0, -5f);
 
 
         if(!sceneObjects.isEmpty()) {
