@@ -26,6 +26,13 @@ public class Vector3D {
         return this;
     }
 
+    public Vector3D add(float x, float y, float z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
     public Vector3D subtract(Vector3D other) {
         this.x -= other.x;
         this.y -= other.y;

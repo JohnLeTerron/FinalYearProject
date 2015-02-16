@@ -18,16 +18,14 @@ public class InputManager implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
 
-    private float[] accelAxes;
-    private EventPool<MotionEvent> touchEvents;
+    public static final float[] accelAxes = new float[3];
+    public static final EventPool<MotionEvent> touchEvents = new EventPool<>();
 
     public InputManager(Activity activity) {
         sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
 
-        accelAxes = new float[3];
-        touchEvents = new EventPool<>();
     }
 
     @Override
@@ -49,15 +47,15 @@ public class InputManager implements SensorEventListener {
 
     }
 
-    public float getAccelX() {
+    public static float getAccelX() {
         return accelAxes[0];
     }
 
-    public float getAccelY() {
+    public static float getAccelY() {
         return accelAxes[1];
     }
 
-    public float getAccelZ() {
+    public static float getAccelZ() {
         return accelAxes[2];
     }
 

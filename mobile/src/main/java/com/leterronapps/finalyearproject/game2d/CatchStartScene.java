@@ -1,4 +1,4 @@
-package com.leterronapps.finalyearproject;
+package com.leterronapps.finalyearproject.game2d;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
