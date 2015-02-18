@@ -3,16 +3,16 @@ package com.leterronapps.finalyearproject.game2d;
 import android.util.Log;
 
 import com.leterronapps.hyperfour.game.HFGame;
-import com.leterronapps.hyperfour.game.Sprite;
+import com.leterronapps.hyperfour.game.game2d.Sprite;
 import com.leterronapps.hyperfour.io.InputManager;
-import com.leterronapps.hyperfour.util.Vector3D;
+import com.leterronapps.hyperfour.util.Vector2D;
 
 /**
  * Created by williamlea on 16/02/15.
  */
 public class Catcher extends Sprite {
 
-    public Catcher(Vector3D position, float width, float height) {
+    public Catcher(Vector2D position, float width, float height) {
         super(position, width, height);
     }
 
@@ -21,6 +21,6 @@ public class Catcher extends Sprite {
         super.update(deltaTime);
         float x = InputManager.getAccelX();
         position.x += x * deltaTime;
-        Log.d(HFGame.DEBUG_TAG, "Catcher pos - x: " + position.x + " y; " + position.y + " z: " + position.z);
+        Log.d(HFGame.DEBUG_TAG, "Catcher pos - x: " + position.x + " y; " + position.y + " z: " + 0f);
     }
 }

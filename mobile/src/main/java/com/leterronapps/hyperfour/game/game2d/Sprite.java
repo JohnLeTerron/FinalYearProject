@@ -1,17 +1,17 @@
-package com.leterronapps.hyperfour.game;
+package com.leterronapps.hyperfour.game.game2d;
 
 import com.leterronapps.hyperfour.graphics.Vertices;
-import com.leterronapps.hyperfour.util.Vector3D;
+import com.leterronapps.hyperfour.util.Vector2D;
 
 /**
  * Created by williamlea on 08/02/15.
  */
-public class Sprite extends SceneObject {
+public class Sprite extends SceneObject2D {
 
     private float width;
     private float height;
 
-    public Sprite(Vector3D position, float width, float height) {
+    public Sprite(Vector2D position, float width, float height) {
         super(position);
         this.width = width;
         this.height = height;

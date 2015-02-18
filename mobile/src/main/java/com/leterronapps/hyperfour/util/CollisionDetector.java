@@ -14,7 +14,7 @@ public class CollisionDetector {
         return distance <= sumRadii * sumRadii;
     }
 
-    public static boolean pointInCircle(Circle object, Vector3D point) {
+    public static boolean pointInCircle(Circle object, Vector2D point) {
         float distX = object.position.x - point.x;
         float distY = object.position.y - point.y;
         float distance = distX * distX + distY * distY;

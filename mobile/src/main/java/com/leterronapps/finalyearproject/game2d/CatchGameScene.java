@@ -2,7 +2,7 @@ package com.leterronapps.finalyearproject.game2d;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.graphics.HFScene;
-import com.leterronapps.hyperfour.util.Vector3D;
+import com.leterronapps.hyperfour.util.Vector2D;
 
 /**
  * Created by williamlea on 16/02/15.
@@ -16,7 +16,7 @@ public class CatchGameScene extends HFScene {
     @Override
     public void resume() {
         super.resume();
-        Catcher catcher = new Catcher(new Vector3D(0f,0f,0f), 0f, 0f);
+        Catcher catcher = new Catcher(new Vector2D(0f,0f), 0f, 0f);
         sceneObjects.add(catcher);
     }
 }
