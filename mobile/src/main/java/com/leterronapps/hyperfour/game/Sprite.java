@@ -20,7 +20,7 @@ public class Sprite extends SceneObject {
 
     @Override
     public void update(float deltaTime) {
-        // So far unused
+        super.update(deltaTime);
     }
 
     private void loadVertices() {

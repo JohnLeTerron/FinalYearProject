@@ -6,6 +6,7 @@ import android.opengl.Matrix;
 import com.leterronapps.hyperfour.graphics.HFShader;
 import com.leterronapps.hyperfour.graphics.HFTexture;
 import com.leterronapps.hyperfour.graphics.Vertices;
+import com.leterronapps.hyperfour.util.Collider;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -20,6 +21,7 @@ public abstract class SceneObject {
 
     protected Vertices vertices;
     protected HFTexture texture;
+    protected Collider collider;
 
     public SceneObject(Vector3D position) {
         this.position = position;
@@ -27,7 +29,13 @@ public abstract class SceneObject {
         scale = new Vector3D(1.0f, 1.0f, 1.0f);
     }
 
-    public abstract void update(float deltaTime);
+    public void update(float deltaTime) {
+        if(collider != null) {
+            collider.position = this.position;
+            collider.rotation = this.rotation;
+            collider.scale = this.scale;
+        }
+    }
 
     public void render(HFShader shader) {
         Matrix.setIdentityM(shader.modelViewMatrix, 0);
@@ -55,5 +63,9 @@ public abstract class SceneObject {
 
     public void setTexture(HFTexture texture) {
         this.texture = texture;
+    }
+
+    public void setCollider(Collider collider) {
+        this.collider = collider;
     }
 }

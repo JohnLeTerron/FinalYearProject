@@ -15,6 +15,7 @@ public class TestSprite extends Sprite {
 
     @Override
     public void update(float deltaTime) {
+        super.update(deltaTime);
         //position.add(new Vector3D(1.5f * deltaTime, 0, 0));
 
         //if(position.x > 20.0f) {
