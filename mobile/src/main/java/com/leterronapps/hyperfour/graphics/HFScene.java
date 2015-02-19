@@ -41,9 +41,12 @@ public abstract class HFScene {
     }
 
     public void render() {
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
         float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
+        Matrix.setIdentityM(shader.pMatrix, 0);
+        //Matrix.orthoM(shader.pMatrix, 0, 0f, game.getScreenWidth(), 0f, game.getScreenHeight(), -5f, 100);
         Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
 
         Matrix.setIdentityM(shader.camMatrix, 0);
@@ -57,7 +60,7 @@ public abstract class HFScene {
             }
         }
 
-
+        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
     }
 
     public void resume() {
