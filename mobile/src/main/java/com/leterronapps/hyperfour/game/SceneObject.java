@@ -1,4 +1,4 @@
-package com.leterronapps.hyperfour.game.game3d;
+package com.leterronapps.hyperfour.game;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
@@ -6,7 +6,7 @@ import android.opengl.Matrix;
 import com.leterronapps.hyperfour.graphics.HFShader;
 import com.leterronapps.hyperfour.graphics.HFTexture;
 import com.leterronapps.hyperfour.graphics.Vertices;
-import com.leterronapps.hyperfour.util.Collider3D;
+import com.leterronapps.hyperfour.util.Collider;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -20,7 +20,7 @@ public abstract class SceneObject {
 
     protected Vertices vertices;
     protected HFTexture texture;
-    protected Collider3D collider;
+    protected Collider collider;
 
     public SceneObject(Vector3D position) {
         this.position = position;
@@ -64,7 +64,7 @@ public abstract class SceneObject {
         this.texture = texture;
     }
 
-    public void setCollider(Collider3D collider) {
+    public void setCollider(Collider collider) {
         this.collider = collider;
     }
 }
