@@ -48,10 +48,10 @@ public abstract class HFScene {
         Matrix.setIdentityM(shader.pMatrix, 0);
         if(camera.getMode() == Camera.MODE_2D) {
             Matrix.orthoM(shader.pMatrix, 0,
-                    camera.position.x - (game.getScreenWidth() / 2),
-                    camera.position.x + (game.getScreenWidth() / 2),
-                    camera.position.y - (game.getScreenHeight() / 2),
-                    camera.position.y + (game.getScreenHeight() / 2), -1f, 1);
+                    camera.position.x - (game.getScreenWidth() * camera.zoom / 2),
+                    camera.position.x + (game.getScreenWidth() * camera.zoom / 2),
+                    camera.position.y - (game.getScreenHeight() * camera.zoom / 2),
+                    camera.position.y + (game.getScreenHeight() * camera.zoom / 2), -1f, 1);
         } else if(camera.getMode() == Camera.MODE_3D) {
             float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
             Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
@@ -75,7 +75,7 @@ public abstract class HFScene {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Resume");
         Log.d(HFGame.DEBUG_TAG, "HFScene - Screen Width: " + game.getScreenWidth() + " Screen Height: " + game.getScreenHeight());
         shader = new HFShader();
-        camera = new Camera(new Vector3D(0,0,0), Camera.MODE_2D);
+        camera = new Camera(game, new Vector3D(0,0,0), Camera.MODE_2D);
         sceneObjects = new Vector<>();
     }
 

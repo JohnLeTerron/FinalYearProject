@@ -40,6 +40,13 @@ public class Vector3D {
         return this;
     }
 
+    public Vector3D subtract(float x, float y, float z) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        return this;
+    }
+
     public Vector3D multiply(float scalar) {
         this.x *= scalar;
         this.y *= scalar;
