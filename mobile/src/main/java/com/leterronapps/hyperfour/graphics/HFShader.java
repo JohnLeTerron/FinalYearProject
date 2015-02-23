@@ -46,13 +46,13 @@ public class HFShader {
             "  vec3 v = normalize(-vPosition.xyz);" +
             "  vec3 r = reflect(-s, vTransNormal);" +
             "  float SdotN = max(dot(s,n), 0.0);" +
-            "  vec3 ambient = vec3(0.15, 0.15, 0.15);" +
+            "  vec3 ambient = vec3(1.0, 1.0, 1.0);" +
             "  vec3 diffuse = vec3(1.0, 1.0, 1.0) * SdotN;" +
             "  vec3 specular = vec3(0.0, 0.0, 0.0);" +
             "  if(SdotN > 0.0) {" +
             "       specular = vec3(0.3, 0.0, 0.0) * pow(max(dot(r, v), 0.0), 0.3);" +
             "  }" +
-            "  vec3 lightIntensity = ambient + diffuse + specular;" +
+            "  vec3 lightIntensity = ambient;" +
             "  gl_FragColor = vec4(textureColour.rgb * lightIntensity, textureColour.a);" +
             "}";
 

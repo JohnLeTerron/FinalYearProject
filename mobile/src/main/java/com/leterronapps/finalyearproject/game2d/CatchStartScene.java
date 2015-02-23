@@ -17,9 +17,9 @@ public class CatchStartScene extends HFScene {
     @Override
     public void resume() {
         super.resume();
-        Sprite logo = new Sprite(new Vector2D(0f, 0f), 1f, 1f);
+        Sprite logo = new Sprite(new Vector2D(0f, 400f), game.getScreenWidth() - 100, 420f);
         logo.setTexture(CatchAssets.catchLogo);
-        Sprite playButton = new Sprite(new Vector2D(0f, -3f), 3f, 3f);
+        Sprite playButton = new Sprite(new Vector2D(0f, -400f), game.getScreenWidth() - 150, 300f);
         playButton.setTexture(CatchAssets.playButton);
         sceneObjects.add(logo);
         sceneObjects.add(playButton);

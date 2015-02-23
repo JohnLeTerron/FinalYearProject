@@ -46,11 +46,15 @@ public abstract class HFScene {
 
         float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
         Matrix.setIdentityM(shader.pMatrix, 0);
-        //Matrix.orthoM(shader.pMatrix, 0, 0f, game.getScreenWidth(), 0f, game.getScreenHeight(), -5f, 100);
-        Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
+        Matrix.orthoM(shader.pMatrix, 0,
+                -(game.getScreenWidth() / 2),
+                (game.getScreenWidth() / 2),
+                -(game.getScreenHeight() / 2),
+                (game.getScreenHeight() / 2), -1f, 1);
+        //Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
 
         Matrix.setIdentityM(shader.camMatrix, 0);
-        Matrix.translateM(shader.camMatrix, 0, 0, 0, -5f);
+        Matrix.translateM(shader.camMatrix, 0, 0, 0, 0);
 
 
         if(!sceneObjects.isEmpty()) {
