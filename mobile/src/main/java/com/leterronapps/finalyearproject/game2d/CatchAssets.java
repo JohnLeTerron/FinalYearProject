@@ -15,6 +15,8 @@ public class CatchAssets implements AssetLoader {
     @Override
     public void load(HFGame game) {
         catchLogo = new HFTexture(game, "catch_logo.png");
+        catchLogo.load();
         playButton = new HFTexture(game, "catch_play.png");
+        playButton.load();
     }
 }

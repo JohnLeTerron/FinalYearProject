@@ -4,6 +4,7 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
 
+import com.leterronapps.hyperfour.game.Camera;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.util.Vector3D;
@@ -19,14 +20,13 @@ public abstract class HFScene {
 
     protected HFShader shader;
 
+    protected Camera camera;
     protected Vector<SceneObject> sceneObjects;
 
     private Vector3D lightPos = new Vector3D(10.0f, 10f, -3f);
 
     public HFScene(HFGame game) {
         this.game = game;
-        shader = new HFShader();
-        sceneObjects = new Vector<>();
     }
 
     public void update(float deltaTime) {
@@ -44,17 +44,21 @@ public abstract class HFScene {
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
-        float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
+
         Matrix.setIdentityM(shader.pMatrix, 0);
-        Matrix.orthoM(shader.pMatrix, 0,
-                -(game.getScreenWidth() / 2),
-                (game.getScreenWidth() / 2),
-                -(game.getScreenHeight() / 2),
-                (game.getScreenHeight() / 2), -1f, 1);
-        //Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
+        if(camera.getMode() == Camera.MODE_2D) {
+            Matrix.orthoM(shader.pMatrix, 0,
+                    camera.position.x - (game.getScreenWidth() / 2),
+                    camera.position.x + (game.getScreenWidth() / 2),
+                    camera.position.y - (game.getScreenHeight() / 2),
+                    camera.position.y + (game.getScreenHeight() / 2), -1f, 1);
+        } else if(camera.getMode() == Camera.MODE_3D) {
+            float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
+            Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
+        }
 
         Matrix.setIdentityM(shader.camMatrix, 0);
-        Matrix.translateM(shader.camMatrix, 0, 0, 0, 0);
+        Matrix.translateM(shader.camMatrix, 0, camera.position.x, camera.position.y, camera.position.z);
 
 
         if(!sceneObjects.isEmpty()) {
@@ -70,6 +74,9 @@ public abstract class HFScene {
     public void resume() {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Resume");
         Log.d(HFGame.DEBUG_TAG, "HFScene - Screen Width: " + game.getScreenWidth() + " Screen Height: " + game.getScreenHeight());
+        shader = new HFShader();
+        camera = new Camera(new Vector3D(0,0,0), Camera.MODE_2D);
+        sceneObjects = new Vector<>();
     }
 
     public void pause() {

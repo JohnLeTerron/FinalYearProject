@@ -26,10 +26,10 @@ public class HFTexture {
     public HFTexture(HFGame game, String textureFile) {
         this.game = game;
         this.textureFile = textureFile;
-        load();
+        //load();
     }
 
-    private void load() {
+    public void load() {
         int[] texIds = new int[1];
         GLES20.glGenTextures(1, texIds, 0);
         textureId = texIds[0];
@@ -49,12 +49,6 @@ public class HFTexture {
         } catch(IOException ex) {
 
         }
-    }
-
-    public void reload() {
-        load();
-        bind();
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
     }
 
     public void bind() {

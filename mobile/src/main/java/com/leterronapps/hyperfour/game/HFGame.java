@@ -120,10 +120,6 @@ public abstract class HFGame extends Activity implements Renderer {
             if (currentState == GameState.Init) {
                 currentScene = getStartScene();
             }
-            coreAssets.load(this);
-            if(gameAssets != null) {
-                gameAssets.load(this);
-            }
         }
 
     }
@@ -137,6 +133,10 @@ public abstract class HFGame extends Activity implements Renderer {
         Log.d(DEBUG_TAG, "HFGame - Screen Width: " + screenWidth + " Screen Height: " + screenHeight);
         synchronized(stateLock) {
             currentState = GameState.Running;
+            coreAssets.load(this);
+            if(gameAssets != null) {
+                gameAssets.load(this);
+            }
             currentScene.resume();
             lastFrameTime = System.nanoTime();
         }
