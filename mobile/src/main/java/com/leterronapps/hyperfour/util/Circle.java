@@ -5,9 +5,18 @@ package com.leterronapps.hyperfour.util;
  */
 public class Circle extends Collider {
 
-    public float radius;
+    private float radius;
 
-    public Circle(Vector3D position, Vector3D rotation, Vector3D scale) {
-        super(position, rotation, scale);
+    public Circle(Vector3D position, float radius) {
+        super(position);
+        this.radius = radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public float getRadius() {
+        return radius;
     }
 }

@@ -9,9 +9,9 @@ public abstract class Collider {
     public Vector3D rotation;
     public Vector3D scale;
 
-    public Collider(Vector3D position, Vector3D rotation, Vector3D scale) {
+    public Collider(Vector3D position) {
         this.position = position;
-        this.rotation = rotation;
-        this.scale = scale;
+        this.rotation = new Vector3D();
+        this.scale = new Vector3D(1.0f, 1.0f, 1.0f);
     }
 }

@@ -17,8 +17,16 @@ public class EventPool<T> {
         pool.add(event);
     }
 
+    public T get(int index) {
+        return pool.get(index);
+    }
+
     public void clear() {
         pool.clear();
+    }
+
+    public int size() {
+        return pool.size();
     }
 
     public Vector<T> getEvents() {

@@ -67,4 +67,8 @@ public abstract class SceneObject {
     public void setCollider(Collider collider) {
         this.collider = collider;
     }
+
+    public Collider getCollider() {
+        return collider;
+    }
 }

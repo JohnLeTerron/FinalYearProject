@@ -1,14 +1,21 @@
 package com.leterronapps.finalyearproject.game2d;
 
+import android.view.MotionEvent;
+
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.io.InputManager;
+import com.leterronapps.hyperfour.util.CollisionDetector;
+import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
  * Created by williamlea on 12/02/15.
  */
 public class CatchStartScene extends HFScene {
+
+    private Sprite playButton;
 
     public CatchStartScene(HFGame game) {
         super(game);
@@ -17,11 +24,30 @@ public class CatchStartScene extends HFScene {
     @Override
     public void resume() {
         super.resume();
-        Sprite logo = new Sprite(new Vector3D(0f, 400f, 0), game.getScreenWidth() - 100, 420f);
+        Sprite logo = new Sprite(new Vector3D(0f, 150f, 0), camera.getFrustumWidth() - 25, 100f);
         logo.setTexture(CatchAssets.catchLogo);
-        Sprite playButton = new Sprite(new Vector3D(0f, -400f, 0), game.getScreenWidth() - 150, 300f);
+        playButton = new Sprite(new Vector3D(0f, -120f, 0), camera.getFrustumWidth() - 75, 100f);
+        playButton.setCollider(new Rectangle(playButton.position, camera.getFrustumWidth() - 75, 100f));
         playButton.setTexture(CatchAssets.playButton);
         sceneObjects.add(logo);
         sceneObjects.add(playButton);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+
+        Vector3D touchPos;
+
+        for(int i = 0; i < InputManager.touchEvents.size(); i++) {
+            MotionEvent event = InputManager.touchEvents.get(i);
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                touchPos = new Vector3D(event.getX(), event.getY(), 0f);
+                camera.screenToWorldPoint2D(touchPos);
+                if(CollisionDetector.pointInRectangle((Rectangle)playButton.getCollider(), touchPos)) {
+                    game.setScene(new CatchGameScene(game));
+                }
+            }
+        }
     }
 }
