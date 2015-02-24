@@ -1,5 +1,9 @@
 package com.leterronapps.hyperfour.util;
 
+import com.leterronapps.hyperfour.game.SceneObject;
+
+import java.util.Vector;
+
 /**
  * Created by williamlea on 18/02/15.
  */
@@ -27,7 +31,7 @@ public class CollisionDetector {
         return distance < object.getRadius() * object.getRadius();
     }
 
-    public static boolean RectanglesColliding(Rectangle object, Rectangle other) {
+    public static boolean rectanglesColliding(Rectangle object, Rectangle other) {
         Vector2D lowerLeft1 = new Vector2D(object.position.x - object.getWidth() /2, object.position.y - object.getHeight() /2);
         Vector2D lowerLeft2 = new Vector2D(other.position.x - other.getWidth() /2, other.position.y - other.getHeight() /2);
 

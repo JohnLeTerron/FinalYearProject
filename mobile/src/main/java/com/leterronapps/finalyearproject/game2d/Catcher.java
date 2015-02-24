@@ -1,8 +1,5 @@
 package com.leterronapps.finalyearproject.game2d;
 
-import android.util.Log;
-
-import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.Vector3D;
@@ -19,8 +16,7 @@ public class Catcher extends Sprite {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        float x = InputManager.getAccelX();
-        position.x += x * deltaTime;
-        Log.d(HFGame.DEBUG_TAG, "Catcher pos - x: " + position.x + " y; " + position.y + " z: " + 0f);
+        float x = -InputManager.getAccelX();
+        position.x += x * 10f * deltaTime;
     }
 }

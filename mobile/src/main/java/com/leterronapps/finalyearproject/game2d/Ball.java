@@ -1,6 +1,11 @@
 package com.leterronapps.finalyearproject.game2d;
 
+import android.util.Log;
+
+import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.game.Sprite;
+import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -8,15 +13,25 @@ import com.leterronapps.hyperfour.util.Vector3D;
  */
 public class Ball extends Sprite {
 
-    private float movementSpeed = 3f;
+    private float movementSpeed = 20f;
 
     public Ball(Vector3D position, float width, float height) {
         super(position, width, height);
+        setCollider(new Rectangle(position, width, height));
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
         position.y -= movementSpeed * deltaTime;
+    }
+
+    @Override
+    public void onCollide(SceneObject other) {
+        super.onCollide(other);
+
+        if(other instanceof Catcher) {
+            Log.d(HFGame.DEBUG_TAG, "Ball collided with Catcher");
+        }
     }
 }

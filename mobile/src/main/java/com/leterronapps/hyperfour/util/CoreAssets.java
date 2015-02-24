@@ -21,5 +21,6 @@ public class CoreAssets implements AssetLoader {
         bgMusic = game.getSoundManager().newMusicClip("pitch_black.mp3");
         tickSound = game.getSoundManager().newSoundClip("tick.mp3");
         scifiPanel = new HFTexture(game, "scifi_final.png");
+        scifiPanel.load();
     }
 }

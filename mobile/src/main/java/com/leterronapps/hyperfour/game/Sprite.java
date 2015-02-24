@@ -23,6 +23,11 @@ public class Sprite extends SceneObject {
         super.update(deltaTime);
     }
 
+    @Override
+    public void onCollide(SceneObject other) {
+        super.onCollide(other);
+    }
+
     private void loadVertices() {
         float[] verts = {
                 -(width / 2f), (height / 2f), 0f,  // index 0
@@ -44,7 +49,7 @@ public class Sprite extends SceneObject {
         };
 
         short[] indices = {
-                0,1,2,0,2,3
+                0,1,2,2,3,0
         };
         vertices = new Vertices(verts, norms, texCoords, indices);
     }

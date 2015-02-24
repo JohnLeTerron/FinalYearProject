@@ -50,7 +50,6 @@ public abstract class SceneObject {
         GLES20.glUniformMatrix4fv(shader.getHandle("mvMatrix"), 0, false, shader.modelViewMatrix, 0);
         GLES20.glUniformMatrix4fv(shader.getHandle("normalMatrix"), 0, false, shader.normalMatrix, 0);
 
-
         vertices.bind(shader);
         if(texture != null) {
             texture.activate(shader, GLES20.GL_TEXTURE0);
@@ -58,6 +57,10 @@ public abstract class SceneObject {
         vertices.draw();
         vertices.unbind(shader);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+    }
+
+    public void onCollide(SceneObject other) {
+
     }
 
     public void setTexture(HFTexture texture) {
