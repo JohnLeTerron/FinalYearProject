@@ -1,9 +1,5 @@
 package com.leterronapps.hyperfour.util;
 
-import com.leterronapps.hyperfour.game.SceneObject;
-
-import java.util.Vector;
-
 /**
  * Created by williamlea on 18/02/15.
  */

@@ -7,8 +7,6 @@ import android.util.Log;
 import com.leterronapps.hyperfour.game.Camera;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
-import com.leterronapps.hyperfour.util.CollisionDetector;
-import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 import java.util.Vector;

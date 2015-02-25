@@ -2,6 +2,7 @@ package com.leterronapps.hyperfour.game;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import com.leterronapps.hyperfour.graphics.HFShader;
 import com.leterronapps.hyperfour.graphics.HFTexture;
@@ -60,7 +61,7 @@ public abstract class SceneObject {
     }
 
     public void onCollide(SceneObject other) {
-
+        Log.d(HFGame.DEBUG_TAG, "Collision Detected");
     }
 
     public void setTexture(HFTexture texture) {
