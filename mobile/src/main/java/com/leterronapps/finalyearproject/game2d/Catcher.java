@@ -2,6 +2,7 @@ package com.leterronapps.finalyearproject.game2d;
 
 import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.io.InputManager;
+import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -11,6 +12,7 @@ public class Catcher extends Sprite {
 
     public Catcher(Vector3D position, float width, float height) {
         super(position, width, height);
+        setCollider(new Rectangle(position, width, height));
     }
 
     @Override

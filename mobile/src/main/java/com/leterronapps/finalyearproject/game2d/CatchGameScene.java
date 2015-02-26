@@ -4,7 +4,9 @@ import android.util.Log;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.util.CollisionDetector;
 import com.leterronapps.hyperfour.util.CoreAssets;
+import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -35,7 +37,9 @@ public class CatchGameScene extends HFScene {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        Log.d(HFGame.DEBUG_TAG, "Ball pos Y: " + ball.position.y);
-        Log.d(HFGame.DEBUG_TAG, "Catcher pos X: "+ catcher.position.x);
+
+        if(CollisionDetector.rectanglesColliding((Rectangle)ball.getCollider(), (Rectangle)catcher.getCollider())) {
+            Log.d(HFGame.DEBUG_TAG, "Ball collided");
+        }
     }
 }
