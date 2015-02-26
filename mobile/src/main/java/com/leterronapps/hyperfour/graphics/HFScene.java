@@ -34,8 +34,8 @@ public abstract class HFScene {
         GLES20.glClearColor(0f, 0f, 0f, 1.0f);
 
         if(!sceneObjects.isEmpty()) {
-            for(SceneObject sceneObject : sceneObjects) {
-                sceneObject.update(deltaTime);
+            for(int i = 0; i < sceneObjects.size(); i++) {
+                sceneObjects.get(i).update(deltaTime);
             }
         }
     }
@@ -86,5 +86,9 @@ public abstract class HFScene {
 
     public void destroy() {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Destroy");
+    }
+
+    public Vector<SceneObject> getSceneObjects() {
+        return sceneObjects;
     }
 }

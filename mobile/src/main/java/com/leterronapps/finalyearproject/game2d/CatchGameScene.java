@@ -14,8 +14,9 @@ import com.leterronapps.hyperfour.util.Vector3D;
  */
 public class CatchGameScene extends HFScene {
 
-    Ball ball;
-    Catcher catcher;
+    private Ball ball;
+    private Catcher catcher;
+    private Spawner spawner;
 
     public CatchGameScene(HFGame game) {
         super(game);
@@ -30,8 +31,11 @@ public class CatchGameScene extends HFScene {
         catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 100, 0f), 50f, 50f);
         catcher.setTexture(CoreAssets.scifiPanel);
 
+        spawner = new Spawner(this, new Vector3D(0, 250, 0));
+
         sceneObjects.add(catcher);
         sceneObjects.add(ball);
+        sceneObjects.add(spawner);
     }
 
     @Override

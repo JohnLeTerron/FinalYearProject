@@ -1,0 +1,43 @@
+package com.leterronapps.finalyearproject.game2d;
+
+import android.util.Log;
+
+import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.game.SceneObject;
+import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.util.CoreAssets;
+import com.leterronapps.hyperfour.util.Vector3D;
+
+/**
+ * Created by williamlea on 26/02/15.
+ */
+public class Spawner extends SceneObject {
+
+    private float spawnTime = 3.0f;
+    private float spawnTick;
+
+    public Spawner(Vector3D position) {
+        super(position);
+    }
+
+    public Spawner(HFScene scene, Vector3D position) {
+        super(scene, position);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        spawnTick += deltaTime;
+        if(spawnTick > spawnTime) {
+            spawnTick = 0f;
+            spawnBall();
+        }
+    }
+
+    private void spawnBall() {
+        Log.d(HFGame.DEBUG_TAG, "Ball Spawned");
+        Ball ball = new Ball(new Vector3D(position.x, position.y, position.z), 20, 20);
+        ball.setTexture(CoreAssets.scifiPanel);
+        scene.getSceneObjects().add(ball);
+    }
+}

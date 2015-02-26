@@ -4,6 +4,7 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
 
+import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.graphics.HFShader;
 import com.leterronapps.hyperfour.graphics.HFTexture;
 import com.leterronapps.hyperfour.graphics.Vertices;
@@ -23,7 +24,16 @@ public abstract class SceneObject {
     protected HFTexture texture;
     protected Collider collider;
 
+    protected HFScene scene;
+
     public SceneObject(Vector3D position) {
+        this.position = position;
+        rotation = new Vector3D();
+        scale = new Vector3D(1.0f, 1.0f, 1.0f);
+    }
+
+    public SceneObject(HFScene scene, Vector3D position) {
+        this.scene = scene;
         this.position = position;
         rotation = new Vector3D();
         scale = new Vector3D(1.0f, 1.0f, 1.0f);
@@ -51,13 +61,15 @@ public abstract class SceneObject {
         GLES20.glUniformMatrix4fv(shader.getHandle("mvMatrix"), 0, false, shader.modelViewMatrix, 0);
         GLES20.glUniformMatrix4fv(shader.getHandle("normalMatrix"), 0, false, shader.normalMatrix, 0);
 
-        vertices.bind(shader);
-        if(texture != null) {
-            texture.activate(shader, GLES20.GL_TEXTURE0);
+        if(vertices != null) {
+            vertices.bind(shader);
+            if (texture != null) {
+                texture.activate(shader, GLES20.GL_TEXTURE0);
+            }
+            vertices.draw();
+            vertices.unbind(shader);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
         }
-        vertices.draw();
-        vertices.unbind(shader);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
     }
 
     public void onCollide(SceneObject other) {

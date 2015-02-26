@@ -1,5 +1,6 @@
 package com.leterronapps.hyperfour.game;
 
+import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -13,6 +14,13 @@ public class Sprite extends SceneObject {
 
     public Sprite(Vector3D position, float width, float height) {
         super(position);
+        this.width = width;
+        this.height = height;
+        loadVertices();
+    }
+
+    public Sprite(HFScene scene, Vector3D position, float width, float height) {
+        super(scene, position);
         this.width = width;
         this.height = height;
         loadVertices();
