@@ -42,10 +42,10 @@ public class Sprite extends SceneObject {
                 0.0f, 0.0f, -1.0f
         };
         float[] texCoords = {
-                0f, 1f,
                 0f, 0f,
-                1f, 0f,
-                1f, 1f
+                0f, 1f,
+                1f, 1f,
+                1f, 0f
         };
 
         short[] indices = {
