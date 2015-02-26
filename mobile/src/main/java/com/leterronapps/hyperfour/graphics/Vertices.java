@@ -106,7 +106,7 @@ public class Vertices {
         GLES20.glVertexAttribPointer(
                 texCoordHandle, TEXTURE_COORD_SIZE,
                 GLES20.GL_FLOAT, false,
-                TEXTURE_COORD_STRIDE, vertexBuffer);
+                TEXTURE_COORD_STRIDE, texCoordBuffer);
     }
 
     public void unbind(HFShader shader) {
