@@ -19,6 +19,6 @@ public class Catcher extends Sprite {
     public void update(float deltaTime) {
         super.update(deltaTime);
         float x = -InputManager.getAccelX();
-        position.x += x * 10f * deltaTime;
+        position.x += x * 20f * deltaTime;
     }
 }

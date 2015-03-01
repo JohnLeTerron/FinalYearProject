@@ -31,7 +31,7 @@ public abstract class HFScene {
 
     public void update(float deltaTime) {
         GLES20.glUseProgram(shader.getProgram());
-        GLES20.glClearColor(0f, 0f, 0f, 1.0f);
+        GLES20.glClearColor(camera.getBackground().x, camera.getBackground().y, camera.getBackground().z, 1.0f);
 
         if(!sceneObjects.isEmpty()) {
             for(int i = 0; i < sceneObjects.size(); i++) {

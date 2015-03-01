@@ -8,13 +8,17 @@ import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
+import java.util.Random;
+
 /**
  * Created by williamlea on 26/02/15.
  */
 public class Spawner extends SceneObject {
 
-    private float spawnTime = 3.0f;
+    private float spawnTime = 5.0f;
     private float spawnTick;
+
+    private Random random = new Random();
 
     public Spawner(Vector3D position) {
         super(position);
@@ -27,6 +31,7 @@ public class Spawner extends SceneObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        position.x = (random.nextFloat() - 0.5f) * 320;
         spawnTick += deltaTime;
         if(spawnTick > spawnTime) {
             spawnTick = 0f;
