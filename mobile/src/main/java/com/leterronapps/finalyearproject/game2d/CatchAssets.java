@@ -14,6 +14,7 @@ public class CatchAssets implements AssetLoader {
     public static HFTexture ball_bb;
     public static HFTexture ball_wg;
     public static HFTexture background;
+    public static HFTexture catcher;
 
     @Override
     public void load(HFGame game) {
@@ -27,5 +28,7 @@ public class CatchAssets implements AssetLoader {
         ball_wg.load();
         background = new HFTexture(game, "game_background.png");
         background.load();
+        catcher = new HFTexture(game, "catcher.png");
+        catcher.load();
     }
 }

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
-import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 import java.util.Random;
@@ -42,7 +41,7 @@ public class Spawner extends SceneObject {
     private void spawnBall() {
         Log.d(HFGame.DEBUG_TAG, "Ball Spawned");
         Ball ball = new Ball(new Vector3D(position.x, position.y, position.z), 30, 30);
-        ball.setTexture(CoreAssets.scifiPanel);
+        ball.setTexture(CatchAssets.ball_wg);
         scene.getSceneObjects().add(ball);
     }
 }

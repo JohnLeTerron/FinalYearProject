@@ -12,7 +12,7 @@ public class Catcher extends Sprite {
 
     public Catcher(Vector3D position, float width, float height) {
         super(position, width, height);
-        setCollider(new Rectangle(position, width, height));
+        setCollider(new Rectangle(position, width, height - 15));
     }
 
     @Override

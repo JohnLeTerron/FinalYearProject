@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
+import android.util.Log;
 
 import com.leterronapps.hyperfour.game.HFGame;
 
@@ -47,7 +48,7 @@ public class HFTexture {
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
             bitmap.recycle();
         } catch(IOException ex) {
-
+            Log.d(HFGame.DEBUG_TAG, "Texture: " + textureFile + " not loaded!");
         }
     }
 
