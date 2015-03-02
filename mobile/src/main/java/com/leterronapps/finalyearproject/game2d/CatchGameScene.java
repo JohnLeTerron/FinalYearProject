@@ -3,6 +3,7 @@ package com.leterronapps.finalyearproject.game2d;
 import android.util.Log;
 
 import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.util.CollisionDetector;
 import com.leterronapps.hyperfour.util.CoreAssets;
@@ -26,14 +27,17 @@ public class CatchGameScene extends HFScene {
     @Override
     public void resume() {
         super.resume();
+        Sprite background = new Sprite(new Vector3D(0,0,0), camera.getFrustumWidth(), camera.getFrustumHeight());
+        background.setTexture(CatchAssets.background);
 
-        catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 100, 0f), 50f, 50f);
+        catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 65, 0f), 50f, 50f);
         catcher.setTexture(CoreAssets.scifiPanel);
 
         spawner = new Spawner(this, new Vector3D(0, 250, 0));
 
         sceneObjects.add(catcher);
         sceneObjects.add(spawner);
+        //sceneObjects.add(background);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class Camera extends SceneObject {
         this.game = game;
         this.frustumWidth = frustumWidth;
         this.frustumHeight = frustumHeight;
-        background = new Vector3D(0.2f, 0.2f, 0.2f);
+        background = new Vector3D(0f, 0f, 0f);
     }
 
     public void screenToWorldPoint2D(Vector3D touchPoint) {

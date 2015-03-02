@@ -41,7 +41,7 @@ public class Spawner extends SceneObject {
 
     private void spawnBall() {
         Log.d(HFGame.DEBUG_TAG, "Ball Spawned");
-        Ball ball = new Ball(new Vector3D(position.x, position.y, position.z), 20, 20);
+        Ball ball = new Ball(new Vector3D(position.x, position.y, position.z), 30, 30);
         ball.setTexture(CoreAssets.scifiPanel);
         scene.getSceneObjects().add(ball);
     }
