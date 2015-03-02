@@ -26,17 +26,17 @@ public class CatchGameScene extends HFScene {
     @Override
     public void resume() {
         super.resume();
-        Sprite background = new Sprite(new Vector3D(0,0,-1), camera.getFrustumWidth(), camera.getFrustumHeight());
+        Sprite background = new Sprite(new Vector3D(0,0,0), camera.getFrustumWidth(), camera.getFrustumHeight());
         background.setTexture(CatchAssets.background);
 
-        catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 65, 1), 50f, 50f);
+        catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 65, 0), 65f, 65f);
         catcher.setTexture(CatchAssets.catcher);
 
         spawner = new Spawner(this, new Vector3D(0, 250, 0));
 
+        sceneObjects.add(background);
         sceneObjects.add(catcher);
         sceneObjects.add(spawner);
-        sceneObjects.add(background);
     }
 
     @Override

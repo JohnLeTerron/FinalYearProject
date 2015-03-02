@@ -41,18 +41,17 @@ public abstract class HFScene {
     }
 
     public void render() {
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-
-
         Matrix.setIdentityM(shader.pMatrix, 0);
         if(camera.getMode() == Camera.MODE_2D) {
+            GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
             Matrix.orthoM(shader.pMatrix, 0,
                     camera.position.x - (camera.getFrustumWidth() * camera.zoom / 2),
                     camera.position.x + (camera.getFrustumWidth() * camera.zoom / 2),
                     camera.position.y - (camera.getFrustumHeight() * camera.zoom / 2),
                     camera.position.y + (camera.getFrustumHeight() * camera.zoom / 2), -1f, 1);
         } else if(camera.getMode() == Camera.MODE_3D) {
+            GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+            GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
             float ratio = (float) game.getScreenWidth() / game.getScreenHeight();
             Matrix.perspectiveM(shader.pMatrix, 0, 60.0f, ratio, 0.1f, 100.0f);
         }
@@ -68,7 +67,9 @@ public abstract class HFScene {
             }
         }
 
-        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+        if(camera.getMode() == Camera.MODE_3D) {
+            GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+        }
     }
 
     public void resume() {

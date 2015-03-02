@@ -13,7 +13,7 @@ import com.leterronapps.hyperfour.util.Vector3D;
  */
 public class Ball extends Sprite {
 
-    private float movementSpeed = 30f;
+    private float movementSpeed = 35f;
 
     public Ball(Vector3D position, float width, float height) {
         super(position, width, height);

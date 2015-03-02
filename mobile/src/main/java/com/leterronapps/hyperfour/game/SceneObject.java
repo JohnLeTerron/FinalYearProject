@@ -63,16 +63,16 @@ public abstract class SceneObject {
 
         if(vertices != null) {
             //GLES20.glDisable(GLES20.GL_DEPTH_TEST);
-            //GLES20.glEnable(GLES20.GL_BLEND);
-            //GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+            GLES20.glEnable(GLES20.GL_BLEND);
+            GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
             vertices.bind(shader);
             if (texture != null) {
                 texture.activate(shader, GLES20.GL_TEXTURE0);
             }
             vertices.draw();
             vertices.unbind(shader);
-            //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
-            //GLES20.glDisable(GLES20.GL_BLEND);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+            GLES20.glDisable(GLES20.GL_BLEND);
             //GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         }
     }
