@@ -1,5 +1,7 @@
 package com.leterronapps.finalyearproject.game2d;
 
+import android.util.Log;
+
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.util.CollisionDetector;
@@ -14,6 +16,8 @@ public class CatchGameScene extends HFScene {
 
     private Catcher catcher;
     private Spawner spawner;
+
+    private GameController controller = new GameController();
 
     public CatchGameScene(HFGame game) {
         super(game);
@@ -40,6 +44,8 @@ public class CatchGameScene extends HFScene {
            if(sceneObjects.get(i) instanceof Ball) {
                if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())){
                    sceneObjects.get(i).onCollide(catcher);
+                   controller.incrementScore();
+                   Log.d(HFGame.DEBUG_TAG, "Player Score: " + controller.getPlayerScore());
                    sceneObjects.remove(i);
                }
            }
