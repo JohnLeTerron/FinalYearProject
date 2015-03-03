@@ -76,7 +76,6 @@ public abstract class HFScene {
 
     public void resume() {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Resume");
-        Log.d(HFGame.DEBUG_TAG, "HFScene - Screen Width: " + game.getScreenWidth() + " Screen Height: " + game.getScreenHeight());
         shader = new HFShader();
         camera = new Camera(game, new Vector3D(0,0,0), Camera.MODE_2D, 360, 480);
         sceneObjects = new Vector<>();
