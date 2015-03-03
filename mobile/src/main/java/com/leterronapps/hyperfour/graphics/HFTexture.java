@@ -68,4 +68,12 @@ public class HFTexture {
         GLES20.glDeleteTextures(1, textureIds, 0);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
 }

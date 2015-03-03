@@ -7,6 +7,7 @@ import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.CollisionDetector;
+import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -24,11 +25,15 @@ public class CatchStartScene extends HFScene {
     @Override
     public void resume() {
         super.resume();
+        Sprite background = new Sprite(new Vector3D(0,0,0), camera.getFrustumWidth(), camera.getFrustumHeight());
+        background.setTexture(CatchAssets.background);
         Sprite logo = new Sprite(new Vector3D(0f, 150f, 0), camera.getFrustumWidth() - 25, 100f);
         logo.setTexture(CatchAssets.catchLogo);
         playButton = new Sprite(new Vector3D(0f, -120f, 0), camera.getFrustumWidth() - 75, 100f);
         playButton.setCollider(new Rectangle(playButton.position, camera.getFrustumWidth() - 75, 100f));
         playButton.setTexture(CatchAssets.playButton);
+        playButton.setSubTexture(CatchAssets.playSubTex);
+        sceneObjects.add(background);
         sceneObjects.add(logo);
         sceneObjects.add(playButton);
     }
@@ -45,6 +50,7 @@ public class CatchStartScene extends HFScene {
                 touchPos = new Vector3D(event.getX(), event.getY(), 0f);
                 camera.screenToWorldPoint2D(touchPos);
                 if(CollisionDetector.pointInRectangle((Rectangle)playButton.getCollider(), touchPos)) {
+                    game.getSoundManager().playSound(CoreAssets.tickSound);
                     game.setScene(new CatchGameScene(game));
                 }
             }
