@@ -95,4 +95,12 @@ public class Sprite extends SceneObject {
         this.subTexture = subTexture;
         loadVertices(subTexture);
     }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
 }

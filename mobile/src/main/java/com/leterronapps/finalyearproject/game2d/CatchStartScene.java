@@ -29,7 +29,7 @@ public class CatchStartScene extends HFScene {
         background.setTexture(CatchAssets.background);
         Sprite logo = new Sprite(new Vector3D(0f, 150f, 0), camera.getFrustumWidth() - 25, 100f);
         logo.setTexture(CatchAssets.catchLogo);
-        playButton = new Sprite(new Vector3D(0f, -120f, 0), camera.getFrustumWidth() - 75, 100f);
+        playButton = new Sprite(new Vector3D(0f, -130f, 0), camera.getFrustumWidth() - 75, 100f);
         playButton.setCollider(new Rectangle(playButton.position, camera.getFrustumWidth() - 75, 100f));
         playButton.setTexture(CatchAssets.playButton);
         playButton.setSubTexture(CatchAssets.playSubTex);

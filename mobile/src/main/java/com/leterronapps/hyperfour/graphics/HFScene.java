@@ -25,6 +25,8 @@ public abstract class HFScene {
 
     private Vector3D lightPos = new Vector3D(10.0f, 10f, -3f);
 
+    protected boolean playing = true;
+
     public HFScene(HFGame game) {
         this.game = game;
     }
@@ -33,7 +35,7 @@ public abstract class HFScene {
         GLES20.glUseProgram(shader.getProgram());
         GLES20.glClearColor(camera.getBackground().x, camera.getBackground().y, camera.getBackground().z, 1.0f);
 
-        if(!sceneObjects.isEmpty()) {
+        if(!sceneObjects.isEmpty() && playing) {
             for(int i = 0; i < sceneObjects.size(); i++) {
                 sceneObjects.get(i).update(deltaTime);
             }

@@ -1,10 +1,12 @@
 package com.leterronapps.finalyearproject.game2d;
 
 import android.util.Log;
+import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.CollisionDetector;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Rectangle;
@@ -20,8 +22,6 @@ public class CatchGameScene extends HFScene {
     private Sprite pauseButton;
 
     private GameController controller = new GameController();
-
-    private boolean playing = true;
 
     public CatchGameScene(HFGame game) {
         super(game);
@@ -41,6 +41,7 @@ public class CatchGameScene extends HFScene {
 
         // HUD Elements
         pauseButton = new Sprite(new Vector3D(-(camera.getFrustumWidth() /2) + 23 ,camera.getFrustumHeight() /2 - 21 ,0), 40, 40);
+        pauseButton.setCollider(new Rectangle(pauseButton.position, pauseButton.getWidth(), pauseButton.getHeight()));
         pauseButton.setTexture(CatchAssets.pauseHudButton);
 
         sceneObjects.add(background);
@@ -74,10 +75,37 @@ public class CatchGameScene extends HFScene {
                 }
             }
         }
+        Vector3D touchPos;
+
+        for(int i = 0; i < InputManager.touchEvents.size(); i++) {
+            MotionEvent event = InputManager.touchEvents.get(i);
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                touchPos = new Vector3D(event.getX(), event.getY(), 0f);
+                camera.screenToWorldPoint2D(touchPos);
+                if(CollisionDetector.pointInRectangle((Rectangle)pauseButton.getCollider(), touchPos)) {
+                    game.getSoundManager().playSound(CoreAssets.tickSound);
+                    pauseButton.setTexture(CatchAssets.resumeHudButton);
+                    playing = false;
+                }
+            }
+        }
     }
 
     private void updatePaused() {
+        Vector3D touchPos;
 
+        for(int i = 0; i < InputManager.touchEvents.size(); i++) {
+            MotionEvent event = InputManager.touchEvents.get(i);
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                touchPos = new Vector3D(event.getX(), event.getY(), 0f);
+                camera.screenToWorldPoint2D(touchPos);
+                if(CollisionDetector.pointInRectangle((Rectangle)pauseButton.getCollider(), touchPos)) {
+                    game.getSoundManager().playSound(CoreAssets.tickSound);
+                    pauseButton.setTexture(CatchAssets.pauseHudButton);
+                    playing = true;
+                }
+            }
+        }
     }
 
 }
