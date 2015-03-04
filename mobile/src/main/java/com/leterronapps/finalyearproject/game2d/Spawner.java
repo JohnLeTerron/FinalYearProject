@@ -35,10 +35,12 @@ public class Spawner extends SceneObject {
         spawnTick += deltaTime;
         if(spawnTick > spawnTime) {
             spawnTick = 0f;
-            if(clockSpawn < 0.85f) {
+            if(clockSpawn < 0.75f) {
                 spawnBall();
-            } else {
+            } else if(clockSpawn >= 0.75f && clockSpawn < 0.85f) {
                 spawnClock();
+            } else {
+                spawnBomb();
             }
         }
     }
@@ -56,9 +58,16 @@ public class Spawner extends SceneObject {
     }
 
     private void spawnClock() {
-        Log.d(HFGame.DEBUG_TAG, "Clock Spawned");
+        Log.d(HFGame.DEBUG_TAG, "Stopwatch Spawned");
         Stopwatch stopwatch = new Stopwatch(scene, new Vector3D(position.x, position.y, position.z), 45, 45);
 
         scene.getSceneObjects().add(scene.getSceneObjects().size() - 2, stopwatch);
+    }
+
+    private void spawnBomb() {
+        Log.d(HFGame.DEBUG_TAG, "Bomb Spawned");
+        Bomb bomb = new Bomb(scene, new Vector3D(position.x, position.y, position.z), 45, 45);
+
+        scene.getSceneObjects().add(scene.getSceneObjects().size() - 2, bomb);
     }
 }

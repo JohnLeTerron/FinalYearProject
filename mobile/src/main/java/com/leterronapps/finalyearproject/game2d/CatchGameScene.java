@@ -59,7 +59,7 @@ public class CatchGameScene extends HFScene {
             updatePaused();
         }
 
-        if(controller.getTimeRemaining() <= 0) {
+        if(controller.getTimeRemaining() <= 0 || controller.getLivesLeft() <= 0) {
             game.setScene(game.getStartScene());
         }
     }
@@ -79,6 +79,15 @@ public class CatchGameScene extends HFScene {
             } else if(sceneObjects.get(i) instanceof Stopwatch) {
                 if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
                     sceneObjects.get(i).onCollide(catcher);
+                    sceneObjects.remove(i);
+                } else if(sceneObjects.get(i).position.y < -350) {
+                    sceneObjects.remove(i);
+                }
+            } else if(sceneObjects.get(i) instanceof Bomb) {
+                if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
+                    sceneObjects.get(i).onCollide(catcher);
+                    sceneObjects.remove(i);
+                } else if(sceneObjects.get(i).position.y < -350) {
                     sceneObjects.remove(i);
                 }
             }

@@ -12,14 +12,14 @@ import com.leterronapps.hyperfour.util.Vector3D;
 /**
  * Created by williamlea on 04/03/15.
  */
-public class Stopwatch extends Sprite {
+public class Bomb extends Sprite {
 
-    private float movementSpeed = 45f;
+    private float movementSpeed = 55f;
 
-    public Stopwatch(HFScene scene, Vector3D position, float width, float height) {
+    public Bomb(HFScene scene, Vector3D position, float width, float height) {
         super(scene, position, width, height);
         setCollider(new Rectangle(position, width, height));
-        setTexture(CatchAssets.stopwatch);
+        setTexture(CatchAssets.bomb_one);
     }
 
     @Override
@@ -33,11 +33,9 @@ public class Stopwatch extends Sprite {
         super.onCollide(other);
 
         if(other instanceof Catcher) {
-            Log.d(HFGame.DEBUG_TAG, "Stopwatch collided with Catcher");
+            Log.d(HFGame.DEBUG_TAG, "Bomb collided with Catcher");
             CatchGameScene gameScene = (CatchGameScene) scene;
-            gameScene.controller.incrementTime(5);
-
+            gameScene.controller.decrementLife();
         }
     }
-
 }

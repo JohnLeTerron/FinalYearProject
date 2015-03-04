@@ -11,6 +11,8 @@ public class GameController {
 
     private int playerScore;
     private int timeRemaining = 120;
+    private int livesLeft = 3;
+
     private float tick;
 
     public GameController() {
@@ -34,11 +36,19 @@ public class GameController {
         timeRemaining += time;
     }
 
+    public void decrementLife() {
+        livesLeft--;
+    }
+
     public int getPlayerScore() {
         return playerScore;
     }
 
     public int getTimeRemaining() {
         return timeRemaining;
+    }
+
+    public int getLivesLeft() {
+        return livesLeft;
     }
 }
