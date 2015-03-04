@@ -21,7 +21,7 @@ public class CatchGameScene extends HFScene {
 
     private Sprite pauseButton;
 
-    private GameController controller = new GameController();
+    public GameController controller = new GameController();
 
     public CatchGameScene(HFGame game) {
         super(game);
@@ -35,7 +35,6 @@ public class CatchGameScene extends HFScene {
         background.setTexture(CatchAssets.background);
 
         catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 65, 0), 65f, 65f);
-        catcher.setTexture(CatchAssets.catcher);
 
         Spawner spawner = new Spawner(this, new Vector3D(0, 250, 0));
 
@@ -55,22 +54,31 @@ public class CatchGameScene extends HFScene {
         super.update(deltaTime);
 
         if(playing) {
-            updatePlaying();
+            updatePlaying(deltaTime);
         } else {
             updatePaused();
         }
+
+        if(controller.getTimeRemaining() <= 0) {
+            game.setScene(game.getStartScene());
+        }
     }
 
-    private void updatePlaying() {
+    private void updatePlaying(float deltaTime) {
+        controller.tick(deltaTime);
         for(int i = 0; i < sceneObjects.size(); i++) {
             if(sceneObjects.get(i) instanceof Ball) {
-                if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())){
+                if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
                     sceneObjects.get(i).onCollide(catcher);
                     game.getSoundManager().playSound(CoreAssets.tickSound);
-                    controller.incrementScore();
                     Log.d(HFGame.DEBUG_TAG, "Player Score: " + controller.getPlayerScore());
                     sceneObjects.remove(i);
                 } else if(sceneObjects.get(i).position.y < -350) {
+                    sceneObjects.remove(i);
+                }
+            } else if(sceneObjects.get(i) instanceof Stopwatch) {
+                if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
+                    sceneObjects.get(i).onCollide(catcher);
                     sceneObjects.remove(i);
                 }
             }

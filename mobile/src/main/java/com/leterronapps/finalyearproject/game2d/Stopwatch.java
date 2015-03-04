@@ -10,20 +10,16 @@ import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
- * Created by williamlea on 16/02/15.
+ * Created by williamlea on 04/03/15.
  */
-public class Ball extends Sprite {
+public class Stopwatch extends Sprite {
 
     private float movementSpeed = 35f;
 
-    public Ball(Vector3D position, float width, float height) {
-        super(position, width, height);
-        setCollider(new Rectangle(position, width, height));
-    }
-
-    public Ball(HFScene scene, Vector3D position, float width, float height) {
+    public Stopwatch(HFScene scene, Vector3D position, float width, float height) {
         super(scene, position, width, height);
         setCollider(new Rectangle(position, width, height));
+        setTexture(CatchAssets.stopwatch);
     }
 
     @Override
@@ -37,9 +33,11 @@ public class Ball extends Sprite {
         super.onCollide(other);
 
         if(other instanceof Catcher) {
-            Log.d(HFGame.DEBUG_TAG, "Ball collided with Catcher");
+            Log.d(HFGame.DEBUG_TAG, "Stopwatch collided with Catcher");
             CatchGameScene gameScene = (CatchGameScene) scene;
-            gameScene.controller.incrementScore();
+            gameScene.controller.incrementTime(5);
+
         }
     }
+
 }

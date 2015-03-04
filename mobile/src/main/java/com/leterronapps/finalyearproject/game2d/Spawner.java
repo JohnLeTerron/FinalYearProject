@@ -30,23 +30,35 @@ public class Spawner extends SceneObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        float clockSpawn = random.nextFloat();
         position.x = (random.nextFloat() - 0.5f) * 320;
         spawnTick += deltaTime;
         if(spawnTick > spawnTime) {
             spawnTick = 0f;
-            spawnBall();
+            if(clockSpawn < 0.85f) {
+                spawnBall();
+            } else {
+                spawnClock();
+            }
         }
     }
 
     private void spawnBall() {
         float ballColour = random.nextFloat();
         Log.d(HFGame.DEBUG_TAG, "Ball Spawned");
-        Ball ball = new Ball(new Vector3D(position.x, position.y, position.z), 45, 45);
+        Ball ball = new Ball(scene, new Vector3D(position.x, position.y, position.z), 45, 45);
         if(ballColour > 0.5f) {
             ball.setTexture(CatchAssets.ball_wg);
         } else {
             ball.setTexture(CatchAssets.ball_bb);
         }
-        scene.getSceneObjects().add(ball);
+        scene.getSceneObjects().add(scene.getSceneObjects().size() - 2, ball);
+    }
+
+    private void spawnClock() {
+        Log.d(HFGame.DEBUG_TAG, "Clock Spawned");
+        Stopwatch stopwatch = new Stopwatch(scene, new Vector3D(position.x, position.y, position.z), 45, 45);
+
+        scene.getSceneObjects().add(scene.getSceneObjects().size() - 2, stopwatch);
     }
 }

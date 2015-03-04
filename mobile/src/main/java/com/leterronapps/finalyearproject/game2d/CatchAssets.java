@@ -18,6 +18,7 @@ public class CatchAssets implements AssetLoader {
     public static HFTexture catcher;
     public static HFTexture pauseHudButton;
     public static HFTexture resumeHudButton;
+    public static HFTexture stopwatch;
 
     public static HFSubTexture playSubTex;
 
@@ -40,5 +41,7 @@ public class CatchAssets implements AssetLoader {
         pauseHudButton.load();
         resumeHudButton = new HFTexture(game, "resume.png");
         resumeHudButton.load();
+        stopwatch = new HFTexture(game, "stopwatch.png");
+        stopwatch.load();
     }
 }
