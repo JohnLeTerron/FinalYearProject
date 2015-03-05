@@ -116,10 +116,22 @@ public abstract class HFGame extends Activity implements Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         Log.d(DEBUG_TAG, "Surface Created");
+        Log.d(DEBUG_TAG, currentState.toString());
         synchronized(stateLock) {
             if (currentState == GameState.Init) {
                 currentScene = getStartScene();
+                coreAssets.load(this);
+                if(gameAssets != null) {
+                    gameAssets.load(this);
+                }
+                currentScene.init();
+            } else if(currentState == GameState.Paused) {
+                coreAssets.load(this);
+                if(gameAssets != null) {
+                    gameAssets.load(this);
+                }
             }
+
         }
 
     }
@@ -133,10 +145,6 @@ public abstract class HFGame extends Activity implements Renderer {
         Log.d(DEBUG_TAG, "HFGame - Screen Width: " + screenWidth + " Screen Height: " + screenHeight);
         synchronized(stateLock) {
             currentState = GameState.Running;
-            coreAssets.load(this);
-            if(gameAssets != null) {
-                gameAssets.load(this);
-            }
             currentScene.resume();
             lastFrameTime = System.nanoTime();
         }
@@ -177,6 +185,7 @@ public abstract class HFGame extends Activity implements Renderer {
 
         this.currentScene.pause();
         this.currentScene.destroy();
+        scene.init();
         scene.resume();
         scene.update(0);
         this.currentScene = scene;

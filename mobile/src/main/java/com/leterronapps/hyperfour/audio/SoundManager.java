@@ -36,7 +36,7 @@ public class SoundManager {
             AssetFileDescriptor musicDescriptor = game.getFileManager().getAssetFileDescriptor(fileName);
             return new MusicClip(musicDescriptor.getFileDescriptor(), musicDescriptor.getStartOffset(), musicDescriptor.getLength());
         } catch(IOException ex) {
-            Log.d(game.DEBUG_TAG, "Failed to load music clip: " + fileName);
+            Log.d(HFGame.DEBUG_TAG, "Failed to load music clip: " + fileName);
             game.finish();
 
         }

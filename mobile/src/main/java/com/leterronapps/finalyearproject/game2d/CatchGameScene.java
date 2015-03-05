@@ -28,6 +28,12 @@ public class CatchGameScene extends HFScene {
     }
 
     @Override
+    public void init() {
+        super.init();
+        game.getSoundManager().loadMusic(CoreAssets.bgMusic);
+    }
+
+    @Override
     public void resume() {
         super.resume();
         // Scene Elements
@@ -47,6 +53,19 @@ public class CatchGameScene extends HFScene {
         sceneObjects.add(catcher);
         sceneObjects.add(spawner);
         sceneObjects.add(pauseButton);
+        game.getSoundManager().playMusic();
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+        game.getSoundManager().pauseMusic();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        game.getSoundManager().stopMusic();
     }
 
     @Override
