@@ -52,6 +52,7 @@ public class CatchStartScene extends HFScene {
                 if(CollisionDetector.pointInRectangle((Rectangle)playButton.getCollider(), touchPos)) {
                     game.getSoundManager().playSound(CoreAssets.tickSound);
                     game.setScene(new CatchGameScene(game));
+                    break;
                 }
             }
         }

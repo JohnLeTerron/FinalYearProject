@@ -122,6 +122,7 @@ public class CatchGameScene extends HFScene {
                     game.getSoundManager().playSound(CoreAssets.tickSound);
                     pauseButton.setTexture(CatchAssets.resumeHudButton);
                     playing = false;
+                    break;
                 }
             }
         }
@@ -139,6 +140,7 @@ public class CatchGameScene extends HFScene {
                     game.getSoundManager().playSound(CoreAssets.tickSound);
                     pauseButton.setTexture(CatchAssets.pauseHudButton);
                     playing = true;
+                    break;
                 }
             }
         }
