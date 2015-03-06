@@ -63,6 +63,10 @@ public class SoundManager {
 
     public void stopMusic() {
         mediaPlayer.stop();
+        mediaPlayer.reset();
+    }
+
+    public void releasePlayer() {
         mediaPlayer.release();
     }
 

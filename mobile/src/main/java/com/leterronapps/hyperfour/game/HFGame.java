@@ -67,6 +67,7 @@ public abstract class HFGame extends Activity implements Renderer {
         synchronized(stateLock) {
             if(isFinishing()) {
                 currentState = GameState.Finishing;
+                soundManager.releasePlayer();
             } else {
                 currentState = GameState.Paused;
             }

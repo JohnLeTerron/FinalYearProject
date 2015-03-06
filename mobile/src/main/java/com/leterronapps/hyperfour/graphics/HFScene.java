@@ -23,7 +23,7 @@ public abstract class HFScene {
     protected Camera camera;
     protected Vector<SceneObject> sceneObjects;
 
-    private Vector3D lightPos = new Vector3D(10.0f, 10f, -3f);
+    private Vector3D lightPos = new Vector3D(-155.0f, 220f, -50f);
 
     protected boolean playing = true;
 
