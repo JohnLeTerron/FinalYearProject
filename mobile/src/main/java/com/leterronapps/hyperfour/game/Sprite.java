@@ -2,6 +2,7 @@ package com.leterronapps.hyperfour.game;
 
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.graphics.HFSubTexture;
+import com.leterronapps.hyperfour.graphics.SpriteAnimation;
 import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -14,6 +15,7 @@ public class Sprite extends SceneObject {
     private float height;
 
     private HFSubTexture subTexture;
+    protected SpriteAnimation anim;
 
     public Sprite(Vector3D position, float width, float height) {
         super(position);

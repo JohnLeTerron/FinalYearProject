@@ -50,9 +50,11 @@ public class Spawner extends SceneObject {
         Log.d(HFGame.DEBUG_TAG, "Ball Spawned");
         Ball ball = new Ball(scene, new Vector3D(position.x, position.y, position.z), 45, 45);
         if(ballColour > 0.5f) {
-            ball.setTexture(CatchAssets.ball_wg);
+            ball.setTexture(CatchAssets.balls);
+            ball.setSubTexture(CatchAssets.ball_wg);
         } else {
-            ball.setTexture(CatchAssets.ball_bb);
+            ball.setTexture(CatchAssets.balls);
+            ball.setSubTexture(CatchAssets.ball_bb);
         }
         scene.getSceneObjects().add(scene.getSceneObjects().size() - 2, ball);
     }
