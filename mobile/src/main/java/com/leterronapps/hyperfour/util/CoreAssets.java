@@ -15,6 +15,7 @@ public class CoreAssets implements AssetLoader {
     public static SoundClip tickSound;
 
     public static HFTexture scifiPanel;
+    public static HFTexture font;
 
     @Override
     public void load(HFGame game) {
@@ -22,5 +23,7 @@ public class CoreAssets implements AssetLoader {
         tickSound = game.getSoundManager().newSoundClip("tick.mp3");
         scifiPanel = new HFTexture(game, "scifi_final.png");
         scifiPanel.load();
+        font = new HFTexture(game, "font.png");
+        font.load();
     }
 }

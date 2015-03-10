@@ -4,6 +4,7 @@ import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
+import com.leterronapps.hyperfour.graphics.HFFont;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.CollisionDetector;

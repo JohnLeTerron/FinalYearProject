@@ -181,7 +181,7 @@ public abstract class HFGame extends Activity implements Renderer {
 
     public void setScene(HFScene scene) {
         if(scene == null) {
-            throw new IllegalArgumentException("Screen can't be null");
+            throw new IllegalArgumentException("scene can't be null");
         }
 
         this.currentScene.pause();

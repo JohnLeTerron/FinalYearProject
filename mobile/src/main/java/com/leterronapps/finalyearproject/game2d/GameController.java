@@ -21,7 +21,7 @@ public class GameController {
 
     public void tick(float deltaTime) {
         tick += deltaTime;
-        if(tick > 1.0f) {
+        if(tick > 2.0f) {
             timeRemaining--;
             Log.d(HFGame.DEBUG_TAG, "Time Remaining: " + timeRemaining);
             tick = 0f;

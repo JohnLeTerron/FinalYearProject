@@ -5,12 +5,15 @@ import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
+import com.leterronapps.hyperfour.graphics.HFFont;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.CollisionDetector;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
+
+import java.util.Vector;
 
 /**
  * Created by williamlea on 16/02/15.
@@ -22,6 +25,11 @@ public class CatchGameScene extends HFScene {
     private Sprite pauseButton;
 
     public GameController controller = new GameController();
+
+    private HFFont font;
+    private Vector<Sprite> timeText;
+    private Vector<Sprite> livesText;
+    private Vector<Sprite> scoreText;
 
     public CatchGameScene(HFGame game) {
         super(game);
@@ -49,10 +57,20 @@ public class CatchGameScene extends HFScene {
         pauseButton.setCollider(new Rectangle(pauseButton.position, pauseButton.getWidth(), pauseButton.getHeight()));
         pauseButton.setTexture(CatchAssets.pauseHudButton);
 
+        font = new HFFont(CoreAssets.font, 10, CoreAssets.font.getWidth() / 10, CoreAssets.font.getHeight() / 10);
+
         sceneObjects.add(background);
         sceneObjects.add(catcher);
         sceneObjects.add(spawner);
         sceneObjects.add(pauseButton);
+
+        timeText = font.makeText(Integer.toString(controller.getTimeRemaining()), 30, 100, 0);
+        livesText = font.makeText("Lives: " + controller.getLivesLeft(), 35, (camera.getFrustumWidth() / 2) - 130, -(camera.getFrustumHeight() / 2) + 30);
+        scoreText = font.makeText("Score: " + controller.getPlayerScore(), 35, -(camera.getFrustumWidth() / 2) + 15, -(camera.getFrustumHeight() / 2) + 30);
+
+        sceneObjects.addAll(livesText);
+        sceneObjects.addAll(scoreText);
+
         game.getSoundManager().playMusic();
     }
 
@@ -85,6 +103,10 @@ public class CatchGameScene extends HFScene {
 
     private void updatePlaying(float deltaTime) {
         controller.tick(deltaTime);
+        sceneObjects.removeAll(timeText);
+        timeText = font.makeText(Integer.toString(controller.getTimeRemaining()), 40, 60, 160);
+        sceneObjects.addAll(timeText);
+
         for(int i = 0; i < sceneObjects.size(); i++) {
             if(sceneObjects.get(i) instanceof Ball) {
                 if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
