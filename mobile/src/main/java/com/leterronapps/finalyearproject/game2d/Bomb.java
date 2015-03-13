@@ -44,4 +44,8 @@ public class Bomb extends Sprite {
             gameScene.controller.decrementLife();
         }
     }
+
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
 }

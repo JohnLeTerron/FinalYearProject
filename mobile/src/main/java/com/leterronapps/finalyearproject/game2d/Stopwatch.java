@@ -40,4 +40,7 @@ public class Stopwatch extends Sprite {
         }
     }
 
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
 }

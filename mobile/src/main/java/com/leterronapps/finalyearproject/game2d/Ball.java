@@ -42,4 +42,8 @@ public class Ball extends Sprite {
             gameScene.controller.incrementScore();
         }
     }
+
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
 }

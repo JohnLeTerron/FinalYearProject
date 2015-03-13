@@ -21,15 +21,13 @@ import java.util.Vector;
 public class CatchGameScene extends HFScene {
 
     private Catcher catcher;
+    private Spawner spawner;
 
     private Sprite pauseButton;
 
-    public GameController controller = new GameController();
+    public GameController controller;
 
     private HFFont font;
-    private Vector<Sprite> timeText;
-    private Vector<Sprite> livesText;
-    private Vector<Sprite> scoreText;
 
     public CatchGameScene(HFGame game) {
         super(game);
@@ -39,38 +37,29 @@ public class CatchGameScene extends HFScene {
     public void init() {
         super.init();
         game.getSoundManager().loadMusic(CoreAssets.bgMusic);
-    }
 
-    @Override
-    public void resume() {
-        super.resume();
-        // Scene Elements
         Sprite background = new Sprite(new Vector3D(0,0,0), camera.getFrustumWidth(), camera.getFrustumHeight());
         background.setTexture(CatchAssets.background);
 
-        catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 65, 0), 65f, 65f);
-
-        Spawner spawner = new Spawner(this, new Vector3D(0, 250, 0));
-
-        // HUD Elements
         pauseButton = new Sprite(new Vector3D(-(camera.getFrustumWidth() /2) + 23 ,camera.getFrustumHeight() /2 - 21 ,0), 40, 40);
         pauseButton.setCollider(new Rectangle(pauseButton.position, pauseButton.getWidth(), pauseButton.getHeight()));
         pauseButton.setTexture(CatchAssets.pauseHudButton);
 
         font = new HFFont(CoreAssets.font, 10, CoreAssets.font.getWidth() / 10, CoreAssets.font.getHeight() / 10);
 
+        catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 65, 0), 65f, 65f);
+        spawner = new Spawner(this, new Vector3D(0, 250, 0));
+        controller = new GameController(spawner);
+
         sceneObjects.add(background);
         sceneObjects.add(catcher);
         sceneObjects.add(spawner);
         sceneObjects.add(pauseButton);
+    }
 
-        timeText = font.makeText(Integer.toString(controller.getTimeRemaining()), 30, 100, 0);
-        livesText = font.makeText("Lives: " + controller.getLivesLeft(), 35, (camera.getFrustumWidth() / 2) - 130, -(camera.getFrustumHeight() / 2) + 30);
-        scoreText = font.makeText("Score: " + controller.getPlayerScore(), 35, -(camera.getFrustumWidth() / 2) + 15, -(camera.getFrustumHeight() / 2) + 30);
-
-        sceneObjects.addAll(livesText);
-        sceneObjects.addAll(scoreText);
-
+    @Override
+    public void resume() {
+        super.resume();
         game.getSoundManager().playMusic();
     }
 
@@ -103,9 +92,6 @@ public class CatchGameScene extends HFScene {
 
     private void updatePlaying(float deltaTime) {
         controller.tick(deltaTime);
-        sceneObjects.removeAll(timeText);
-        timeText = font.makeText(Integer.toString(controller.getTimeRemaining()), 40, 60, 160);
-        sceneObjects.addAll(timeText);
 
         for(int i = 0; i < sceneObjects.size(); i++) {
             if(sceneObjects.get(i) instanceof Ball) {

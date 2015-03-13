@@ -76,24 +76,24 @@ public abstract class HFScene {
 
     public void init() {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Init");
-    }
-
-    public void resume() {
-        Log.d(HFGame.DEBUG_TAG, "HFScene - Resume");
-        shader = new HFShader();
         camera = new Camera(game, new Vector3D(0,0,0), Camera.MODE_2D, 360, 480);
         sceneObjects = new Vector<>();
         playing = true;
     }
 
+    public void resume() {
+        Log.d(HFGame.DEBUG_TAG, "HFScene - Resume");
+        shader = new HFShader();
+    }
+
     public void pause() {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Pause");
         playing = false;
-        sceneObjects.clear();
     }
 
     public void destroy() {
         Log.d(HFGame.DEBUG_TAG, "HFScene - Destroy");
+        sceneObjects.clear();
     }
 
     public Vector<SceneObject> getSceneObjects() {
