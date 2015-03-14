@@ -26,6 +26,12 @@ public abstract class SceneObject {
 
     protected HFScene scene;
 
+    public SceneObject() {
+        position = new Vector3D();
+        rotation = new Vector3D();
+        scale = new Vector3D(1.0f, 1.0f, 1.0f);
+    }
+
     public SceneObject(Vector3D position) {
         this.position = position;
         rotation = new Vector3D();

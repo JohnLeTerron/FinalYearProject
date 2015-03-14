@@ -15,6 +15,8 @@ public class HFFont {
     private int glyphHeight;
     private HFTexture fontSheet;
 
+    private float fontSize;
+
     public HFFont(HFTexture fontSheet, int glyphsPerRow, int glyphWidth, int glyphHeight) {
         this.glyphWidth = glyphWidth;
         this.glyphHeight = glyphHeight;
@@ -35,6 +37,7 @@ public class HFFont {
 
     public Vector<Sprite> makeText(String text, float size, float x, float y) {
         Vector<Sprite> result = new Vector<>(text.length());
+        fontSize = size;
         for (int i = 0; i < text.length(); i++) {
             int character = text.charAt(i) - 32;
             if(character < 0 || character > glyphs.length - 1) {
@@ -47,4 +50,20 @@ public class HFFont {
         }
         return result;
     }
+
+    public Vector<Sprite> setText(Vector<Sprite> chars, String text) {
+        if(text.length() == chars.size()) {
+            for(int i = 0; i < chars.size(); i++) {
+                int character = text.charAt(i) - 32;
+                if(character < 0 || character > glyphs.length - 1) {
+                    continue;
+                }
+                chars.get(i).setSubTexture(glyphs[character]);
+            }
+            return chars;
+        } else {
+            return makeText(text, fontSize, chars.get(0).position.x, chars.get(0).position.y);
+        }
+    }
+
 }

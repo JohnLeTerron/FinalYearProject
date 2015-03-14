@@ -17,6 +17,12 @@ public class Sprite extends SceneObject {
     private HFSubTexture subTexture;
     protected SpriteAnimation anim;
 
+    public Sprite() {
+        super();
+        width = 1.0f;
+        height = 1.0f;
+    }
+
     public Sprite(Vector3D position, float width, float height) {
         super(position);
         this.width = width;
