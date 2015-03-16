@@ -1,6 +1,5 @@
 package com.leterronapps.finalyearproject.game2d;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.HFGame;
@@ -15,7 +14,6 @@ import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector2D;
 import com.leterronapps.hyperfour.util.Vector3D;
 
-import java.util.Vector;
 
 /**
  * Created by williamlea on 16/02/15.
@@ -117,22 +115,18 @@ public class CatchGameScene extends HFScene {
                 if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
                     sceneObjects.get(i).onCollide(catcher);
                     game.getSoundManager().playSound(CoreAssets.tickSound);
-                    Log.d(HFGame.DEBUG_TAG, "Player Score: " + controller.getPlayerScore());
-                    sceneObjects.remove(i);
                 } else if(sceneObjects.get(i).position.y < -350) {
                     sceneObjects.remove(i);
                 }
             } else if(sceneObjects.get(i) instanceof Stopwatch) {
                 if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
                     sceneObjects.get(i).onCollide(catcher);
-                    sceneObjects.remove(i);
                 } else if(sceneObjects.get(i).position.y < -350) {
                     sceneObjects.remove(i);
                 }
             } else if(sceneObjects.get(i) instanceof Bomb) {
                 if(CollisionDetector.rectanglesColliding((Rectangle)sceneObjects.get(i).getCollider(), (Rectangle)catcher.getCollider())) {
                     sceneObjects.get(i).onCollide(catcher);
-                    sceneObjects.remove(i);
                 } else if(sceneObjects.get(i).position.y < -350) {
                     sceneObjects.remove(i);
                 }

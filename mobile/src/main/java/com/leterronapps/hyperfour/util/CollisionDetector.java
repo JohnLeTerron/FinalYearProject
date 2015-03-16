@@ -35,7 +35,7 @@ public class CollisionDetector {
            lowerLeft1.x + object.getWidth() > lowerLeft2.x &&
            lowerLeft1.y < lowerLeft2.y + other.getHeight() &&
            lowerLeft1.y + object.getHeight() > lowerLeft2.y) {
-            return true;
+            return object.isActive();
         } else {
             return false;
         }

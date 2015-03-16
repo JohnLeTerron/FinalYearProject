@@ -36,7 +36,7 @@ public class Stopwatch extends Sprite {
             Log.d(HFGame.DEBUG_TAG, "Stopwatch collided with Catcher");
             CatchGameScene gameScene = (CatchGameScene) scene;
             gameScene.controller.incrementTime(5);
-
+            destroy();
         }
     }
 

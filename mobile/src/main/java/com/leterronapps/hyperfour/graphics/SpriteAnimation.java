@@ -1,5 +1,8 @@
 package com.leterronapps.hyperfour.graphics;
 
+import android.util.Log;
+
+import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
 
 import java.util.Vector;
@@ -18,7 +21,7 @@ public class SpriteAnimation {
     private int currentFrame;
 
     private boolean looping = true;
-    private boolean playing;
+    private boolean finished = false;
 
     public SpriteAnimation(Sprite owner, int numFrames, float duration) {
         this.owner = owner;
@@ -47,17 +50,23 @@ public class SpriteAnimation {
                 currentFrame++;
             } else if(looping) {
                 currentFrame = 0;
+            } else {
+                finished = true;
             }
             owner.setSubTexture(frames.get(currentFrame));
             frameTick = 0;
         }
     }
 
+    public void setLooping(boolean looping) {
+        this.looping = looping;
+    }
+
     public boolean isLooping() {
         return looping;
     }
 
-    public boolean isPlaying() {
-        return playing;
+    public boolean isFinished() {
+        return finished;
     }
 }

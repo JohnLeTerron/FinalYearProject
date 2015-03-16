@@ -38,9 +38,9 @@ public class Ball extends Sprite {
 
         if(other instanceof Catcher) {
             Log.d(HFGame.DEBUG_TAG, "Ball collided with Catcher");
-            this.movementSpeed = 0;
             CatchGameScene gameScene = (CatchGameScene) scene;
             gameScene.controller.incrementScore();
+            destroy();
         }
     }
 

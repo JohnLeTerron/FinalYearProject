@@ -26,6 +26,8 @@ public abstract class SceneObject {
 
     protected HFScene scene;
 
+    private boolean markedForDeath = false;
+
     public SceneObject() {
         position = new Vector3D();
         rotation = new Vector3D();
@@ -83,6 +85,13 @@ public abstract class SceneObject {
         }
     }
 
+    protected void destroy() {
+        markedForDeath = true;
+        if(collider != null) {
+            collider.setActive(false);
+        }
+    }
+
     public void onCollide(SceneObject other) {
         Log.d(HFGame.DEBUG_TAG, "Collision Detected");
     }
@@ -97,5 +106,9 @@ public abstract class SceneObject {
 
     public Collider getCollider() {
         return collider;
+    }
+
+    public boolean isMarkedForDeath() {
+        return markedForDeath;
     }
 }

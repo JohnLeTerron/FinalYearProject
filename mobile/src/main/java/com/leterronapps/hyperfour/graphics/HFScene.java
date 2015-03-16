@@ -35,9 +35,17 @@ public abstract class HFScene {
         GLES20.glUseProgram(shader.getProgram());
         GLES20.glClearColor(camera.getBackground().x, camera.getBackground().y, camera.getBackground().z, 1.0f);
 
-        if(!sceneObjects.isEmpty() && playing) {
+        if(!sceneObjects.isEmpty()) {
+            if(playing) {
+                for (int i = 0; i < sceneObjects.size(); i++) {
+                    sceneObjects.get(i).update(deltaTime);
+                }
+            }
+
             for(int i = 0; i < sceneObjects.size(); i++) {
-                sceneObjects.get(i).update(deltaTime);
+                if(sceneObjects.get(i).isMarkedForDeath()) {
+                    sceneObjects.remove(i);
+                }
             }
         }
     }

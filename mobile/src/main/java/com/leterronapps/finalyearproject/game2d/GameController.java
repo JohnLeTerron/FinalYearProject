@@ -1,9 +1,5 @@
 package com.leterronapps.finalyearproject.game2d;
 
-import android.util.Log;
-
-import com.leterronapps.hyperfour.game.HFGame;
-
 /**
  * Created by williamlea on 02/03/15.
  */
@@ -27,7 +23,6 @@ public class GameController {
         if(tick > 2.0f) {
             timeElapsed++;
             timeRemaining--;
-            Log.d(HFGame.DEBUG_TAG, "Time Remaining: " + timeRemaining);
             tick = 0f;
             if(timeElapsed == 30) {
                 spawner.setSpawnTime(3.5f);

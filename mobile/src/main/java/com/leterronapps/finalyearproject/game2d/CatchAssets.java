@@ -20,6 +20,7 @@ public class CatchAssets implements AssetLoader {
     public static HFTexture resumeHudButton;
     public static HFTexture stopwatch;
     public static HFTexture bombs;
+    public static HFTexture explosion;
 
     public static HFSubTexture playSubTex;
     public static HFSubTexture ball_bb;
@@ -48,5 +49,7 @@ public class CatchAssets implements AssetLoader {
         stopwatch.load();
         bombs = new HFTexture(game, "bombs.png");
         bombs.load();
+        explosion = new HFTexture(game, "explosion.png");
+        explosion.load();
     }
 }

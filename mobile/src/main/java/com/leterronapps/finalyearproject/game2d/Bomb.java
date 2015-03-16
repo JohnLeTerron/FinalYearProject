@@ -40,8 +40,14 @@ public class Bomb extends Sprite {
 
         if(other instanceof Catcher) {
             Log.d(HFGame.DEBUG_TAG, "Bomb collided with Catcher");
+            this.movementSpeed = 0;
             CatchGameScene gameScene = (CatchGameScene) scene;
+            setTexture(CatchAssets.explosion);
+            setAnimation(new SpriteAnimation(this, 3, 1.0f));
+            anim.setup(texture);
+            anim.setLooping(false);
             gameScene.controller.decrementLife();
+            destroy();
         }
     }
 

@@ -104,6 +104,11 @@ public class Sprite extends SceneObject {
         loadVertices(subTexture);
     }
 
+    public void setAnimation(SpriteAnimation anim) {
+        this.anim = anim;
+        this.anim.setup(texture);
+    }
+
     public float getWidth() {
         return width;
     }
