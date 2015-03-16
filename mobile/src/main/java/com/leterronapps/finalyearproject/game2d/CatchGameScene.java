@@ -7,10 +7,12 @@ import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFFont;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.graphics.HFString;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.CollisionDetector;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Rectangle;
+import com.leterronapps.hyperfour.util.Vector2D;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 import java.util.Vector;
@@ -27,7 +29,9 @@ public class CatchGameScene extends HFScene {
 
     public GameController controller;
 
-    private HFFont font;
+    private HFString timeRemaining;
+    private HFString livesLeft;
+    private HFString score;
 
     public CatchGameScene(HFGame game) {
         super(game);
@@ -45,11 +49,15 @@ public class CatchGameScene extends HFScene {
         pauseButton.setCollider(new Rectangle(pauseButton.position, pauseButton.getWidth(), pauseButton.getHeight()));
         pauseButton.setTexture(CatchAssets.pauseHudButton);
 
-        font = new HFFont(CoreAssets.font, 10, CoreAssets.font.getWidth() / 10, CoreAssets.font.getHeight() / 10);
+        HFFont font = new HFFont(CoreAssets.font, 10, CoreAssets.font.getWidth() / 10, CoreAssets.font.getHeight() / 10);
 
         catcher = new Catcher(new Vector3D(0f,-(camera.getFrustumHeight() /2) + 65, 0), 65f, 65f);
         spawner = new Spawner(this, new Vector3D(0, 250, 0));
         controller = new GameController(spawner);
+
+        timeRemaining = new HFString(font, new Vector2D(65,-(camera.getFrustumHeight() / 2) + 20), Integer.toString(controller.getTimeRemaining()));
+        livesLeft = new HFString(font, new Vector2D(-(camera.getFrustumWidth() / 2) + 20,-(camera.getFrustumHeight() / 2) + 20), "Lives: " + controller.getLivesLeft());
+        score = new HFString(font, new Vector2D(-(camera.getFrustumWidth() / 2) + 20,-(camera.getFrustumHeight() / 2) + 40), "Score: " + controller.getPlayerScore());
 
         sceneObjects.add(background);
         sceneObjects.add(catcher);
@@ -90,8 +98,19 @@ public class CatchGameScene extends HFScene {
         }
     }
 
+    @Override
+    public void render() {
+        super.render();
+        timeRemaining.render(shader);
+        livesLeft.render(shader);
+        score.render(shader);
+    }
+
     private void updatePlaying(float deltaTime) {
         controller.tick(deltaTime);
+        timeRemaining.setText("Time: " + controller.getTimeRemaining());
+        livesLeft.setText("Lives: " + controller.getLivesLeft());
+        score.setText("Score: " + controller.getPlayerScore());
 
         for(int i = 0; i < sceneObjects.size(); i++) {
             if(sceneObjects.get(i) instanceof Ball) {
