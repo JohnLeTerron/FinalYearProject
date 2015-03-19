@@ -24,9 +24,12 @@ public class HFTexture {
     private HFGame game;
     private String textureFile;
 
-    public HFTexture(HFGame game, String textureFile) {
+    private boolean transparent;
+
+    public HFTexture(HFGame game, String textureFile, boolean transparent) {
         this.game = game;
         this.textureFile = textureFile;
+        this.transparent = transparent;
         //load();
     }
 
@@ -74,6 +77,10 @@ public class HFTexture {
 
     public int getHeight() {
         return height;
+    }
+
+    public boolean isTransparent() {
+        return transparent;
     }
 
 }

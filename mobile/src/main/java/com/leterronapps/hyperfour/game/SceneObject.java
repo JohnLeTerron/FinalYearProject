@@ -70,18 +70,26 @@ public abstract class SceneObject {
         GLES20.glUniformMatrix4fv(shader.getHandle("normalMatrix"), 0, false, shader.normalMatrix, 0);
 
         if(vertices != null) {
-            //GLES20.glDisable(GLES20.GL_DEPTH_TEST);
-            GLES20.glEnable(GLES20.GL_BLEND);
-            GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
             vertices.bind(shader);
-            if (texture != null) {
+            if(texture != null) {
+                if(texture.isTransparent()) {
+                    if(Camera.getMode() == Camera.MODE_3D) {
+                        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+                    }
+                    GLES20.glEnable(GLES20.GL_BLEND);
+                    GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+                }
                 texture.activate(shader, GLES20.GL_TEXTURE0);
+                vertices.draw();
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
             }
-            vertices.draw();
             vertices.unbind(shader);
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
-            GLES20.glDisable(GLES20.GL_BLEND);
-            //GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+            if(texture.isTransparent()) {
+                GLES20.glDisable(GLES20.GL_BLEND);
+            }
+            if(Camera.getMode() == Camera.MODE_3D) {
+                GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+            }
         }
     }
 
