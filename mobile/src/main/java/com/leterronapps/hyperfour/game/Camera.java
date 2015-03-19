@@ -10,9 +10,10 @@ public class Camera extends SceneObject {
     public static final int MODE_2D = 1;
     public static final int MODE_3D = 2;
 
+    private static int MODE;
+
     private HFGame game;
 
-    private int mode;
     private int frustumWidth;
     private int frustumHeight;
     public float zoom;
@@ -21,7 +22,7 @@ public class Camera extends SceneObject {
 
     public Camera(HFGame game, Vector3D position, int mode, int frustumWidth, int frustumHeight) {
         super(position);
-        this.mode = mode;
+        MODE = mode;
         this.zoom = 1.0f;
         this.game = game;
         this.frustumWidth = frustumWidth;
@@ -51,7 +52,7 @@ public class Camera extends SceneObject {
         return frustumHeight;
     }
 
-    public int getMode() {
-        return mode;
+    public static int getMode() {
+        return MODE;
     }
 }
