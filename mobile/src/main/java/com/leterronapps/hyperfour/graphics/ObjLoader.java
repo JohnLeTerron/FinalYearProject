@@ -14,7 +14,7 @@ import java.util.Vector;
 public class ObjLoader {
 
     public static void load(HFGame game, String fileName) {
-        InputStream in = null;
+        InputStream in;
         try {
             in = game.getFileManager().getAsset(fileName);
             Vector<String> lines = readLines(in);
@@ -22,6 +22,10 @@ public class ObjLoader {
             float[] verts = new float[lines.size() * 3];
             float[] norms = new float[lines.size() * 3];
             float[] textCoords = new float[lines.size() * 2];
+
+            int[] faceVerts = new int[lines.size() * 3];
+            int[] faceNorms = new int[lines.size() * 3];
+            int[] faceTexCoords = new int[lines.size() * 2];
 
             int numVerts = 0;
             int numNorms = 0;
@@ -62,8 +66,53 @@ public class ObjLoader {
                 }
                 if(line.startsWith("f ")) {
                     String[] tokens = line.split("[ ] +");
-                    
+                    String[] parts = tokens[1].split("/");
+
+                    faceVerts[faceIndex] = getIndex(parts[0], numVerts);
+                    if(parts.length > 2) {
+                        faceNorms[faceIndex] = getIndex(parts[2], numNorms);
+                    }
+                    if(parts.length > 1) {
+                        faceTexCoords[faceIndex] = getIndex(parts[1], numTexCoords);
+                    }
+                    faceIndex++;
+
+                    parts = tokens[2].split("/");
+                    faceVerts[faceIndex] = getIndex(parts[0], numVerts);
+                    if(parts.length > 2) {
+                        faceNorms[faceIndex] = getIndex(parts[2], numNorms);
+                    }
+                    if(parts.length > 1) {
+                        faceTexCoords[faceIndex] = getIndex(parts[1], numTexCoords);
+                    }
+                    faceIndex++;
+
+                    parts = tokens[3].split("/");
+                    faceVerts[faceIndex] = getIndex(parts[0], numVerts);
+                    if(parts.length > 2) {
+                        faceNorms[faceIndex] = getIndex(parts[2], numNorms);
+                    }
+                    if(parts.length > 1) {
+                        faceTexCoords[faceIndex] = getIndex(parts[1], numTexCoords);
+                    }
+                    faceIndex++;
+                    numFaces++;
+                    continue;
                 }
+            }
+
+            float[] resultVerts = new float[numFaces * 3];
+            float[] resultNorms = new float[numFaces * 3];
+            float[] resultTexCoords = new float[numFaces * 2];
+
+            int vi = 0;
+            int ni = 0;
+            int ti = 0;
+            for(int i = 0; i < numFaces * 3; i++) {
+                int vertId = faceVerts[i] * 3;
+                resultVerts[vi++] = verts[vertId];
+                resultVerts[vi++] = verts[vertId + 1];
+                resultVerts[vi++] = verts[vertId + 2];
             }
 
         } catch(IOException e) {}
@@ -72,10 +121,19 @@ public class ObjLoader {
     private static Vector<String> readLines(InputStream in) throws IOException {
         Vector<String> result = new Vector<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String line = null;
+        String line;
         while((line = reader.readLine()) != null) {
             result.add(line);
         }
         return result;
+    }
+
+    private static int getIndex(String index, int size) {
+        int id = Integer.parseInt(index);
+        if(id < 0) {
+            return size + id;
+        } else {
+            return id - 1;
+        }
     }
 }
