@@ -17,6 +17,6 @@ public class MainActivity extends HFGame {
 
     @Override
     public HFScene getStartScene() {
-        return new CatchStartScene(this);
+        return new Test3D(this);
     }
 }
