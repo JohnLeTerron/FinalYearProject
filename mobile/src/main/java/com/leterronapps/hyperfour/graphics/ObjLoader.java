@@ -1,6 +1,8 @@
 package com.leterronapps.hyperfour.graphics;
 
 import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.util.Vector2D;
+import com.leterronapps.hyperfour.util.Vector3D;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,29 +21,77 @@ public class ObjLoader {
             in = game.getFileManager().getAsset(fileName);
             Vector<String> lines = readLines(in);
 
-            Vector<Float> vertices = new Vector<>();
-            Vector<Float> normals = new Vector<>();
-            Vector<Float> texCoords = new Vector<>();
+            Vector<Vector3D> vertices = new Vector<>();
+            Vector<Vector3D> normals = new Vector<>();
+            Vector<Vector2D> texCoords = new Vector<>();
+
+            Vector<Float> resultVerts = new Vector<>();
+            Vector<Float> resultNorms = new Vector<>();
+            Vector<Float> resultTexCoords = new Vector<>();
+            Vector<Integer> indices = new Vector<>();
 
             for(String line : lines) {
                 if(line.startsWith("v ")) {
                     String[] tokens = line.split("[ ]+");
-                    vertices.add(Float.parseFloat(tokens[1]));
-                    vertices.add(Float.parseFloat(tokens[2]));
-                    vertices.add(Float.parseFloat(tokens[3]));
+                    Vector3D vertex = new Vector3D(Float.parseFloat(tokens[1]),
+                                                   Float.parseFloat(tokens[2]),
+                                                   Float.parseFloat(tokens[3]));
+                    vertices.add(vertex);
                 } else if(line.startsWith("vn ")) {
                     String[] tokens = line.split("[ ]+");
-                    normals.add(Float.parseFloat(tokens[1]));
-                    normals.add(Float.parseFloat(tokens[2]));
-                    normals.add(Float.parseFloat(tokens[3]));
+                    Vector3D normal = new Vector3D(Float.parseFloat(tokens[1]),
+                                                   Float.parseFloat(tokens[2]),
+                                                   Float.parseFloat(tokens[3]));
+                    normals.add(normal);
                 }else if(line.startsWith("vt ")) {
                     String[] tokens = line.split("[ ]+");
-                    texCoords.add(Float.parseFloat(tokens[1]));
-                    texCoords.add(Float.parseFloat(tokens[2]));
+                    Vector2D texCoord = new Vector2D(Float.parseFloat(tokens[1]),
+                                                     Float.parseFloat(tokens[2]));
+                    texCoords.add(texCoord);
                 }else if(line.startsWith("f ")) {
+                    String[] tokens = line.split("[ ]+");
 
+                    String[] parts = tokens[1].split("/");
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).x);
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).y);
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).z);
+
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).x);
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).y);
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).z);
+
+                    resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).x);
+                    resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).y);
+
+                    parts = tokens[2].split("/");
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).x);
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).y);
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).z);
+
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).x);
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).y);
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).z);
+
+                    resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).x);
+                    resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).y);
+
+                    parts = tokens[3].split("/");
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).x);
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).y);
+                    resultVerts.add(vertices.get(Integer.parseInt(parts[0]) - 1).z);
+
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).x);
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).y);
+                    resultNorms.add(normals.get(Integer.parseInt(parts[2]) - 1).z);
+
+                    resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).x);
+                    resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).y);
+
+                    //indices.add(Integer.parseInt(parts[2]) - 1);
                 }
             }
+
+
 
         } catch(IOException e) {}
     }
