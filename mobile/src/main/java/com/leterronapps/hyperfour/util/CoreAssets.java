@@ -4,6 +4,8 @@ import com.leterronapps.hyperfour.audio.MusicClip;
 import com.leterronapps.hyperfour.audio.SoundClip;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.graphics.HFTexture;
+import com.leterronapps.hyperfour.graphics.ObjLoader;
+import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.util.AssetLoader;
 
 /**
@@ -17,6 +19,8 @@ public class CoreAssets implements AssetLoader {
     public static HFTexture scifiPanel;
     public static HFTexture font;
 
+    public static Vertices barrel;
+
     @Override
     public void load(HFGame game) {
         bgMusic = game.getSoundManager().newMusicClip("pitch_black.mp3");
@@ -25,5 +29,6 @@ public class CoreAssets implements AssetLoader {
         scifiPanel.load();
         font = new HFTexture(game, "font.png", true);
         font.load();
+        barrel = ObjLoader.load(game, "barrel.obj");
     }
 }

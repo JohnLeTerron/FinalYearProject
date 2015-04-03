@@ -15,7 +15,7 @@ import java.util.Vector;
  */
 public class ObjLoader {
 
-    public static void load(HFGame game, String fileName) {
+    public static Vertices load(HFGame game, String fileName) {
         InputStream in;
         try {
             in = game.getFileManager().getAsset(fileName);
@@ -28,7 +28,6 @@ public class ObjLoader {
             Vector<Float> resultVerts = new Vector<>();
             Vector<Float> resultNorms = new Vector<>();
             Vector<Float> resultTexCoords = new Vector<>();
-            Vector<Integer> indices = new Vector<>();
 
             for(String line : lines) {
                 if(line.startsWith("v ")) {
@@ -86,14 +85,27 @@ public class ObjLoader {
 
                     resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).x);
                     resultTexCoords.add(texCoords.get(Integer.parseInt(parts[1]) - 1).y);
-
-                    //indices.add(Integer.parseInt(parts[2]) - 1);
                 }
             }
 
+            float[] outVerts = new float[resultVerts.size()];
+            for (int i = 0; i < outVerts.length; i++) {
+                outVerts[i] = resultVerts.get(i);
+            }
+            float[] outNorms = new float[resultNorms.size()];
+            for (int i = 0; i < outNorms.length; i++) {
+                outNorms[i] = resultNorms.get(i);
+            }
+            float[] outTexCoords = new float[resultTexCoords.size()];
+            for (int i = 0; i < outTexCoords.length; i++) {
+                outTexCoords[i] = resultTexCoords.get(i);
+            }
 
+            return new Vertices(outVerts, outNorms, outTexCoords);
 
-        } catch(IOException e) {}
+        } catch(IOException e) {
+            return null;
+        }
     }
 
     private static Vector<String> readLines(InputStream in) throws IOException {
