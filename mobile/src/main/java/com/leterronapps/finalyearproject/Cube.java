@@ -29,7 +29,8 @@ public class Cube extends SceneObject {
 
     public Cube(HFScene scene, Vector3D position) {
         super(scene, position);
-        loadVertices();
+        //loadVertices();
+        vertices = CoreAssets.ship;
         setTexture(CoreAssets.scifiPanel);
     }
 

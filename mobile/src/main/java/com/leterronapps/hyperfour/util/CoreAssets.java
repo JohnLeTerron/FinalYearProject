@@ -19,7 +19,7 @@ public class CoreAssets implements AssetLoader {
     public static HFTexture scifiPanel;
     public static HFTexture font;
 
-    public static Vertices barrel;
+    public static Vertices ship;
 
     @Override
     public void load(HFGame game) {
@@ -29,6 +29,6 @@ public class CoreAssets implements AssetLoader {
         scifiPanel.load();
         font = new HFTexture(game, "font.png", true);
         font.load();
-        barrel = ObjLoader.load(game, "barrel.obj");
+        ship = ObjLoader.load(game, "spaceship.obj");
     }
 }
