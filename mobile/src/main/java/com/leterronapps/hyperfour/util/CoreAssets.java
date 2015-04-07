@@ -19,10 +19,6 @@ public class CoreAssets implements AssetLoader {
     public static HFTexture scifiPanel;
     public static HFTexture font;
 
-    public static Vertices ship;
-    public static Vertices invaderOne;
-    public static Vertices invaderTwo;
-
     @Override
     public void load(HFGame game) {
         bgMusic = game.getSoundManager().newMusicClip("pitch_black.mp3");
@@ -31,8 +27,5 @@ public class CoreAssets implements AssetLoader {
         scifiPanel.load();
         font = new HFTexture(game, "font.png", true);
         font.load();
-        ship = ObjLoader.load(game, "spaceship.obj");
-        invaderOne = ObjLoader.load(game, "invader_one.obj");
-        invaderTwo = ObjLoader.load(game, "invader_two.obj");
     }
 }
