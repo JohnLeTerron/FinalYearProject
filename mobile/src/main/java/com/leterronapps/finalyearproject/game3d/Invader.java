@@ -18,7 +18,12 @@ public class Invader extends SceneObject {
     public Invader(HFScene scene, Vector3D position) {
         super(scene, position);
         setTexture(CoreAssets.scifiPanel);
-        rotation.add(90, 0, 0);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+
     }
 
     public void setType(InvaderType type) {

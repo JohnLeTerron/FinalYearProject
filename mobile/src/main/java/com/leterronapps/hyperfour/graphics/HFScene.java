@@ -68,6 +68,9 @@ public abstract class HFScene {
 
         Matrix.setIdentityM(shader.camMatrix, 0);
         Matrix.translateM(shader.camMatrix, 0, camera.position.x, camera.position.y, camera.position.z);
+        Matrix.rotateM(shader.camMatrix, 0, camera.rotation.x, 1,0,0);
+        Matrix.rotateM(shader.camMatrix, 0, camera.rotation.y, 0,1,0);
+        Matrix.rotateM(shader.camMatrix, 0, camera.rotation.z, 0,0,1);
 
 
         if(!sceneObjects.isEmpty()) {

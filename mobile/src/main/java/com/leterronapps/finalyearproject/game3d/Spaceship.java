@@ -3,6 +3,7 @@ package com.leterronapps.finalyearproject.game3d;
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.graphics.Vertices;
+import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -15,12 +16,14 @@ public class Spaceship extends SceneObject {
         super(scene, position);
         vertices = InvaderAssets.spaceship;
         setTexture(CoreAssets.scifiPanel);
-        rotation.subtract(90,0,0);
+        rotation.subtract(0,180,0);
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        float x = -InputManager.getAccelX();
+        //position.x += x * deltaTime;
     }
 
 }
