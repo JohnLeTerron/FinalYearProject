@@ -1,5 +1,9 @@
 package com.leterronapps.finalyearproject.game3d;
 
+import android.util.Log;
+import android.view.MotionEvent;
+
+import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.graphics.Vertices;
@@ -22,8 +26,18 @@ public class Spaceship extends SceneObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        float x = -InputManager.getAccelX();
-        //position.x += x * deltaTime;
+        float x = InputManager.getAccelY();
+        position.x += x * 1.5 * deltaTime;
+
+        if(position.x < GameController.getInstance().MIN_X) {
+            position.x = GameController.getInstance().MIN_X;
+        } else if(position.x > GameController.getInstance().MAX_X) {
+            position.x = GameController.getInstance().MAX_X;
+        }
+    }
+
+    public void shoot() {
+        Log.d(HFGame.DEBUG_TAG, "Shot fired");
     }
 
 }
