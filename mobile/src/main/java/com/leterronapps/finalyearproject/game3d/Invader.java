@@ -29,6 +29,12 @@ public class Invader extends SceneObject {
         position.add(movement * deltaTime,0,0);
     }
 
+    @Override
+    public void onCollide(SceneObject other) {
+        super.onCollide(other);
+        destroy();
+    }
+
     public void setType(InvaderType type) {
         if(type == InvaderType.TYPE_ONE) {
             vertices = InvaderAssets.invaderOne;

@@ -13,9 +13,30 @@ public class GameController {
     public final int MIN_X;
     public final int MAX_X;
 
+    private int score;
+    private int livesLeft;
+
     private GameController() {
         MIN_X = -12;
         MAX_X = 12;
+        score = 0;
+        livesLeft = 0;
+    }
+
+    public void upScore() {
+        score++;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void takeLife() {
+        livesLeft--;
+    }
+
+    public int getLivesLeft() {
+        return livesLeft;
     }
 
 }
