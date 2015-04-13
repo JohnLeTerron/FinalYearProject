@@ -4,6 +4,7 @@ import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.Camera;
 import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.Vector3D;
@@ -41,6 +42,7 @@ public class InvaderScene extends HFScene {
         for(MotionEvent event : InputManager.touchEvents.getEvents()) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
                 ship.shoot();
+                break;
             }
         }
     }

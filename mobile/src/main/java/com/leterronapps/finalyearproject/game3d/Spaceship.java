@@ -1,13 +1,12 @@
 package com.leterronapps.finalyearproject.game3d;
 
 import android.util.Log;
-import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
-import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.io.InputManager;
+import com.leterronapps.hyperfour.util.Circle;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -19,6 +18,7 @@ public class Spaceship extends SceneObject {
     public Spaceship(HFScene scene, Vector3D position) {
         super(scene, position);
         vertices = InvaderAssets.spaceship;
+        setCollider(new Circle(position, 1f));
         setTexture(CoreAssets.scifiPanel);
         rotation.subtract(0,180,0);
     }
@@ -38,6 +38,7 @@ public class Spaceship extends SceneObject {
 
     public void shoot() {
         Log.d(HFGame.DEBUG_TAG, "Shot fired");
+        scene.getSceneObjects().add(new Shot(scene, new Vector3D(position.x, position.y, position.z)));
     }
 
 }

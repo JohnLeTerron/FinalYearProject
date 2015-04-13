@@ -97,6 +97,7 @@ public abstract class SceneObject {
     }
 
     protected void destroy() {
+        Log.d(HFGame.DEBUG_TAG, "Object destroyed");
         markedForDeath = true;
         if(collider != null) {
             collider.setActive(false);

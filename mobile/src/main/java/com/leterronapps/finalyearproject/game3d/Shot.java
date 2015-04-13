@@ -2,6 +2,7 @@ package com.leterronapps.finalyearproject.game3d;
 
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.util.Circle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -13,6 +14,7 @@ public class Shot extends SceneObject {
 
     public Shot(HFScene scene, Vector3D position) {
         super(scene, position);
+        setCollider(new Circle(position, 0.5f));
     }
 
     @Override
@@ -32,7 +34,6 @@ public class Shot extends SceneObject {
         } else if(other instanceof Spaceship) {
             GameController.getInstance().takeLife();
         }
-
         destroy();
     }
 }

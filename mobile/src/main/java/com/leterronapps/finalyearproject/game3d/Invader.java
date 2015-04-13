@@ -2,6 +2,7 @@ package com.leterronapps.finalyearproject.game3d;
 
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.util.Circle;
 import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -20,6 +21,7 @@ public class Invader extends SceneObject {
     public Invader(HFScene scene, Vector3D position) {
         super(scene, position);
         setTexture(CoreAssets.scifiPanel);
+        setCollider(new Circle(position, 1f));
         movement = -3f;
     }
 

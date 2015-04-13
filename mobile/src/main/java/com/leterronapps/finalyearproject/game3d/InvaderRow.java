@@ -3,6 +3,8 @@ package com.leterronapps.finalyearproject.game3d;
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.graphics.HFShader;
+import com.leterronapps.hyperfour.util.Circle;
+import com.leterronapps.hyperfour.util.CollisionDetector;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 import java.util.Vector;
@@ -66,6 +68,19 @@ public class InvaderRow extends SceneObject {
     private void advanceRow() {
         for(Invader invader : row) {
             invader.position.add(0,0,3);
+        }
+    }
+
+    public void checkCollision() {
+        for(Invader invader : row) {
+            for(SceneObject object : scene.getSceneObjects()) {
+                if(object instanceof Shot) {
+                    if(CollisionDetector.spheresColliding((Circle)invader.getCollider(), (Circle)object.getCollider())) {
+                        object.onCollide(invader);
+                        invader.onCollide(object);
+                    }
+                }
+            }
         }
     }
 

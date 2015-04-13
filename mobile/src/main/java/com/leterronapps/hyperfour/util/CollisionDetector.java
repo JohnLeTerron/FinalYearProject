@@ -53,4 +53,11 @@ public class CollisionDetector {
                 lowerLeft.y <= y && lowerLeft.y + object.getHeight() >= y;
     }
 
+    public static boolean spheresColliding(Circle object, Circle other) {
+        Vector3D distVec = object.position.subtract(other.position);
+        float distance = distVec.magnitude();
+        float sumRadii = object.getRadius() + other.getRadius();
+        return distance <= sumRadii;
+    }
+
 }
