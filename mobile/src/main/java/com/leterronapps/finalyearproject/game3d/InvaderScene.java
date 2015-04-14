@@ -1,5 +1,6 @@
 package com.leterronapps.finalyearproject.game3d;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.Camera;
@@ -60,6 +61,8 @@ public class InvaderScene extends HFScene {
                 ship.shoot();
             }
         }
+
+
     }
 
 

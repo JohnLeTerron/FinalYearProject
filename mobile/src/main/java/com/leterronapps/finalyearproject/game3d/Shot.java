@@ -37,7 +37,6 @@ public class Shot extends SceneObject {
         } else if(other instanceof Spaceship) {
             GameController.getInstance().takeLife();
         }
-        other.onCollide(this);
         destroy();
     }
 
