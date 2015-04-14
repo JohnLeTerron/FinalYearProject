@@ -104,7 +104,7 @@ public class ObjLoader {
             return new Vertices(outVerts, outNorms, outTexCoords);
 
         } catch(IOException e) {
-            return null;
+            throw new RuntimeException("Couldn't load file");
         }
     }
 

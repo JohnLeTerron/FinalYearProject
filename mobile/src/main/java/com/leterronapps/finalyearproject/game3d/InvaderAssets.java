@@ -13,11 +13,13 @@ public class InvaderAssets implements AssetLoader {
     public static Vertices spaceship;
     public static Vertices invaderOne;
     public static Vertices invaderTwo;
+    public static Vertices shot;
 
     @Override
     public void load(HFGame game) {
         spaceship = ObjLoader.load(game, "spaceship.obj");
         invaderOne = ObjLoader.load(game, "invader_one.obj");
         invaderTwo = ObjLoader.load(game, "invader_two.obj");
+        shot = ObjLoader.load(game, "shot.obj");
     }
 }

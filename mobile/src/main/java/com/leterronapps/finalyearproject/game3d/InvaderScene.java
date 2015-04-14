@@ -58,23 +58,6 @@ public class InvaderScene extends HFScene {
         for(MotionEvent event : InputManager.touchEvents.getEvents()) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
                 ship.shoot();
-                break;
-            }
-        }
-
-        for(SceneObject object : sceneObjects) {
-            if(object instanceof Shot) {
-
-                for(SceneObject other : sceneObjects) {
-                    if(other instanceof Invader) {
-
-                        if(CollisionDetector.spheresColliding((Circle)object.getCollider(), (Circle)other.getCollider())) {
-                            object.onCollide(other);
-                        }
-
-                    }
-                }
-
             }
         }
     }
