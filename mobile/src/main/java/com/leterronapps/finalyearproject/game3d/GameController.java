@@ -16,9 +16,11 @@ public class GameController {
     private int score;
     private int livesLeft;
 
+    private int aliensLeft;
+
     private GameController() {
-        MIN_X = -12;
-        MAX_X = 12;
+        MIN_X = -20;
+        MAX_X = 20;
         score = 0;
         livesLeft = 0;
     }
@@ -37,6 +39,14 @@ public class GameController {
 
     public int getLivesLeft() {
         return livesLeft;
+    }
+
+    public void setAliensLeft(int aliensLeft) {
+        this.aliensLeft = aliensLeft;
+    }
+
+    public void alienKilled() {
+        aliensLeft--;
     }
 
 }

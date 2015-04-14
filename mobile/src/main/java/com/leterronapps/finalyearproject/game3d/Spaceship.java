@@ -36,9 +36,17 @@ public class Spaceship extends SceneObject {
         }
     }
 
+    @Override
+    public void onCollide(SceneObject other) {
+        super.onCollide(other);
+        destroy();
+    }
+
     public void shoot() {
         Log.d(HFGame.DEBUG_TAG, "Shot fired");
-        scene.getSceneObjects().add(new Shot(scene, new Vector3D(position.x, position.y, position.z)));
+        Shot shot = new Shot(scene, new Vector3D(position.x, position.y, position.z));
+        shot.setMovement(-4f);
+        scene.getSceneObjects().add(shot);
     }
 
 }

@@ -13,6 +13,9 @@ public class Invader extends SceneObject {
 
     private float movement;
 
+    private int minX;
+    private int maxX;
+
     public static enum InvaderType {
         TYPE_ONE,
         TYPE_TWO
@@ -29,6 +32,11 @@ public class Invader extends SceneObject {
     public void update(float deltaTime) {
         super.update(deltaTime);
         position.add(movement * deltaTime,0,0);
+        if(position.x < minX) {
+            movement = 3f;
+        } else if(position.x > maxX) {
+            movement = -3f;
+        }
     }
 
     @Override
@@ -47,6 +55,14 @@ public class Invader extends SceneObject {
 
     public void setMovement(float movement) {
         this.movement = movement;
+    }
+
+    public void setMinX(int minX) {
+        this.minX = minX;
+    }
+
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
     }
 
 }

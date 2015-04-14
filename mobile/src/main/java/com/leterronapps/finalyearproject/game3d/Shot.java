@@ -10,7 +10,7 @@ import com.leterronapps.hyperfour.util.Vector3D;
  */
 public class Shot extends SceneObject {
 
-    private float movement = 4f;
+    private float movement = 0f;
 
     public Shot(HFScene scene, Vector3D position) {
         super(scene, position);
@@ -34,6 +34,11 @@ public class Shot extends SceneObject {
         } else if(other instanceof Spaceship) {
             GameController.getInstance().takeLife();
         }
+        other.onCollide(this);
         destroy();
+    }
+
+    public void setMovement(float movement) {
+        this.movement = movement;
     }
 }

@@ -7,6 +7,8 @@ import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.InputManager;
+import com.leterronapps.hyperfour.util.Circle;
+import com.leterronapps.hyperfour.util.CollisionDetector;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -28,12 +30,26 @@ public class InvaderScene extends HFScene {
         ship = new Spaceship(this, new Vector3D(0,-10,-7));
         sceneObjects.add(ship);
 
+        int alienCount = 0;
         int spawnZ = -35;
         for(int i = 0; i < 5; i++) {
-            InvaderRow row = new InvaderRow(this, new Vector3D(0, -10, spawnZ));
-            sceneObjects.add(row);
+            int spawnX = -1;
+            int minX = GameController.getInstance().MIN_X, minOffset = 0;
+            int maxX = GameController.getInstance().MAX_X, maxOffset = 20;
+            for(int j = 0; j < 5; j++) {
+                Invader invader = new Invader(this, new Vector3D(spawnX, -10, spawnZ));
+                invader.setType(Invader.InvaderType.TYPE_ONE);
+                invader.setMinX(minX + minOffset);
+                invader.setMaxX(maxX - maxOffset);
+                minOffset += 4;
+                maxOffset -= 4;
+                spawnX += 4;
+                sceneObjects.add(invader);
+                alienCount++;
+            }
             spawnZ -= 10;
         }
+        GameController.getInstance().setAliensLeft(alienCount);
     }
 
     @Override
@@ -45,5 +61,23 @@ public class InvaderScene extends HFScene {
                 break;
             }
         }
+
+        for(SceneObject object : sceneObjects) {
+            if(object instanceof Shot) {
+
+                for(SceneObject other : sceneObjects) {
+                    if(other instanceof Invader) {
+
+                        if(CollisionDetector.spheresColliding((Circle)object.getCollider(), (Circle)other.getCollider())) {
+                            object.onCollide(other);
+                        }
+
+                    }
+                }
+
+            }
+        }
     }
+
+
 }
