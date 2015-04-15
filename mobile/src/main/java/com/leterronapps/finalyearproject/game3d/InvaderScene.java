@@ -1,11 +1,9 @@
 package com.leterronapps.finalyearproject.game3d;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.Camera;
 import com.leterronapps.hyperfour.game.HFGame;
-import com.leterronapps.hyperfour.game.SceneObject;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.Circle;
@@ -18,6 +16,7 @@ import com.leterronapps.hyperfour.util.Vector3D;
 public class InvaderScene extends HFScene {
 
     Spaceship ship;
+    Shot testShot;
 
     public InvaderScene(HFGame game) {
         super(game);
@@ -30,6 +29,11 @@ public class InvaderScene extends HFScene {
         camera.rotation.subtract(35, 0, 0);
         ship = new Spaceship(this, new Vector3D(0,-10,-7));
         sceneObjects.add(ship);
+
+        testShot = new Shot(this, new Vector3D(0, -10, -12));
+        testShot.setOwner(ship);
+        testShot.setMovement(1);
+        sceneObjects.add(testShot);
 
         int alienCount = 0;
         int spawnZ = -35;
@@ -62,6 +66,23 @@ public class InvaderScene extends HFScene {
             }
         }
 
+        for(int i = 0; i < sceneObjects.size(); i++) {
+            if(sceneObjects.get(i) instanceof Shot) {
+                if(CollisionDetector.spheresColliding((Circle)sceneObjects.get(i).getCollider(), (Circle)ship.getCollider())) {
+                    if(((Shot) sceneObjects.get(i)).getOwner() != ship) {
+                        sceneObjects.get(i).onCollide(ship);
+                    }
+                } else {
+                    for(int j = 0; j < sceneObjects.size(); j++) {
+                        if(sceneObjects.get(j) instanceof Invader) {
+                            if(CollisionDetector.spheresColliding((Circle)sceneObjects.get(i).getCollider(), (Circle)sceneObjects.get(j).getCollider())) {
+                                sceneObjects.get(i).onCollide(sceneObjects.get(j));
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 

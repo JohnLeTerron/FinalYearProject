@@ -48,6 +48,7 @@ public class Spaceship extends SceneObject {
         shot.rotation.subtract(90, 0, 0);
         shot.scale.subtract(0.5f, 0.5f, 0.5f);
         shot.setMovement(-4f);
+        shot.setOwner(this);
         scene.getSceneObjects().add(shot);
     }
 
