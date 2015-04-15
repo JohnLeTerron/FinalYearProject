@@ -43,7 +43,11 @@ public class InvaderScene extends HFScene {
             int maxX = GameController.getInstance().MAX_X, maxOffset = 20;
             for(int j = 0; j < 5; j++) {
                 Invader invader = new Invader(this, new Vector3D(spawnX, -10, spawnZ));
-                invader.setType(Invader.InvaderType.TYPE_ONE);
+                if(i < 2) {
+                    invader.setType(Invader.InvaderType.TYPE_ONE);
+                } else {
+                    invader.setType(Invader.InvaderType.TYPE_TWO);
+                }
                 invader.setMinX(minX + minOffset);
                 invader.setMaxX(maxX - maxOffset);
                 minOffset += 4;
@@ -76,7 +80,9 @@ public class InvaderScene extends HFScene {
                     for(int j = 0; j < sceneObjects.size(); j++) {
                         if(sceneObjects.get(j) instanceof Invader) {
                             if(CollisionDetector.spheresColliding((Circle)sceneObjects.get(i).getCollider(), (Circle)sceneObjects.get(j).getCollider())) {
-                                sceneObjects.get(i).onCollide(sceneObjects.get(j));
+                                if(!(((Shot) sceneObjects.get(i)).getOwner() instanceof Invader)) {
+                                    sceneObjects.get(i).onCollide(sceneObjects.get(j));
+                                }
                             }
                         }
                     }

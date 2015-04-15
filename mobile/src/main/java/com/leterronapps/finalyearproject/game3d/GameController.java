@@ -12,6 +12,10 @@ public class GameController {
 
     public final int MIN_X;
     public final int MAX_X;
+    public final int MAX_Z;
+    public final int MIN_Z;
+
+    public final int GAMEOVER_THRESHOLD;
 
     private int score;
     private int livesLeft;
@@ -21,8 +25,15 @@ public class GameController {
     private GameController() {
         MIN_X = -20;
         MAX_X = 20;
+        MIN_Z = -90;
+        MAX_Z = 5;
+        GAMEOVER_THRESHOLD = -5;
         score = 0;
-        livesLeft = 0;
+        livesLeft = 3;
+    }
+
+    public void tick(float deltaTime) {
+
     }
 
     public void upScore() {

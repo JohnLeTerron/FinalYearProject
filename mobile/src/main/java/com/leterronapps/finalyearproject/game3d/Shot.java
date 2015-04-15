@@ -28,8 +28,12 @@ public class Shot extends SceneObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
         position.z += movement * deltaTime;
+        if(position.z < GameController.getInstance().MIN_Z) {
+            destroy();
+        } else if(position.z > GameController.getInstance().MAX_Z) {
+            destroy();
+        }
     }
 
     @Override

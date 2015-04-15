@@ -25,7 +25,7 @@ public class Invader extends SceneObject {
         super(scene, position);
         setTexture(CoreAssets.scifiPanel);
         setCollider(new Circle(position, 1f));
-        movement = -3f;
+        movement = 3f;
     }
 
     @Override
@@ -34,8 +34,12 @@ public class Invader extends SceneObject {
         position.add(movement * deltaTime,0,0);
         if(position.x < minX) {
             movement = 3f;
+            position.x = minX;
+            position.z += 2;
         } else if(position.x > maxX) {
             movement = -3f;
+            position.x = maxX;
+            position.z += 2;
         }
     }
 
@@ -51,10 +55,6 @@ public class Invader extends SceneObject {
         } else if(type == InvaderType.TYPE_TWO) {
             vertices = InvaderAssets.invaderTwo;
         }
-    }
-
-    public void setMovement(float movement) {
-        this.movement = movement;
     }
 
     public void setMinX(int minX) {

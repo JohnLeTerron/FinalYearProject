@@ -15,6 +15,11 @@ import com.leterronapps.hyperfour.util.Vector3D;
  */
 public class Spaceship extends SceneObject {
 
+    private float reloadTime = 0.6f;
+    private float reloadTick = 0f;
+
+    private boolean canFire = true;
+
     public Spaceship(HFScene scene, Vector3D position) {
         super(scene, position);
         vertices = InvaderAssets.spaceship;
@@ -26,6 +31,11 @@ public class Spaceship extends SceneObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        reloadTick += deltaTime;
+        if(reloadTick > reloadTime) {
+            canFire = true;
+            reloadTick = 0f;
+        }
         float x = InputManager.getAccelY();
         position.x += x * 1.5 * deltaTime;
 
@@ -43,13 +53,16 @@ public class Spaceship extends SceneObject {
     }
 
     public void shoot() {
-        Log.d(HFGame.DEBUG_TAG, "Shot fired");
-        Shot shot = new Shot(scene, new Vector3D(position.x, position.y, position.z));
-        shot.rotation.subtract(90, 0, 0);
-        shot.scale.subtract(0.5f, 0.5f, 0.5f);
-        shot.setMovement(-4f);
-        shot.setOwner(this);
-        scene.getSceneObjects().add(shot);
+        if(canFire) {
+            Log.d(HFGame.DEBUG_TAG, "Shot fired");
+            Shot shot = new Shot(scene, new Vector3D(position.x, position.y, position.z));
+            shot.rotation.subtract(90, 0, 0);
+            shot.scale.subtract(0.5f, 0.5f, 0.5f);
+            shot.setMovement(-10f);
+            shot.setOwner(this);
+            scene.getSceneObjects().add(shot);
+            canFire = false;
+        }
     }
 
 }
