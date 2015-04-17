@@ -3,6 +3,7 @@ package com.leterronapps.hyperfour.graphics;
 import android.opengl.GLES20;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Created by williamlea on 03/02/15.
@@ -56,10 +57,12 @@ public class HFShader {
             "  gl_FragColor = vec4(textureColour.rgb * lightIntensity, textureColour.a);" +
             "}";
 
-    public final float[] pMatrix = new float[16];
-    public final float[] camMatrix = new float[16];
-    public final float[] modelViewMatrix = new float[16];
-    public final float[] normalMatrix = new float[16];
+    public float[] pMatrix = new float[16];
+    public float[] camMatrix = new float[16];
+    public float[] modelViewMatrix = new float[16];
+    public float[] normalMatrix = new float[16];
+
+    private Stack<float[]> mvMatrixStack = new Stack<>();
 
     public HFShader() {
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderSrc);
@@ -92,6 +95,19 @@ public class HFShader {
         handles.put("normalMatrix", GLES20.glGetUniformLocation(program, "uNormalMatrix"));
         handles.put("sampler0", GLES20.glGetUniformLocation(program, "uSampler"));
         handles.put("pointLightPos", GLES20.glGetUniformLocation(program, "uPointLightPos"));
+    }
+
+    public void pushMatrix() {
+        float[] copy = modelViewMatrix.clone();
+        modelViewMatrix = copy;
+        mvMatrixStack.push(copy);
+    }
+
+    public void popMatrix() {
+        if(mvMatrixStack.empty()) {
+            throw new RuntimeException("Can't pop an empty stack!");
+        }
+        modelViewMatrix = mvMatrixStack.pop();
     }
 
     public int getProgram() {

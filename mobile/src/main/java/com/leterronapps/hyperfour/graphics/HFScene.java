@@ -33,7 +33,7 @@ public abstract class HFScene {
 
     public void update(float deltaTime) {
         GLES20.glUseProgram(shader.getProgram());
-        GLES20.glClearColor(camera.getBackground().x, camera.getBackground().y, camera.getBackground().z, 1.0f);
+        GLES20.glClearColor(0, 0, 0, 1.0f);
 
         if(!sceneObjects.isEmpty()) {
             if(playing) {
@@ -70,8 +70,7 @@ public abstract class HFScene {
         Matrix.translateM(shader.camMatrix, 0, camera.position.x, camera.position.y, camera.position.z);
         Matrix.rotateM(shader.camMatrix, 0, -camera.rotation.x, 1,0,0);
         Matrix.rotateM(shader.camMatrix, 0, -camera.rotation.y, 0,1,0);
-        //Matrix.rotateM(shader.camMatrix, 0, camera.rotation.z, 0,0,1);
-
+        Matrix.rotateM(shader.camMatrix, 0, -camera.rotation.z, 0,0,1);
 
         if(!sceneObjects.isEmpty()) {
             for(SceneObject sceneObject : sceneObjects) {
@@ -79,10 +78,19 @@ public abstract class HFScene {
                 sceneObject.render(shader);
             }
         }
-
         if(camera.getMode() == Camera.MODE_3D) {
             GLES20.glDisable(GLES20.GL_DEPTH_TEST);
         }
+
+        /*
+        Matrix.setIdentityM(shader.pMatrix, 0);
+        Matrix.orthoM(shader.pMatrix, 0,
+                camera.position.x - (camera.getFrustumWidth() * camera.zoom / 2),
+                camera.position.x + (camera.getFrustumWidth() * camera.zoom / 2),
+                camera.position.y - (camera.getFrustumHeight() * camera.zoom / 2),
+                camera.position.y + (camera.getFrustumHeight() * camera.zoom / 2), -1f, 1);
+        camera.hud.render(shader);
+        */
     }
 
     public void init() {

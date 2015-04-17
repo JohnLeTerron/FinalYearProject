@@ -58,7 +58,6 @@ public abstract class SceneObject {
     public void render(HFShader shader) {
         Matrix.setIdentityM(shader.modelViewMatrix, 0);
         Matrix.translateM(shader.modelViewMatrix, 0, position.x, position.y, position.z);
-        //Matrix.setRotateEulerM(shader.modelViewMatrix, 0, rotation.x, rotation.y, rotation.z);
         Matrix.rotateM(shader.modelViewMatrix, 0, rotation.x, 1,0,0);
         Matrix.rotateM(shader.modelViewMatrix, 0, rotation.y, 0,1,0);
         Matrix.rotateM(shader.modelViewMatrix, 0, rotation.z, 0,0,1);
