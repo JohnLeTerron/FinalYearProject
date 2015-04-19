@@ -16,7 +16,6 @@ import com.leterronapps.hyperfour.util.Vector3D;
 public class InvaderScene extends HFScene {
 
     Spaceship ship;
-    Shot testShot;
 
     public InvaderScene(HFGame game) {
         super(game);
@@ -29,11 +28,6 @@ public class InvaderScene extends HFScene {
         camera.rotation.subtract(35, 0, 0);
         ship = new Spaceship(this, new Vector3D(0,-10,-7));
         sceneObjects.add(ship);
-
-        testShot = new Shot(this, new Vector3D(0, -10, -12));
-        testShot.setOwner(ship);
-        testShot.setMovement(1);
-        sceneObjects.add(testShot);
 
         int alienCount = 0;
         int spawnZ = -35;

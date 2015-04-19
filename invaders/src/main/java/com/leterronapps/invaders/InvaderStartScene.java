@@ -1,9 +1,14 @@
 package com.leterronapps.invaders;
 
+import android.view.MotionEvent;
+
 import com.leterronapps.hyperfour.game.Camera;
 import com.leterronapps.hyperfour.game.HFGame;
 import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.io.InputManager;
+import com.leterronapps.hyperfour.util.CollisionDetector;
+import com.leterronapps.hyperfour.util.CoreAssets;
 import com.leterronapps.hyperfour.util.Rectangle;
 import com.leterronapps.hyperfour.util.Vector3D;
 
@@ -37,5 +42,19 @@ public class InvaderStartScene extends HFScene {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
+        Vector3D touchPos;
+        for(int i = 0; i < InputManager.touchEvents.size(); i++) {
+            MotionEvent event = InputManager.touchEvents.get(i);
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                touchPos = new Vector3D(event.getX(), event.getY(), 0);
+                camera.screenToWorldPoint2D(touchPos);
+                if(CollisionDetector.pointInRectangle((Rectangle)playButton.getCollider(), touchPos)) {
+                    game.getSoundManager().playSound(CoreAssets.tickSound);
+                    game.setScene(new InvaderScene(game));
+                    break;
+                }
+            }
+        }
     }
 }
