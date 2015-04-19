@@ -44,6 +44,7 @@ public class Shot extends SceneObject {
         if(other instanceof Invader) {
             Log.d(HFGame.DEBUG_TAG, "Shot collided with invader");
             GameController.getInstance().upScore();
+            GameController.getInstance().alienKilled();
             other.onCollide(null);
         } else if(other instanceof Spaceship) {
             Log.d(HFGame.DEBUG_TAG, "Shot collided with ship");

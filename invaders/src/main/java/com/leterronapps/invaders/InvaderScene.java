@@ -24,6 +24,7 @@ public class InvaderScene extends HFScene {
     @Override
     public void init() {
         super.init();
+        GameController.getInstance().init(game);
         camera = new Camera(game, new Vector3D(0,0,0), Camera.MODE_3D, 480, 360);
         camera.rotation.subtract(35, 0, 0);
         ship = new Spaceship(this, new Vector3D(0,-10,-7));
@@ -63,6 +64,7 @@ public class InvaderScene extends HFScene {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        GameController.getInstance().tick(deltaTime);
         for(MotionEvent event : InputManager.touchEvents.getEvents()) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
                 ship.shoot();
