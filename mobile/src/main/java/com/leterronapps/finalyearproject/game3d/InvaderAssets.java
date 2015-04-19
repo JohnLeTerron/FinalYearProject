@@ -17,6 +17,7 @@ public class InvaderAssets implements AssetLoader {
     public static Vertices shot;
 
     public static HFTexture logo;
+    public static HFTexture playButton;
 
     @Override
     public void load(HFGame game) {
@@ -26,5 +27,7 @@ public class InvaderAssets implements AssetLoader {
         shot = ObjLoader.load(game, "shot.obj");
         logo = new HFTexture(game, "invaders_logo.png", true);
         logo.load();
+        playButton = new HFTexture(game, "invaders_play.png", true);
+        playButton.load();
     }
 }

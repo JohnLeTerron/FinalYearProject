@@ -21,7 +21,7 @@ public class MainActivity extends HFGame {
 
     @Override
     public HFScene getStartScene() {
-        return new InvaderScene(this);
+        return new InvaderStartScene(this);
         //return new CatchStartScene(this);
     }
 }
