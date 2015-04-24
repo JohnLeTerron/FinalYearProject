@@ -48,6 +48,7 @@ public abstract class HFScene {
                 }
             }
         }
+        camera.hud.update(deltaTime);
     }
 
     public void render() {
@@ -82,15 +83,17 @@ public abstract class HFScene {
             GLES20.glDisable(GLES20.GL_DEPTH_TEST);
         }
 
-        /*
+        // HUD rendering
         Matrix.setIdentityM(shader.pMatrix, 0);
         Matrix.orthoM(shader.pMatrix, 0,
                 camera.position.x - (camera.getFrustumWidth() * camera.zoom / 2),
                 camera.position.x + (camera.getFrustumWidth() * camera.zoom / 2),
                 camera.position.y - (camera.getFrustumHeight() * camera.zoom / 2),
                 camera.position.y + (camera.getFrustumHeight() * camera.zoom / 2), -1f, 1);
+        Matrix.setIdentityM(shader.camMatrix, 0);
+        Matrix.translateM(shader.camMatrix, 0, camera.position.x, camera.position.y, camera.position.z);
         camera.hud.render(shader);
-        */
+
     }
 
     public void init() {

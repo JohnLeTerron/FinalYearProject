@@ -20,6 +20,14 @@ public class HUD {
         hudObjects = new Vector<>();
     }
 
+    public void update(float deltaTime) {
+        if(!hudObjects.isEmpty()) {
+            for(SceneObject object : hudObjects) {
+                object.update(deltaTime);
+            }
+        }
+    }
+
     public void render(HFShader shader) {
         if(!hudObjects.isEmpty()) {
             for(SceneObject object : hudObjects) {

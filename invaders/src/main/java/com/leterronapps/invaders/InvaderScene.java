@@ -4,6 +4,7 @@ import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.Camera;
 import com.leterronapps.hyperfour.game.HFGame;
+import com.leterronapps.hyperfour.game.Sprite;
 import com.leterronapps.hyperfour.graphics.HFScene;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.Circle;
@@ -55,10 +56,10 @@ public class InvaderScene extends HFScene {
         }
         GameController.getInstance().setAliensLeft(alienCount);
 
-        //Sprite logoSprite = new Sprite(new Vector3D(0,0,0), 360, 180);
-        //logoSprite.setTexture(InvaderAssets.logo);
+        Sprite logoSprite = new Sprite(new Vector3D(0,0,0), 360, 180);
+        logoSprite.setTexture(InvaderAssets.logo);
 
-        //camera.hud.addItem(logoSprite);
+        camera.hud.addItem(logoSprite);
     }
 
     @Override
