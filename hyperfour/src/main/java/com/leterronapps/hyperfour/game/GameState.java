@@ -1,7 +1,8 @@
 package com.leterronapps.hyperfour.game;
 
 /**
- * Created by williamlea on 03/02/15.
+ * The State of the game application.
+ * Used to control the flow of the application.
  */
 public enum GameState {
     Init,

@@ -19,22 +19,35 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Created by williamlea on 27/01/15.
+ * The base class for game activities in the HyperFour engine.
+ * In order to make your own game using the engine your application's launcher activity must extend this class.
  */
 public abstract class HFGame extends Activity implements Renderer {
 
+    /** The Debug tag for the Engine to be used in LogCat. */
     public static final String DEBUG_TAG = "HyperFour Engine";
 
+    /** The file manager. */
     protected FileManager fileManager;
+
+    /** The sound manager. */
     protected SoundManager soundManager;
+
+    /** The input manager. */
     protected InputManager inputManager;
 
     private HFSurfaceView surfaceView;
+
+    /** The current scene being shown to the player. */
     protected HFScene currentScene;
+
     private int screenWidth;
     private int screenHeight;
 
+    /** The engine's core assets. */
     protected CoreAssets coreAssets;
+
+    /** The custom assets a programmer adds for their game. */
     protected AssetLoader gameAssets;
 
     private long lastFrameTime;
@@ -42,6 +55,10 @@ public abstract class HFGame extends Activity implements Renderer {
     private GameState currentState = GameState.Init;
     private final Object stateLock = new Object();
 
+    /**
+     * Initializes the application and the managers and sets up the rendering surface.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +78,10 @@ public abstract class HFGame extends Activity implements Renderer {
 
     }
 
+    /**
+     * Called when the player pauses the application. Sets the GameState to paused or if the application
+     * is being closed sets the GameState to finishing.
+     */
     @Override
     protected void onPause() {
         Log.d(DEBUG_TAG, "HFGame - Pause");
@@ -98,6 +119,10 @@ public abstract class HFGame extends Activity implements Renderer {
         surfaceView.onResume();
     }
 
+    /**
+     * Sets the application into fullscreen mode.
+     * @param hasFocus
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -114,6 +139,11 @@ public abstract class HFGame extends Activity implements Renderer {
         }
     }
 
+    /**
+     * Sets up the rendering surface and loads the engine's core assets and the game assets.
+     * @param gl This parameter is unused.
+     * @param config This parameter is unused.
+     */
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         Log.d(DEBUG_TAG, "Surface Created");
@@ -137,6 +167,12 @@ public abstract class HFGame extends Activity implements Renderer {
 
     }
 
+    /**
+     * Sets the new screen dimensions for the game if they change.
+     * @param gl This parameter is unused.
+     * @param width The new surface width.
+     * @param height The new surface height.
+     */
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         Log.d(DEBUG_TAG, "Surface Changed");
@@ -151,6 +187,10 @@ public abstract class HFGame extends Activity implements Renderer {
         }
     }
 
+    /**
+     * Called on a separate rendering thread by the Android system. Renders and updates the current scene.
+     * @param gl This parameter is unused.
+     */
     @Override
     public void onDrawFrame(GL10 gl) {
         switch(currentState) {
@@ -177,8 +217,16 @@ public abstract class HFGame extends Activity implements Renderer {
         inputManager.clearEventPools();
     }
 
+    /**
+     * Override this method to set the starting scene a for game.
+     * @return The starting scene of the game.
+     */
     public abstract HFScene getStartScene();
 
+    /**
+     * Disposes of the current scene and sets a the current scene to a specified new scene.
+     * @param scene The new scene.
+     */
     public void setScene(HFScene scene) {
         if(scene == null) {
             throw new IllegalArgumentException("scene can't be null");
@@ -192,22 +240,42 @@ public abstract class HFGame extends Activity implements Renderer {
         this.currentScene = scene;
     }
 
+    /**
+     *
+     * @return The game's file manager.
+     */
     public FileManager getFileManager() {
         return fileManager;
     }
 
+    /**
+     *
+     * @return The game's sound manager.
+     */
     public SoundManager getSoundManager() {
         return soundManager;
     }
 
+    /**
+     *
+     * @return The game's input manager.
+     */
     public InputManager getInputManager() {
         return inputManager;
     }
 
+    /**
+     *
+     * @return The width of the rendering surface.
+     */
     public int getScreenWidth() {
         return screenWidth;
     }
 
+    /**
+     *
+     * @return The height of the rendering surface.
+     */
     public int getScreenHeight() {
         return screenHeight;
     }

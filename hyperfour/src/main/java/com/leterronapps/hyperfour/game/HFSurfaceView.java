@@ -4,19 +4,28 @@ import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
 /**
- * Created by williamlea on 27/01/15.
+ * The View where the game graphics are rendered.
+ * This View also passes input events onto the InputManager for the engine.
  */
 public class HFSurfaceView extends GLSurfaceView {
 
     private HFGame game;
 
-
+    /**
+     * Constructs the View.
+     * @param context The Context needed for the Super-class constructor.
+     */
     public HFSurfaceView(HFGame context) {
         super(context);
         game = context;
         setEGLContextClientVersion(2);
     }
 
+    /**
+     * Collects MotionEvents and stores them in the InputManager.
+     * @param event The event being captured.
+     * @return true.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
