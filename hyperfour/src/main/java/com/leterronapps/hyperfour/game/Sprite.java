@@ -7,7 +7,8 @@ import com.leterronapps.hyperfour.graphics.Vertices;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
- * Created by williamlea on 08/02/15.
+ * A sub-class of SceneObject used for 2D games.
+ * Sub-class Sprite to make your own Sprite objects with custom behaviours.
  */
 public class Sprite extends SceneObject {
 
@@ -15,14 +16,25 @@ public class Sprite extends SceneObject {
     private float height;
 
     private HFSubTexture subTexture;
+
+    /** The flip-book animation for the Sprite. */
     protected SpriteAnimation anim;
 
+    /**
+     * Constructs a new empty Sprite with no geometry.
+     */
     public Sprite() {
         super();
         width = 1.0f;
         height = 1.0f;
     }
 
+    /**
+     * Constructs a new Sprite with an initial position, width and height.
+     * @param position The initial position of the Sprite.
+     * @param width The initial width of the Sprite.
+     * @param height The initial height of the Sprite.
+     */
     public Sprite(Vector3D position, float width, float height) {
         super(position);
         this.width = width;
@@ -30,6 +42,13 @@ public class Sprite extends SceneObject {
         loadVertices();
     }
 
+    /**
+     * Constructs a new Sprite with an initial position, width and height and the scene that contains the Sprite.
+     * @param scene The scene that contains the Sprite.
+     * @param position The initial position of the Sprite.
+     * @param width The initial width of the Sprite.
+     * @param height The initial height of the Sprite.
+     */
     public Sprite(HFScene scene, Vector3D position, float width, float height) {
         super(scene, position);
         this.width = width;
@@ -37,11 +56,21 @@ public class Sprite extends SceneObject {
         loadVertices();
     }
 
+    /**
+     * Defines the frame by frame behaviour of the Sprite.
+     * Override to add custom behaviour.
+     * @param deltaTime The time difference between frames. Used to achieve frame-rate independent motion.
+     */
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
     }
 
+    /**
+     * Called when two SceneObjects collide with each other.
+     * Override to add extra collision behaviour.
+     * @param other The other SceneObject the SceneObject collided with.
+     */
     @Override
     public void onCollide(SceneObject other) {
         super.onCollide(other);
@@ -99,20 +128,36 @@ public class Sprite extends SceneObject {
         vertices = new Vertices(verts, norms, texCoords, indices);
     }
 
+    /**
+     * Sets a new sub-texture for the Sprite.
+     * @param subTexture The new sub-texture for the Sprite.
+     */
     public void setSubTexture(HFSubTexture subTexture) {
         this.subTexture = subTexture;
         loadVertices(subTexture);
     }
 
+    /**
+     * Sets a new SpriteAnimation for the Sprite.
+     * @param anim The new SpriteAnimation for the Sprite.
+     */
     public void setAnimation(SpriteAnimation anim) {
         this.anim = anim;
         this.anim.setup(texture);
     }
 
+    /**
+     *
+     * @return The width of the Sprite.
+     */
     public float getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @return The height of the Sprite.
+     */
     public float getHeight() {
         return height;
     }
