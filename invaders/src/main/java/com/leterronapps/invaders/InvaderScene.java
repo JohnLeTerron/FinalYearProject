@@ -4,11 +4,14 @@ import android.view.MotionEvent;
 
 import com.leterronapps.hyperfour.game.Camera;
 import com.leterronapps.hyperfour.game.HFGame;
-import com.leterronapps.hyperfour.game.Sprite;
+import com.leterronapps.hyperfour.graphics.HFFont;
 import com.leterronapps.hyperfour.graphics.HFScene;
+import com.leterronapps.hyperfour.graphics.HFString;
 import com.leterronapps.hyperfour.io.InputManager;
 import com.leterronapps.hyperfour.util.Circle;
 import com.leterronapps.hyperfour.util.CollisionDetector;
+import com.leterronapps.hyperfour.util.CoreAssets;
+import com.leterronapps.hyperfour.util.Vector2D;
 import com.leterronapps.hyperfour.util.Vector3D;
 
 /**
@@ -17,6 +20,9 @@ import com.leterronapps.hyperfour.util.Vector3D;
 public class InvaderScene extends HFScene {
 
     Spaceship ship;
+
+    HFString scoreText;
+    HFString livesText;
 
     public InvaderScene(HFGame game) {
         super(game);
@@ -30,6 +36,10 @@ public class InvaderScene extends HFScene {
         camera.rotation.subtract(35, 0, 0);
         ship = new Spaceship(this, new Vector3D(0,-10,-7));
         sceneObjects.add(ship);
+
+        HFFont font = new HFFont(CoreAssets.font, 10, CoreAssets.font.getWidth() / 10, CoreAssets.font.getHeight() / 10);
+        scoreText = new HFString(font, new Vector2D(0,0), Integer.toString(GameController.getInstance().getScore()));
+        livesText = new HFString(font, new Vector2D(0, -20), Integer.toString(GameController.getInstance().getLivesLeft()));
 
         int alienCount = 0;
         int spawnZ = -35;
@@ -55,17 +65,17 @@ public class InvaderScene extends HFScene {
             spawnZ -= 10;
         }
         GameController.getInstance().setAliensLeft(alienCount);
-
-        Sprite logoSprite = new Sprite(new Vector3D(0,0,0), 360, 180);
-        logoSprite.setTexture(InvaderAssets.logo);
-
-        camera.hud.addItem(logoSprite);
+        camera.hud.addText(scoreText);
+        camera.hud.addText(livesText);
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
         GameController.getInstance().tick(deltaTime);
+        scoreText.setText(Integer.toString(GameController.getInstance().getScore()));
+        livesText.setText(Integer.toString(GameController.getInstance().getLivesLeft()));
+
         for(MotionEvent event : InputManager.touchEvents.getEvents()) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
                 ship.shoot();
