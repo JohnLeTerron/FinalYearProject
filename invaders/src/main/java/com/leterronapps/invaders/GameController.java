@@ -54,6 +54,8 @@ public class GameController {
     public void tick(float deltaTime) {
         if(aliensLeft <= 0) {
             game.setScene(new InvaderStartScene(game));
+        } else if(livesLeft <= 0) {
+            game.setScene(new InvaderStartScene(game));
         }
     }
 

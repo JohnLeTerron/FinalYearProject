@@ -38,8 +38,10 @@ public class InvaderScene extends HFScene {
         sceneObjects.add(ship);
 
         HFFont font = new HFFont(CoreAssets.font, 10, CoreAssets.font.getWidth() / 10, CoreAssets.font.getHeight() / 10);
-        scoreText = new HFString(font, new Vector2D(0,0), Integer.toString(GameController.getInstance().getScore()));
-        livesText = new HFString(font, new Vector2D(0, -20), Integer.toString(GameController.getInstance().getLivesLeft()));
+        scoreText = new HFString(font, new Vector2D(-(camera.getFrustumWidth() / 2) + 15, (camera.getFrustumHeight() / 2) - 20),
+                                        "Score: " + Integer.toString(GameController.getInstance().getScore()));
+        livesText = new HFString(font, new Vector2D(-(camera.getFrustumWidth() / 2) + 15, (camera.getFrustumHeight() / 2) - 40),
+                                        "Lives: " + Integer.toString(GameController.getInstance().getLivesLeft()));
 
         int alienCount = 0;
         int spawnZ = -35;
@@ -73,8 +75,8 @@ public class InvaderScene extends HFScene {
     public void update(float deltaTime) {
         super.update(deltaTime);
         GameController.getInstance().tick(deltaTime);
-        scoreText.setText(Integer.toString(GameController.getInstance().getScore()));
-        livesText.setText(Integer.toString(GameController.getInstance().getLivesLeft()));
+        scoreText.setText("Score: " + Integer.toString(GameController.getInstance().getScore()));
+        livesText.setText("Lives: " + Integer.toString(GameController.getInstance().getLivesLeft()));
 
         for(MotionEvent event : InputManager.touchEvents.getEvents()) {
             if(event.getAction() == MotionEvent.ACTION_UP) {
