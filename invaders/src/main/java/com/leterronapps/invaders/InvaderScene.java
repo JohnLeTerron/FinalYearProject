@@ -78,7 +78,8 @@ public class InvaderScene extends HFScene {
         scoreText.setText("Score: " + Integer.toString(GameController.getInstance().getScore()));
         livesText.setText("Lives: " + Integer.toString(GameController.getInstance().getLivesLeft()));
 
-        for(MotionEvent event : InputManager.touchEvents.getEvents()) {
+        for(int i = 0; i < InputManager.touchEvents.size(); i++) {
+            MotionEvent event = InputManager.touchEvents.get(i);
             if(event.getAction() == MotionEvent.ACTION_UP) {
                 ship.shoot();
             }
